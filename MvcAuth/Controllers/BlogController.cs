@@ -9,6 +9,7 @@ namespace MvcAuth.Controllers
     public class BlogController : Controller
     {
         // GET: Blog
+        [Authorize]
         public ActionResult Index()
         {
             return View();

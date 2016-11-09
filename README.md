@@ -7,7 +7,7 @@ This is an instructor-lead code-along with homework elements for the students. S
 ## Setup & Bootstrapping
 
 1. Fork this repo.
-2. Add a remote named `upstream` pointing to the main repository (the repo the instructor is using).
+2. Add a remote named `upstream` [pointing to the main repository](https://help.github.com/articles/configuring-a-remote-for-a-fork/).
 
 ## Naming Conventions
 
@@ -23,4 +23,6 @@ For student assignments, submissions will be placed on a branch titled by the in
 - The students must commit all changes and push that day's branch to their fork **before** the end of class.
 - At the beginning of each class, the student is responsible for obtaining `upstream` changes. See [Syncing a Fork](https://help.github.com/articles/syncing-a-fork/) for more information.
 
-## 
+## Features
+
+See [FEATURES.md](/) to see what will be implemented.

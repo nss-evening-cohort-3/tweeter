@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.header {
+    background:#222;
+    color: #fff;
+    padding: 20px 30px;
+}

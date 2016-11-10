@@ -7,7 +7,7 @@ namespace Tweeter.Models
     {
         [Required]
         [Display(Name = "User Name")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [Display(Name = "Email")]
@@ -71,7 +71,7 @@ namespace Tweeter.Models
 
         [Required]
         [Display(Name = "User Name")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [EmailAddress]

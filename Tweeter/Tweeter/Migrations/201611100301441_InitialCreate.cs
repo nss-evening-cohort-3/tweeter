@@ -31,21 +31,18 @@ namespace Tweeter.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.Tweets",
+                "dbo.Twits",
                 c => new
                     {
-                        TweetId = c.Int(nullable: false, identity: true),
-                        Message = c.String(),
-                        ImageURL = c.String(),
-                        CreatedAt = c.DateTime(nullable: false),
-                        Author_Id = c.String(maxLength: 128),
-                        Tweet_TweetId = c.Int(),
+                        Username = c.String(nullable: false, maxLength: 128),
+                        BaseUser_Id = c.String(maxLength: 128),
+                        Twit_Username = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.TweetId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id)
-                .ForeignKey("dbo.Tweets", t => t.Tweet_TweetId)
-                .Index(t => t.Author_Id)
-                .Index(t => t.Tweet_TweetId);
+                .PrimaryKey(t => t.Username)
+                .ForeignKey("dbo.AspNetUsers", t => t.BaseUser_Id)
+                .ForeignKey("dbo.Twits", t => t.Twit_Username)
+                .Index(t => t.BaseUser_Id)
+                .Index(t => t.Twit_Username);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -92,28 +89,50 @@ namespace Tweeter.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.Tweets",
+                c => new
+                    {
+                        TweetId = c.Int(nullable: false, identity: true),
+                        Message = c.String(),
+                        ImageURL = c.String(),
+                        CreatedAt = c.DateTime(nullable: false),
+                        Author_Username = c.String(maxLength: 128),
+                        Tweet_TweetId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TweetId)
+                .ForeignKey("dbo.Twits", t => t.Author_Username)
+                .ForeignKey("dbo.Tweets", t => t.Tweet_TweetId)
+                .Index(t => t.Author_Username)
+                .Index(t => t.Tweet_TweetId);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Tweets", "Tweet_TweetId", "dbo.Tweets");
-            DropForeignKey("dbo.Tweets", "Author_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Tweets", "Author_Username", "dbo.Twits");
+            DropForeignKey("dbo.Twits", "Twit_Username", "dbo.Twits");
+            DropForeignKey("dbo.Twits", "BaseUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.Tweets", new[] { "Tweet_TweetId" });
+            DropIndex("dbo.Tweets", new[] { "Author_Username" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Tweets", new[] { "Tweet_TweetId" });
-            DropIndex("dbo.Tweets", new[] { "Author_Id" });
+            DropIndex("dbo.Twits", new[] { "Twit_Username" });
+            DropIndex("dbo.Twits", new[] { "BaseUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.Tweets");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Tweets");
+            DropTable("dbo.Twits");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
         }

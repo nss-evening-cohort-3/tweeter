@@ -25,4 +25,4 @@ For student assignments, submissions will be placed on a branch titled by the in
 
 ## Features
 
-See [FEATURES.md](/) to see what will be implemented.
+See [FEATURES.md](https://github.com/nss-evening-cohort-3/tweeter/blob/master/FEATURES.md) to see what will be implemented.

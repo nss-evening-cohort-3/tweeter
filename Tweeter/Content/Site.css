@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,8 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.nav__input-container {
+    max-width : 300px;
 }

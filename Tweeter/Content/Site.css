@@ -23,7 +23,8 @@ textarea {
     max-width: 280px;
 }
 
-.searchbar {
-    margin-top: 1em;
-    margin-bottom: 1em;
+.navbar-brand {
+    margin: auto;
+    text-align: center;
+    font-size: 2em;
 }

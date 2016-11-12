@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar-brand {
+    margin: auto;
+    text-align: center;
+    font-size: 2em;
+}

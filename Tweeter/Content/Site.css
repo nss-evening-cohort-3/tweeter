@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.searchbar {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

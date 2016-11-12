@@ -4,8 +4,8 @@
 
 
 
-@*@if (User.Identity.IsAuthenticated)
-{*@
+@if (User.Identity.IsAuthenticated)
+{
     <div style="margin-top:50px">
         <div class="col-md-3" style="border:1px solid lightgrey">
             <img src="blah.png" />
@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-6 col-lg-offset-4">
         @Html.TextBox("_compose","",new {placeholder = "Compose" })
-        <button class="btn btn-primary btn-md">+</button>
+        <button class="btn btn-primary btn-sm">+</button>
     </div>
     <div class="col-md-3" style="border:1px solid lightgrey">
         <h2>Today's Twits</h2>
@@ -32,11 +32,11 @@
     <div class="col-lg-10 col-lg-offset-1" style="border:1px solid lightgrey">
         <button class="glyphicon glyphicon-chevron-down" ></button>
     </div>
-@*//}*@
-@*else
+}
+else
 {
     <div class="jumbotron">
         <p class="col-lg-2 col-lg-offset-5"><a href="http://asp.net" class="btn btn-primary btn-lg">JOIN &raquo;</a></p>
     </div>
-}*@
+}
 

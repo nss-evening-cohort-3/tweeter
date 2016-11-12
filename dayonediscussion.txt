@@ -1,0 +1,15 @@
+persona:
+-Anonymous
+-Twit (logged in user)
+
+
+OUTTA CLASS WORK:
+
+* Add Username input to the register page and hook it up so it saves the Username to the DB
+   -> Also, update Register page form to remove label and use placeholders for the fields
+* Update the navbar according to the mockup
+* Update the home page to have the top "hero" area with a join button according to the mockup
+* Be sure to submit this via pull request to your repo. Don't forget to push up and submit the request before class on Saturday!
+
+NOTES -- "according to the mockup" doesn't mean pixel for pixel representation. Just follow the gist of what the mockup represents.
+

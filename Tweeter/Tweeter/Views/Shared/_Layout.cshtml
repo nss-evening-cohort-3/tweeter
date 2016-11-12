@@ -17,7 +17,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <form id="frmsearch" action="~/Catalog/Search" method="get">
+                    <input class="form-inline" />
+                    <input id="submit" name="submit" type="submit" style="font-weight:bold;" value="Search" />
+                </form>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

@@ -40,3 +40,44 @@ textarea {
     padding-left: 20px;
 }
 
+#HeroSection {
+ border: 1px solid black;
+
+}
+
+#TweeterSection {
+    border: 1px solid black;
+
+}
+
+#HeroSection {
+    border: 1px solid black;
+
+}
+
+#TweeterSection {
+    border: 1px solid black;
+
+
+}
+
+
+#TwitCard{
+    border: 1px solid black;
+
+}
+
+#TwitIdiot{
+
+
+}
+
+#TwitImg {
+   height: 50%;
+   width: 50%;
+   margin-left: 73px;
+}
+
+#TwitText {
+    border-bottom: 1px solid black;
+}

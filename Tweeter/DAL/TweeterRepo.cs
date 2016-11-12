@@ -20,9 +20,18 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public List<Twit> GetAllUsernames()
+        public Twit AddTwitToDatabase(ApplicationUser user)
         {
-            return Context.TweeterUsers.ToList();
+            Context.TweeterUsers.Add(new Twit { BaseUser = user });
+            Twit added_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser == user);
+            return added_user;
+        }
+
+
+        public List<string> GetAllUsernames()
+        {
+            List<string> Usernames = Context.TweeterUsers.Select(m => m.BaseUser.UserName).ToList();
+            return Usernames;
         }
 
         public bool UsernameExists(string username)

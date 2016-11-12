@@ -1,31 +1,87 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@using Microsoft.AspNet.Identity
+@if (!Request.IsAuthenticated)
+{
+<div class="jumbotron text-center">
+    <a href="#" class="btn btn-primary btn-lg center-block">Join!</a>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="text-center container">
+    <button class="btn-primary btn col-lg-4 col-lg-offset-4">
+        <span class="col-lg-10">Compose</span>
+        <span class="col-lg-2">
+            <span class="glyphicon glyphicon-plus"></span>
+        </span>
+    </button>
+</div>
+
+<div class="tweets__container container">
+    <div class="col-lg-6 col-lg-offset-3 tweets__tweet--image">
+        <div class="col-lg-12 placeholder-tweet-image-container-class"><img class="tweet__image" src="~/Content/Images/placeholder.png" /></div>
+        <div class="col-lg-12 placeholder-tweet-message-container-class">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in viverra libero, eget tincidunt lectus. Fusce at vestibulum risus. Pellentesque.</p>
+        </div>
+        <hr />
+        <div class="placeholder-tweet-bottom-action-row col-lg-12">
+            <div class="row text-center">
+                <div class="col-lg-3 col-md-3"><span class="glyphicon glyphicon-heart"></span></div>
+                <div class="col-lg-3 col-md-3"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="col-lg-3 col-md-3"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="col-lg-3 col-md-3"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+        </div>
     </div>
 </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="text-center col-md-12 user__profile__card--upper">
+                        <img src="~/Content/Images/anon-lady.png" />
+                    </div>
+                    <div class="col-md-12 text-left user__profile__card--bottom">
+                        <h3>SampleWoman123</h3>
+                        <p>203 Followers</p>
+                    </div>
+                    <br />
+                    <div class="col-md-12 user__tweet__box">
+                        Here's a box with trending tweets or something inside of it.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="text-center container">
+                    <button class="btn-primary btn col-md-8 col-md-offset-3">
+                        <span class="col-md-10">Compose</span>
+                        <span class="col-md-2">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="tweets__container container">
+                    <div class="col-md-10 col-md-offset-2 tweets__tweet--image">
+                        <div class="col-md-12 placeholder-tweet-image-container-class"><img class="tweet__image" src="~/Content/Images/placeholder.png" /></div>
+                        <div class="col-md-12 placeholder-tweet-message-container-class">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in viverra libero, eget tincidunt lectus. Fusce at vestibulum risus. Pellentesque.</p>
+                        </div>
+                        <hr />
+                        <div class="placeholder-tweet-bottom-action-row col-md-12">
+                            <div class="row text-center">
+                                <div class="col-md-3"><span class="glyphicon glyphicon-heart"></span></div>
+                                <div class="col-md-3"><span class="glyphicon glyphicon-pencil"></span></div>
+                                <div class="col-md-3"><span class="glyphicon glyphicon-plus"></span></div>
+                                <div class="col-md-3"><span class="glyphicon glyphicon-plus"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

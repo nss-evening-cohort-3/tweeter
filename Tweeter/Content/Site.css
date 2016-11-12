@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,59 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.tweets__container {
+    margin-top: 20px;
+}
+
+.tweets__tweet--image {
+    padding: 20px;
+    border: 2px solid #337AB7;
+    border-radius: 5px;
+}
+
+.tweet__image {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.nav__input-container {
+    max-width : 300px;
+}
+
+.placeholder-tweet-message-container-class {
+    margin-top: 15px;
+    padding-top: 5px;
+}
+
+hr {
+    border-color: #337AB7;
+}
+
+.user__profile__card--upper {
+    background-color: #337AB7;
+    border-radius: 5px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+}
+
+.user__profile__card--bottom {
+    background-color: white;
+    border: 2px solid #337AB7;
+    border-radius: 5px;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
+    color: #337AB7;
+}
+
+.user__profile__card--upper img {
+    max-width: 80%;
+}
+
+.user__tweet__box {
+    border-radius: 5px;
+    border: 2px solid #337AB7;
+    max-height: 400px;
+    min-height: 300px;
 }

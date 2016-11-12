@@ -49,6 +49,10 @@ namespace Tweeter.Models
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -64,6 +68,10 @@ namespace Tweeter.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.hero {
+    background-color: lightblue;
+    height: 300px;
+}
+
+.logo,
+.logo > img {
+    float: left;
+    width: 50px;
+    padding: 0px;
+}

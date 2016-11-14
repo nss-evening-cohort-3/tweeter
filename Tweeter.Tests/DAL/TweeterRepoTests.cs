@@ -15,6 +15,7 @@ namespace Tweeter.Tests.DAL
 
         private Mock<DbSet<ApplicationUser>> mock_users { get; set; }
         private Mock<TweeterContext> mock_context { get; set; }
+        private Mock<ApplicationUserManager> mock_user_manager_context { get; set; }
         private TweeterRepository Repo { get; set; }
         private List<ApplicationUser> users { get; set; }
 
@@ -22,6 +23,7 @@ namespace Tweeter.Tests.DAL
         public void Initialize()
         {
             mock_context = new Mock<TweeterContext>();
+            mock_user_manager_context = new Mock<ApplicationUserManager>();
             mock_users = new Mock<DbSet<ApplicationUser>>();
             Repo = new TweeterRepository(mock_context.Object);
 
@@ -43,9 +45,11 @@ namespace Tweeter.Tests.DAL
 
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
-             * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
+             
              * 
              */
+
+            mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
 
             /* IF we just add a Username field to the Twit model
              * mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object); Assuming mock_users is List<Twit>
@@ -62,6 +66,26 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void RepoEnsureICanGetUsernames()
         {
+            TweeterRepository repo = new TweeterRepository();
+            List<ApplicationUser> all_users = repo.GetAllAppUsers();
+
+            
+
+            int expected_count = 0;
+            int actual_count = all_users.Count();
+
+            Assert.AreEqual(expected_count, actual_count);
+            Assert.IsInstanceOfType(all_users, typeof(List<ApplicationUser>));
+        }
+
+        [TestMethod]
+        public void RepoEnsureCanVerifyUsernameExists()
+        {
+            TweeterRepository repo = new TweeterRepository();
+            List<ApplicationUser> all_users = repo.GetAllAppUsers();
+            bool usernameExists = repo.CheckIfUsernameExists();
+
+            Assert.IsTrue(usernameExists);
 
         }
     }

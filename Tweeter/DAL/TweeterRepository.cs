@@ -14,7 +14,9 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository() {
+            Context = new TweeterContext();
+        }
 
         public List<Twit> GetUsers()
         {
@@ -26,6 +28,12 @@ namespace Tweeter.DAL
             Context.TweeterUsers.Add(user);
             Context.SaveChanges();
             return user;
+        }
+
+        public Twit GetUserByName(string name)
+        {
+            Twit query = Context.TweeterUsers.FirstOrDefault(n => n.TwitName.ToLower() == name);
+            return query;
         }
     }
 }

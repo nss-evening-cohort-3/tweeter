@@ -7,6 +7,7 @@ using Tweeter.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Tweeter.Tests.DAL
 {
     [TestClass]
@@ -20,14 +21,15 @@ namespace Tweeter.Tests.DAL
 
         public void ConnectToDatastore()
         {
-            users = new List<Twit>();
             var query_users = users.AsQueryable();
-
+            ApplicationUser bob = new ApplicationUser { UserName = "bob",  };
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Provider).Returns(query_users.Provider);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Expression).Returns(query_users.Expression);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.ElementType).Returns(query_users.ElementType);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.GetEnumerator()).Returns(() => query_users.GetEnumerator());
+
             mock_context.Setup(m => m.TweeterUsers).Returns(mock_users.Object);
+
             mock_users.Setup(t => t.Add(It.IsAny<Twit>())).Callback((Twit u) => users.Add(u));
 
             /*
@@ -78,11 +80,16 @@ namespace Tweeter.Tests.DAL
             Assert.AreEqual(expected_count, actual_count);
         }
         [TestMethod]
-        public void EnsureCanGetUserNames()
+        public void EnsureCanGetUserByName()
         {
             Twit bob = new Twit { TwitName = "Bob" };
             Twit dave = new Twit { TwitName = "Dave" };
-            repo.AddUser(bob); repo.AddUser(dave);
+            repo.AddUser(bob);
+            repo.AddUser(dave);
+            Twit actual = repo.GetUserByName("bob");
+            string expected = "bob";
+            Assert.AreEqual(expected, actual.TwitName.ToLower());
+
         }
     }
 }

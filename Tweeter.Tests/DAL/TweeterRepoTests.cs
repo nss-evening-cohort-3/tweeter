@@ -6,16 +6,17 @@ using System.Data.Entity;
 using Tweeter.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 
 namespace Tweeter.Tests.DAL
 {
     [TestClass]
     public class TweeterRepoTests
     {
-
-        private Mock<DbSet<ApplicationUser>> mock_users { get; set; }
         private Mock<TweeterContext> mock_context { get; set; }
+        private Mock<DbSet<ApplicationUser>> mock_users { get; set; }
         private TweeterRepository Repo { get; set; }
+        private Mock<UserManager<ApplicationUser>> mock_user_manager_context { get; set; }
         private List<ApplicationUser> users { get; set; }
 
         [TestInitialize]
@@ -24,16 +25,14 @@ namespace Tweeter.Tests.DAL
             mock_context = new Mock<TweeterContext>();
             mock_users = new Mock<DbSet<ApplicationUser>>();
             Repo = new TweeterRepository(mock_context.Object);
+            mock_user_manager_context = new Mock<UserManager<ApplicationUser>>();
+            users = new List<ApplicationUser>();
 
-            /* 
-             1. Install Identity into Tweeter.Tests (using statement needed)
-             2. Create a mock context that uses 'UserManager' instead of 'TweeterContext'
-             */
+            ConnectToDatastore();
         }
 
         public void ConnectToDatastore()
         {
-            users = new List<ApplicationUser>();
             var query_users = users.AsQueryable();
 
             mock_users.As<IQueryable<ApplicationUser>>().Setup(m => m.Provider).Returns(query_users.Provider);
@@ -41,28 +40,42 @@ namespace Tweeter.Tests.DAL
             mock_users.As<IQueryable<ApplicationUser>>().Setup(m => m.ElementType).Returns(query_users.ElementType);
             mock_users.As<IQueryable<ApplicationUser>>().Setup(m => m.GetEnumerator()).Returns(() => query_users.GetEnumerator());
 
-            /*
-             * Below mocks the 'Users' getter that returns a list of ApplicationUsers
-             * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
-             * 
-             */
+            mock_context.Setup(m => m.Users).Returns(mock_users.Object);
 
-            /* IF we just add a Username field to the Twit model
-             * mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object); Assuming mock_users is List<Twit>
-             */
+            mock_users.Setup(t => t.Add(It.IsAny<ApplicationUser>())).Callback((ApplicationUser t) => users.Add(t));
         }
 
         [TestMethod]
         public void RepoEnsureCanCreateInstance()
         {
-            TweeterRepository repo = new TweeterRepository();
-            Assert.IsNotNull(repo);
+            Assert.IsNotNull(Repo);
         }
 
         [TestMethod]
         public void RepoEnsureICanGetUsernames()
         {
+            ApplicationUser testUser = new ApplicationUser() { UserName = "TestUser" };
+            users.Add(testUser);
+            
+            var actual_user_names = Repo.GetUserNames();
 
+            Assert.IsTrue(actual_user_names.Contains("TestUser"));
+        }
+        [TestMethod]
+        public void RepoCanCheckIfUserNameExistsForUsers()
+        {
+            ApplicationUser testUser = new ApplicationUser() { UserName = "TestUser" };
+            users.Add(testUser);
+
+            Assert.AreEqual(true, Repo.CheckForUserName("TestUser"));
+        }
+        [TestMethod]
+        public void RepoCheckForUserNameReturnsFalseIfUserNameDoesNotExist()
+        {
+            ApplicationUser testUser = new ApplicationUser() { UserName = "TestUser" };
+            users.Add(testUser);
+
+            Assert.AreEqual(false, Repo.CheckForUserName("BadName"));
         }
     }
 }

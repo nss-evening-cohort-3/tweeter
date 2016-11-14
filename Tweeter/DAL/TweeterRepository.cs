@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tweeter.Models;
 
 namespace Tweeter.DAL
 {
@@ -15,6 +16,16 @@ namespace Tweeter.DAL
 
         public TweeterRepository() {}
 
+        public List<Twit> GetUsers()
+        {
+            return Context.TweeterUsers.ToList();
+        }
 
+        public Twit AddUser(Twit user)
+        {
+            Context.TweeterUsers.Add(user);
+            Context.SaveChanges();
+            return user;
+        }
     }
 }

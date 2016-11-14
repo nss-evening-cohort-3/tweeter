@@ -15,7 +15,7 @@ namespace Tweeter.Tests.DAL
 
         private Mock<DbSet<ApplicationUser>> mock_users { get; set; }
         private Mock<TweeterContext> mock_context { get; set; }
-        private Mock<ApplicationUserManager> mock_user_manager_context { get; set; }
+        private Mock<TweeterContext> mock_user_manager_context { get; set; }
         private TweeterRepository Repo { get; set; }
         private List<ApplicationUser> users { get; set; }
 
@@ -23,10 +23,10 @@ namespace Tweeter.Tests.DAL
         public void Initialize()
         {
             mock_context = new Mock<TweeterContext>();
-            mock_user_manager_context = new Mock<ApplicationUserManager>();
+            mock_user_manager_context = new Mock<TweeterContext>();
             mock_users = new Mock<DbSet<ApplicationUser>>();
             Repo = new TweeterRepository(mock_context.Object);
-
+            ConnectToDatastore();
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
              2. Create a mock context that uses 'UserManager' instead of 'TweeterContext'
@@ -66,24 +66,31 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void RepoEnsureICanGetUsernames()
         {
-            TweeterRepository repo = new TweeterRepository();
-            List<ApplicationUser> all_users = repo.GetAllAppUsers();
+        
+            var user1 = new ApplicationUser { UserName = "James123", Email = "james123@email.com" };
+            users.Add(user1);
 
+
+            TweeterRepository repo = new TweeterRepository(mock_user_manager_context.Object);
+            List<string> all_users = repo.GetAllAppUsers();
+            
             
 
-            int expected_count = 0;
+            int expected_count = 1;
             int actual_count = all_users.Count();
 
             Assert.AreEqual(expected_count, actual_count);
-            Assert.IsInstanceOfType(all_users, typeof(List<ApplicationUser>));
+            Assert.IsInstanceOfType(all_users, typeof(List<string>));
         }
 
         [TestMethod]
         public void RepoEnsureCanVerifyUsernameExists()
         {
-            TweeterRepository repo = new TweeterRepository();
-            List<ApplicationUser> all_users = repo.GetAllAppUsers();
-            bool usernameExists = repo.CheckIfUsernameExists();
+            TweeterRepository repo = new TweeterRepository(mock_user_manager_context.Object);
+            var user1 = new ApplicationUser { UserName = "James123", Email = "james123@email.com" };
+            users.Add(user1);
+            bool usernameExists = repo.CheckIfUsernameExists("James123");
+
 
             Assert.IsTrue(usernameExists);
 

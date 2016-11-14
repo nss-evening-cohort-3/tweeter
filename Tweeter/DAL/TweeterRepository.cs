@@ -16,32 +16,22 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository() {
 
-        public List<ApplicationUser> GetAllAppUsers()
+            Context = new TweeterContext();
+        }
+
+        public List<string> GetAllAppUsers()
         {
-            return Context.Users.ToList();
-
-                
+            return Context.Users.Select(x => x.UserName).ToList();                
         }
 
         public bool CheckIfUsernameExists(string username)
         {
-            List<ApplicationUser> all_users = Context.Users.ToList();
+            List<string> all_users = GetAllAppUsers();
 
-            foreach (appUsername in all_users)
-            {
-                if (appUsername == username)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return all_users.Any(user => username == user);
 
-            return null;
-        }
+        }    
     }
 }

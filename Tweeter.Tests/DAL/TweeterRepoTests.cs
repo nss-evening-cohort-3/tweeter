@@ -7,12 +7,14 @@ using Moq;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace Tweeter.Tests.DAL
 {
     [TestClass]
     public class TweeterRepoTests
     {
+        private Mock<UserManager<ApplicationUser>> mock_usermanager { get; set;}
         private Mock<TweeterContext> mock_context { get; set; }
         private Mock<DbSet<ApplicationUser>> mock_users { get; set; }
         private List<ApplicationUser> user_list { get; set; } // Fake
@@ -29,7 +31,7 @@ namespace Tweeter.Tests.DAL
             mock_users.As<IQueryable<ApplicationUser>>().Setup(m => m.GetEnumerator()).Returns(() => queryable_list.GetEnumerator());
 
             // Have our User property return our Queryable List AKA Fake database table.
-            mock_context.Setup(c => c.TweeterUsers).Returns(mock_users);
+            mock_context.Setup(c => c.Users).Returns(mock_users.Object);
 
             mock_users.Setup(t => t.Add(It.IsAny<ApplicationUser>())).Callback((ApplicationUser a) => user_list.Add(a));
             mock_users.Setup(t => t.Remove(It.IsAny<ApplicationUser>())).Callback((ApplicationUser a) => user_list.Remove(a));
@@ -40,8 +42,10 @@ namespace Tweeter.Tests.DAL
         {
             // Create Mock TweeterContext
             mock_context = new Mock<TweeterContext>();
+            mock_usermanager = new Mock<UserManager<ApplicationUser>>();
             user_list = new List<ApplicationUser>(); // Fake
             repo = new TweeterRepository(mock_context.Object);
+            mock_users = new Mock<DbSet<ApplicationUser>>();
 
             ConnectMocksToDatastore();
         }
@@ -82,8 +86,7 @@ namespace Tweeter.Tests.DAL
         [TestMethod] 
         public void RepoEnsureAddUserToDatabase()
         {
-            // var user = new ApplicationUser { UserName =  };
-            ApplicationUser my_user = new ApplicationUser { UserName = "user" };  // What the actual fuck?
+            ApplicationUser my_user = new ApplicationUser() { UserName = "MrTesty" };
 
             repo.AddUser(my_user);
 
@@ -97,7 +100,7 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void RepoEnsureAddUserWithArgs()
         {
-            repo.AddUser();  // What the actual fuck?
+            repo.AddUser( UserN);  // What the actual fuck?
 
             List<Twit> actual_users = repo.GetUsernames();
             string actual_username = actual_users.First();

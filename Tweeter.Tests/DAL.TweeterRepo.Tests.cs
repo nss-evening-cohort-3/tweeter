@@ -92,7 +92,6 @@ namespace Tweeter.Tests
             repo.AddTwitToDatabase(user);
 
             //Act
-            
             bool UserExists = repo.UsernameExists("morecallan");
 
             bool expected_result = true;

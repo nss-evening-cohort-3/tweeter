@@ -1,0 +1,40 @@
+﻿using Tweeter.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Tweeter.DAL
+{
+    public class TweeterRepository
+    {
+        public TweeterContext Context { get; set; }
+
+        public TweeterRepository()
+        {
+            Context = new TweeterContext();
+        }
+
+        public TweeterRepository(TweeterContext _context)
+        {
+            Context = _context;
+        }
+
+        public List<Twit> GetUserNames()
+        {
+            return Context.TweeterUsers.ToList();
+        }
+
+        public bool UsernameExists(string username)
+        {
+            foreach(var twitUser in Context.TweeterUsers)
+            {
+                if (twitUser.BaseUser.UserName == username)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}

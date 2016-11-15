@@ -27,5 +27,10 @@ namespace Tweeter.DAL
         {
             return Context.Users.Select(u => u.UserName).ToList();
         }
+
+        public ApplicationUser GetUsernames(string username)
+        {
+            return Context.Users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
+        }
     }
 }

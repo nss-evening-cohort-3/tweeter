@@ -42,8 +42,6 @@ namespace Tweeter.Tests.DAL
 
         public void ConnectToDatastore()
         {
-
-            users = new List<ApplicationUser>();
             var query_users = users.AsQueryable();
 
             mock_users.As<IQueryable<ApplicationUser>>().Setup(m => m.Provider).Returns(query_users.Provider);
@@ -53,6 +51,8 @@ namespace Tweeter.Tests.DAL
 
 
             mock_context.Setup(c => c.Users).Returns(mock_users.Object);
+
+            mock_users.Setup(t => t.Add(It.IsAny<ApplicationUser>())).Callback((ApplicationUser person) =>users.Add(person));
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
              * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
@@ -79,6 +79,20 @@ namespace Tweeter.Tests.DAL
             var allUsernames = repo.GetUsernames();
 
             Assert.AreEqual(allUsernames.Count, 1);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanGetByUsernames()
+        {
+            var repo = new TweeterRepository(mock_context.Object);
+
+            var newUser = new ApplicationUser() { UserName = "Superman" };
+
+            users.Add(newUser);
+
+            var foundUser = repo.GetUsernames("Superman");
+
+            Assert.IsTrue(users.Contains(foundUser));
         }
     }
 }

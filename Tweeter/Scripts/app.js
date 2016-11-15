@@ -1,16 +1,22 @@
 ﻿$("#register-username").keyup(function () {
 
+    // first step is removing a UI reponse to the AJAX call by taking out classes
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
+    // get value from username field input
+    var input = $("#register-username").val();
     $.ajax({
-        url: "/api/TwitUsername?candidate=" + $(this).val(),
+        url: "/api/TwitUsername?candidate=" + input,
         method: 'GET'
     }).success(function (response) {
-        console.log(response.exists);
-        if (!response.exists) {
+        //console.log(response.exists);
+        //added stuff so that field can't be empty
+        if (!response.exists && input !== "") {
             $("#username-ans").addClass("glyphicon-ok");
+            $("#register-submit").prop("disabled", false);
         } else {
             $("#username-ans").addClass("glyphicon-remove");
+            $("#register-submit").prop("disabled", true);
         }
     }).fail(function (error) {
         console.log(error);

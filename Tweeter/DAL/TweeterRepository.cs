@@ -16,6 +16,7 @@ namespace Tweeter.DAL
 
         public TweeterRepository() {}
 
+<<<<<<< Updated upstream
         public List<string> GetUsernames()
         {
             return Context.TweeterUsers.Select(u => u.BaseUser.UserName).ToList();
@@ -45,6 +46,20 @@ namespace Tweeter.DAL
 
             return false;
             
+=======
+        public List<string> GetUserNames()
+        {
+            return Context.TweeterUsers.Select(u => u.BaseUser.UserName).ToList();
+        }
+
+        public bool UsernameExists(string v)
+        {
+            if (Context.Users.Any(u => u.UserName.Contains(v)))
+            {
+                return true;
+            }
+            return false;
+>>>>>>> Stashed changes
         }
     }
 }

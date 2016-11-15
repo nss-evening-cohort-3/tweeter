@@ -26,7 +26,6 @@ namespace Tweeter.Tests.DAL
             Repo = new TweeterRepository(mock_context.Object);
             users = new List<Twit>
             {
-<<<<<<< Updated upstream
                 new Twit {
                     TwitId = 1,
                     BaseUser = new ApplicationUser() { UserName = "michealb"}
@@ -37,52 +36,27 @@ namespace Tweeter.Tests.DAL
                 }
 
             };
-=======
-                new Twit
-                {
-                    TwitId = 1,
-                    BaseUser = new ApplicationUser() { UserName= "michael" }
-            },
-                new Twit
-                {
-                    TwitId = 2,
-                    BaseUser = new ApplicationUser() { UserName="sally" }          
-                }
-            };
-        }
-            
->>>>>>> Stashed changes
 
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
              2. Create a mock context that uses 'UserManager' instead of 'TweeterContext'
              */
-
+        }
 
         public void ConnectToDatastore()
         {
-<<<<<<< Updated upstream
-=======
-            users = new List<Twit>();
->>>>>>> Stashed changes
             var query_users = users.AsQueryable();
 
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Provider).Returns(query_users.Provider);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Expression).Returns(query_users.Expression);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.ElementType).Returns(query_users.ElementType);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.GetEnumerator()).Returns(() => query_users.GetEnumerator());
-<<<<<<< Updated upstream
-=======
-
-            mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object);
-
-            mock_users.Setup(u => u.Add(It.IsAny<Twit>())).Callback((Twit t) => users.Add(t));
->>>>>>> Stashed changes
 
             mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object);
             mock_users.Setup(u => u.Add(It.IsAny<Twit>())).Callback((Twit t) => users.Add(t));
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
+             * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
              * 
              */
 
@@ -101,7 +75,6 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void RepoEnsureICanGetUsernames()
         {
-<<<<<<< Updated upstream
             // Arrange
             ConnectToDatastore();
 
@@ -136,19 +109,6 @@ namespace Tweeter.Tests.DAL
 
             // Assert
             Assert.IsNotNull(found_twit);
-=======
-            ConnectToDatastore();
-            List<string> usernames = Repo.GetUserNames();
-            Assert.AreEqual(2, usernames.Count);
-        }
-
-        [TestMethod]
-        public void RepoEnsureUsernameExists()
-        {
-            ConnectToDatastore();
-            bool exists = Repo.UsernameExists("sally");
-            Assert.IsTrue(exists);
->>>>>>> Stashed changes
         }
     }
 }

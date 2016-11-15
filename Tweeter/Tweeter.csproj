@@ -181,10 +181,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TweeterController.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Controllers\TwitUsernameController.cs" />
-=======
->>>>>>> Stashed changes
     <Compile Include="DAL\TweeterContext.cs" />
     <Compile Include="DAL\TweeterRepository.cs" />
     <Compile Include="Global.asax.cs">

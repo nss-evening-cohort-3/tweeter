@@ -100,10 +100,10 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void RepoEnsureAddUserWithArgs()
         {
-            repo.AddUser( UserN);  // What the actual fuck?
+            // repo.AddUser( UserN);  // What the actual fuck?
 
             List<Twit> actual_users = repo.GetUsernames();
-            string actual_username = actual_users.First();
+            //string actual_username = actual_users.First();
             string expected_username = "Voldemort";
 
             Assert.AreEqual(expected_username, actual_username);

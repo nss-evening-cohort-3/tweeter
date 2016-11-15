@@ -29,6 +29,24 @@ namespace Tweeter.DAL
             Context.SaveChanges();
             return user;
         }
+        public List<string> GetUsernames()
+        {
+            return Context.TweeterUsers.Select(u => u.BaseUser.UserName).ToList();
+        }
+
+        public Twit UsernameExists(string v)
+        {
+            return Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
+        }
+
+        public bool UserNameExists(string v)
+        {
+            if (Context.Users.Any(u => u.UserName.Contains(v)))
+            {
+                return true;
+            }
+            return false;
+        }
 
         public Twit GetUserByName(string name)
         {

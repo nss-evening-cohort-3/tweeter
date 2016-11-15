@@ -36,7 +36,7 @@ namespace Tweeter.DAL
 
         public bool UsernameExists(string username)
         {
-            Twit found_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName == username);
+            Twit found_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == username.ToLower());
             if (found_user == null)
             {
                 return false;

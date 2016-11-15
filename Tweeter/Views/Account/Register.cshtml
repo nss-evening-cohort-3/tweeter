@@ -4,7 +4,7 @@
 }
 
 
-<section id="contact">
+<section id="contact" ng-controller="Register">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -22,7 +22,9 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="Username">Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="Username" id="Username" required data-validation-required-message="Please enter your username.">
+                            <span class="glyphicon glyphicon-ok text-success" ng-if="userNameExistsCode && userNameExistsCode == 2" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-remove text-danger" ng-if="userNameExistsCode && userNameExistsCode == 1" aria-hidden="true"></span>
+                            <input type="text" class="form-control" ng-model="usernameCandidate" ng-blur="checkToSeeIfUsernameExists()" placeholder="Username" name="Username" id="Username" required data-validation-required-message="Please enter your username.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>

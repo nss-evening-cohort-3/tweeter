@@ -28,6 +28,7 @@ namespace Tweeter.Controllers
             bool[] options = new bool[] { true, false };
             Dictionary<string, bool> answer = new Dictionary<string, bool>();
             answer.Add("exists", options[randomInt]);
+            //answer.Add("exists", repo.UsernameExists(usernameCandidate));
             return answer;
         }
 

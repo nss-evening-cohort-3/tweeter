@@ -8,24 +8,30 @@ using Tweeter.DAL;
 
 namespace Tweeter.Controllers
 {
-    public class TweeterController : ApiController
+    public class TwitUsernameController : ApiController
     {
-        // GET: api/Tweeter
+
         TweeterRepository repo = new TweeterRepository();
+
+        // GET api/<controller>
         public IEnumerable<string> Get()
         {
             return repo.GetUsernames();
         }
 
-        // GET: api/Tweeter/5
+        // GET api/<controller>/5
         public Dictionary<string, bool> Get(string candidate)
         {
-            //{"exists": true} best to return JSON structure
+            /*
+             { "exists": true}
+            */
+
             Dictionary<string, bool> answer = new Dictionary<string, bool>();
             answer.Add("exists", repo.UsernameExists(candidate));
+            //need to run migration otherwise no response and error isn't reported to client
             return answer;
 
-            //return repo.UserNameExists(candidate);
         }
+
     }
 }

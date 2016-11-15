@@ -11,9 +11,11 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group" id="register-username" >
+    <div class="form-group">
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus=""})
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus="", id="register-username"})
+            <span id="username-ans" class="glyphicon" hidden></span>
+
         </div>
     </div>
     <div class="form-group">

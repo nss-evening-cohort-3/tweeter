@@ -34,12 +34,8 @@ namespace Tweeter.DAL
             return Context.TweeterUsers.Select(u => u.BaseUser.UserName).ToList();
         }
 
-        public Twit UsernameExists(string v)
-        {
-            return Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
-        }
 
-        public bool UserNameExists(string v)
+        public bool UsernameExists(string v)
         {
             if (Context.Users.Any(u => u.UserName.Contains(v)))
             {

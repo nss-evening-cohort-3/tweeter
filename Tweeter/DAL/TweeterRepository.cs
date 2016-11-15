@@ -15,6 +15,9 @@ namespace Tweeter.DAL
 
         public TweeterRepository() {}
 
-
+        public List<string> GetUsernames()
+        {
+            return Context.TweeterUsers.Select(u => u.BaseUser.UserName).ToList();
+        }
     }
 }

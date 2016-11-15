@@ -1,8 +1,8 @@
 ﻿$("#register-username").keyup(function () {
 
     // first step is removing a UI reponse to the AJAX call by taking out classes
-    $("#username-ans").removeClass("glyphicon-ok");
-    $("#username-ans").removeClass("glyphicon-remove");
+    $("#username-ans").removeClass("glyphicon-ok glyphicon-remove btn-success btn-danger");
+
     // get value from username field input
     var input = $("#register-username").val();
     $.ajax({
@@ -12,11 +12,13 @@
         //console.log(response.exists);
         //added stuff so that field can't be empty
         if (!response.exists && input !== "") {
-            $("#username-ans").addClass("glyphicon-ok");
             $("#register-submit").prop("disabled", false);
+            $("#username-ans").addClass("glyphicon-ok");
+            //$("#register-submit").addClass("btn-success");
         } else {
-            $("#username-ans").addClass("glyphicon-remove");
             $("#register-submit").prop("disabled", true);
+            $("#username-ans").addClass("glyphicon-remove");
+            //$("#register-submit").addClass("btn-danger");
         }
     }).fail(function (error) {
         console.log(error);

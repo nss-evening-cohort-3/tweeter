@@ -12,16 +12,16 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        <div class="col-md-10">
+        <div class="col-md-4">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", id = "register-username" })
-            <span id="username-ans" class="glyphicon"></span>
         </div>
+        <span style="margin-left:-89px; margin-top:8px" id="username-ans" class="glyphicon"></span>
     </div>
     <div class="form-group">
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
         </div>
-    </div>    
+    </div>
     <div class="form-group">
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
@@ -41,5 +41,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")
 }

@@ -11,14 +11,14 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
+    <div class="form-group" id="register-username" >
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus=""})
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
         </div>
     </div>
     <div class="form-group">

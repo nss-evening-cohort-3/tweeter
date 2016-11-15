@@ -10,7 +10,7 @@ namespace Tweeter.Models
         public int TwitId { get; set; }
         public ApplicationUser BaseUser { get; set; }
         public List<Twit> Follows { get; set; }
-        public string Username { get; set; }
+        //public string Username { get; set; }
         /*
          * Maybe just add a Username field here
          * Then you'll need to mock the Twit table to return List<Twit>

@@ -18,30 +18,27 @@ namespace Tweeter.DAL
             Context = _context;
         }
         public List<Twit> GetTwits()
-        {
-            List<Twit> TwitList = new List<Twit>(); 
-            int j = 1;
-            //create an actual list of twits
-            //add each Twit to a list called TwitList
-            TwitList.Add.Twit();
-            return TwitList;
-            //tried: 
-            //return List<Twit>(Twit).ToString();
-            //return List<Twit>.ToString();
-            //return List<Twit>().ToString();
-            //return List<Twits>().ToString();
-            //instantiated TwitList and then returned:
-            //TwitList.Add(Twit);
-            //TwitList.Add.Twit;
-            //TwitList.Add.Twit();
-            //
-            //
+        {        
+            return Context.TweeterUsers.ToList();
+
         }
         public void AddTwit(Twit _twit)
         {
-            Context.Twit.Add(_twit);
+            Context.TweeterUsers.Add(_twit);
             Context.SaveChanges();
         }
+        public List<string> GetUsernames()
+        {
+            //using LInq here kind of like a foreach;use LInq to iterate over a collection.
+            return Context.TweeterUsers.Select(t => t.BaseUser.UserName).ToList();
+        }
+
+
+
+
+
+
+
         public Twit findTwitByTwitId(object Twit)
         {
             Twit foundTwit = new Models.Twit();
@@ -53,9 +50,7 @@ namespace Tweeter.DAL
             else
             {
                 return null;
-            }
-
-            
+            }  
         }
     }
 }

@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tweeter.Models;
+using Tweeter.DAL;
+using System.Collections.Generic;
 
 namespace Tweeter.Controllers
 {
@@ -59,6 +61,12 @@ namespace Tweeter.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        public void wawa()
+        {
+            TweeterRepository tr = new TweeterRepository();
+            List<ApplicationUser> ww = tr.GetUsernames();
         }
 
         //

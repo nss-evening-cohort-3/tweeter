@@ -83,7 +83,32 @@ namespace Tweeter.Tests.DAL
 
             // Assert
             Assert.AreEqual(2, usernames.Count);
+        }
 
+        [TestMethod]
+        public void RepoEnsureUsernameExists()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            bool exists = Repo.UsernameExists("sallym");
+
+            // Assert
+            Assert.IsTrue(exists);
+        }
+
+        [TestMethod]
+        public void RepoEnsureUsernameExistsOfTwit()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            Twit found_twit = Repo.UsernameExistsOfTwit("sallym");
+
+            // Assert
+            Assert.IsNotNull(found_twit);
         }
     }
 }

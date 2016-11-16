@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tweeter.Models;
+using Tweeter.DAL;
 
 namespace Tweeter.Controllers
 {
@@ -149,9 +150,10 @@ namespace Tweeter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            TweeterRepository tr = new TweeterRepository();
+            if ((ModelState.IsValid) && (!(tr.UsernameExists(model.Username))))
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

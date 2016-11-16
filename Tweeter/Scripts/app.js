@@ -10,9 +10,9 @@ userNameField.focusout(function () {
     }).success(function (response) {
         console.log(response);
         if (response.exists) {
-            $('username-ans').addClass("glyphicon-ok");
+            $('#username-ans').addClass("glyphicon-remove");
         } else {
-            $('username-ans').addClass("glyphicon-remove")
+            $('#username-ans').addClass("glyphicon-ok");
         }
     }).fail(function (error) {
         console.log('Failed!' + error)

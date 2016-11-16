@@ -1,28 +1,28 @@
 ﻿let showUsernameInputValidStyling = () => {
     $('#username-help-block').addClass('hidden');
     $('.form-group__input--username').addClass('has-success');
-    $('.button__registration--submit').removeClass('disabled btn-danger');
 };
 let showUsernameInputErrorStyling = () => {
     $('#username-help-block').removeClass('hidden');
     $('.form-group__input--username').addClass('has-error');
-    $('.button__registration--submit').addClass('disabled btn-danger');
 };
 
 let disableRegisterSubmitButton = () => {
+    $('.button__registration--submit').addClass('disabled btn-danger');
     $('.button__registration--submit').attr('disabled', 'disabled');
 };
 
 let enableRegisterSubmitButton = () => {
+    $('.button__registration--submit').removeClass('disabled btn-danger');
     $('.button__registration--submit').removeAttr('disabled');
 };
 
-$("#register-username").focusout(function () {
-    $('#username-help-block').hide();
-});
-
 $("#register-username").focusin(function () {
     $('#username-help-block').show();
+});
+
+$("#register-username").focusout(function () {
+    $('#username-help-block').hide();
 });
 
 $("#register-username")
@@ -41,5 +41,6 @@ $("#register-username")
             }
         }).fail(function (error) {
             console.log(error);
-    });
-});
+        });
+    })
+

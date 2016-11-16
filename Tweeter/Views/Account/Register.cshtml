@@ -15,7 +15,8 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus = "", id = "register-username" })
             <span id="username-ans" class="glyphicon"></span>
-        </div>
+           <!--<form onsubmit="Register.preventDefault(); checkForDuplicateUser();">--> 
+</div>
     </div>
     <div class="form-group">
         <div class="col-md-10">

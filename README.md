@@ -1,3 +1,4 @@
+
 # Tweeter
 Twitter Clone for E3
 
@@ -26,3 +27,8 @@ For student assignments, submissions will be placed on a branch titled by the in
 ## Features
 
 See [FEATURES.md](https://github.com/nss-evening-cohort-3/tweeter/blob/master/FEATURES.md) to see what will be implemented.
+
+# MVC Authentication
+
+The goal of this project is to walk the students through successfully leveraging the built-in Authentication provided by Microsoft.
+

@@ -1,7 +1,8 @@
 ﻿$("#register-username").keyup(function () {
-
+    (console.log("key up"))
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
+    $("#username-ans"). removeClass("disabled");
     $.ajax({
         url: "/api/TwitUsername?candidate=" + $(this).val(),
         method: 'GET'
@@ -11,6 +12,7 @@
             $("#username-ans").addClass("glyphicon-ok");
         } else {
             $("#username-ans").addClass("glyphicon-remove");
+            $("#sendForm").addClass("disabled, disabled");
         }
     }).fail(function (error) {
         console.log(error);

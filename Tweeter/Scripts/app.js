@@ -2,6 +2,7 @@
 
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
+    $("input[type='submit']").removeClass('disabled');
     $.ajax({
         url: "/api/TwitUsername?candidate=" + $(this).val(),
         method: 'GET'
@@ -11,35 +12,9 @@
             $("#username-ans").addClass("glyphicon-ok");
         } else {
             $("#username-ans").addClass("glyphicon-remove");
+            $("input[type='submit']").addClass('disabled');
         }
     }).fail(function (error) {
         console.log(error);
     });
 });
-
-
-/*
-$("#register-username").focusout(function () {
-    //alert("defocused!!!");
-    //console.log($(this).val());
-    //$("#username-ans").addClass("hidden");
-    $.ajax({
-        url: "/api/TwitUsername?candidate=" + $(this).val(),
-        method: 'GET'
-    }).success(function (response) {
-        console.log(response);
-        if (response.exists) {
-            $("#username-ans").addClass("glyphicon-ok");
-        } else {
-            $("#username-ans").addClass("glyphicon-remove");
-        }
-    }).fail(function (error) {
-        console.log(error);
-    });
-});
-
-$("#register-username").focusin(function () {
-    $("#username-ans").removeClass("glyphicon-ok");
-    $("#username-ans").removeClass("glyphicon-remove");
-});
-*/

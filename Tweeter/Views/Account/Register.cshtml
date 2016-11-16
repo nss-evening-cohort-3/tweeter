@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id="register" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
                             <label for="Username">Username</label>
                             <span class="glyphicon glyphicon-ok text-success" ng-if="userNameExistsCode && userNameExistsCode == 2" aria-hidden="true"></span>
                             <span class="glyphicon glyphicon-remove text-danger" ng-if="userNameExistsCode && userNameExistsCode == 1" aria-hidden="true"></span>
-                            <input type="text" class="form-control" ng-model="usernameCandidate" ng-blur="checkToSeeIfUsernameExists()" placeholder="Username" name="Username" id="Username" required data-validation-required-message="Please enter your username.">
+                            <input type="text" class="form-control" ng-model="usernameCandidate" autofocus ng-blur="checkToSeeIfUsernameExists()" placeholder="Username" name="Username" id="Username" required data-validation-required-message="Please enter your username.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>

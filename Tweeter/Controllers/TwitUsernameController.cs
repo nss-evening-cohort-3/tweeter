@@ -22,7 +22,7 @@ namespace Tweeter.Controllers
         }
 
         // GET: api/TwitUsername/5
-        public Dictionary<string    , bool> Get(string usernameCandidate)
+        public Dictionary<string, bool> Get(string usernameCandidate)
         {
             int randomInt = rand.Next(0, 2);
             bool[] options = new bool[] { true, false };

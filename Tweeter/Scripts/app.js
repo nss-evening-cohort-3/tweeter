@@ -12,8 +12,13 @@ app.controller('Register', function ($scope, $q, $http) {
                 var data = response.data;
                 if (data.exists) {
                     $scope.userNameExistsCode = 1;
-                } else {
+                    $("#register").submit(function (e) {
+                        e.preventDefault();
+                    })
+                } else {    
                     $scope.userNameExistsCode = 2;
+                    $("#register").unbind('submit');
+
                 }
                 resolve(data);
             }, function(error) {

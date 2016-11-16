@@ -9,14 +9,22 @@
         console.log(response.exists);
         if (!response.exists) {
             $("#username-ans").addClass("glyphicon-ok");
+
+            $("#RegisterButton").attr("disabled", false);
+            console.log("username did not exist in database");
+
         } else {
             $("#username-ans").addClass("glyphicon-remove");
+            
+            $('input[RegisterButton]').attr("disabled", true);
+
+
+            console.log("username exist in database");
         }
     }).fail(function (error) {
         console.log(error);
     });
 });
-
 
 /*
 $("#register-username").focusout(function () {

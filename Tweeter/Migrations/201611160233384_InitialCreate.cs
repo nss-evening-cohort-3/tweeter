@@ -35,6 +35,7 @@ namespace Tweeter.Migrations
                 c => new
                     {
                         TwitId = c.Int(nullable: false, identity: true),
+                        TwitName = c.String(),
                         BaseUser_Id = c.String(maxLength: 128),
                         Twit_TwitId = c.Int(),
                     })
@@ -97,29 +98,29 @@ namespace Tweeter.Migrations
                         Message = c.String(),
                         ImageURL = c.String(),
                         CreatedAt = c.DateTime(nullable: false),
-                        Author_TwitId = c.Int(),
                         Tweet_TweetId = c.Int(),
+                        TwitName_TwitId = c.Int(),
                     })
                 .PrimaryKey(t => t.TweetId)
-                .ForeignKey("dbo.Twits", t => t.Author_TwitId)
                 .ForeignKey("dbo.Tweets", t => t.Tweet_TweetId)
-                .Index(t => t.Author_TwitId)
-                .Index(t => t.Tweet_TweetId);
+                .ForeignKey("dbo.Twits", t => t.TwitName_TwitId)
+                .Index(t => t.Tweet_TweetId)
+                .Index(t => t.TwitName_TwitId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Tweets", "TwitName_TwitId", "dbo.Twits");
             DropForeignKey("dbo.Tweets", "Tweet_TweetId", "dbo.Tweets");
-            DropForeignKey("dbo.Tweets", "Author_TwitId", "dbo.Twits");
             DropForeignKey("dbo.Twits", "Twit_TwitId", "dbo.Twits");
             DropForeignKey("dbo.Twits", "BaseUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.Tweets", new[] { "TwitName_TwitId" });
             DropIndex("dbo.Tweets", new[] { "Tweet_TweetId" });
-            DropIndex("dbo.Tweets", new[] { "Author_TwitId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");

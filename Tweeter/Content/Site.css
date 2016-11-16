@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.container {
+    text-align: center;
+}
+
+.btn-xl{
+    padding: 4% 2%;
+    line-height: inherit;
+    width: 30%;
+    font-size: 230%;
+}

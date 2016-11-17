@@ -15,11 +15,15 @@ namespace Tweeter.Migrations
 
         protected override void Seed(Tweeter.DAL.TweeterContext context)
         {
+            //context.TweeterUsers.AddOrUpdate(
+            //    t => t.TwitName,
+            //    new Models.Twit { TwitName = "Bob", TwitId = 1, BaseUser = new Models.ApplicationUser { Id = "1", Email = "bob@bob.com", UserName = "Bob" } },
+            //    new Models.Twit { TwitName = "George", TwitId = 2, BaseUser = new Models.ApplicationUser { Id = "2", Email = "george@bob.com", UserName = "George" } }
+            //    );
             context.TweeterUsers.AddOrUpdate(
                 t => t.TwitName,
-                new Models.Twit { TwitName = "Bob", TwitId = 1, BaseUser = new Models.ApplicationUser { Id = "1", Email = "bob@bob.com", UserName = "Bob" } },
-                new Models.Twit { TwitName = "George", TwitId = 2, BaseUser = new Models.ApplicationUser { Id = "2", Email = "george@bob.com", UserName = "George" } }
-                );
+                new Models.Twit { TwitId = 1, TwitName = "Bob" },
+                new Models.Twit { TwitId = 2, TwitName = "Joe" });
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

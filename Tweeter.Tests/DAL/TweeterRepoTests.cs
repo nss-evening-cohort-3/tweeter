@@ -14,15 +14,18 @@ namespace Tweeter.Tests.DAL
     {
 
         private Mock<DbSet<Twit>> mock_users { get; set; }
+        private Mock<DbSet<Tweet>> mock_tweets { get; set; }
         private Mock<TweeterContext> mock_context { get; set; }
         private TweeterRepository Repo { get; set; }
         private List<Twit> users { get; set; }
+        private List<Tweet> tweets { get; set; }
 
         [TestInitialize]
         public void Initialize()
         {
             mock_context = new Mock<TweeterContext>();
             mock_users = new Mock<DbSet<Twit>>();
+            mock_tweets = new Mock<DbSet<Tweet>>();
             Repo = new TweeterRepository(mock_context.Object);
             users = new List<Twit>
             {
@@ -36,6 +39,19 @@ namespace Tweeter.Tests.DAL
                 }
 
             };
+            tweets = new List<Tweet>
+            {
+                new Tweet
+                {
+                    TweetId = 1,
+                    Message = "hello"
+                },
+                new Tweet
+                {
+                    TweetId = 2,
+                    Message = "hello hello"
+                }
+            };
 
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
@@ -46,6 +62,7 @@ namespace Tweeter.Tests.DAL
         public void ConnectToDatastore()
         {
             var query_users = users.AsQueryable();
+            var query_tweets = tweets.AsQueryable();
 
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Provider).Returns(query_users.Provider);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Expression).Returns(query_users.Expression);
@@ -54,6 +71,16 @@ namespace Tweeter.Tests.DAL
 
             mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object);
             mock_users.Setup(u => u.Add(It.IsAny<Twit>())).Callback((Twit t) => users.Add(t));
+
+            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.ElementType).Returns(query_tweets.ElementType);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.GetEnumerator()).Returns(() => query_tweets.GetEnumerator());
+
+            mock_context.Setup(c => c.Tweets).Returns(mock_tweets.Object);
+            mock_tweets.Setup(u => u.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
+            mock_tweets.Setup(u => u.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
+
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
              * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
@@ -109,6 +136,52 @@ namespace Tweeter.Tests.DAL
 
             // Assert
             Assert.IsNotNull(found_twit);
+    }
+        [TestMethod]
+        public void RepoAddTweet()
+        {
+            ConnectToDatastore();
+            Tweet newTweet = new Tweet { TweetId = 3, Message = "hello there" };
+
+            Repo.AddTweet(newTweet);
+            int expected_num_of_tweets = 3;
+            int actual_num_of_tweets = tweets.Count();
+
+            Assert.AreEqual(expected_num_of_tweets, actual_num_of_tweets);
+
+        }
+        [TestMethod]
+        public void RepoRemoveTweet()
+        {
+            ConnectToDatastore();
+            Tweet newTweet = new Tweet { TweetId = 3, Message = "hello there" };
+            Repo.AddTweet(newTweet);
+
+            Repo.RemoveTweet(3);
+            int expected_num_of_tweets = 2;
+            int actual_num_of_teeets = tweets.Count();
+
+            Assert.AreEqual(expected_num_of_tweets, actual_num_of_teeets);
+
+        }
+        [TestMethod]
+        public void RepoGetTweet()
+        {
+            ConnectToDatastore();
+            Tweet newTweet = new Tweet { TweetId = 3, Message = "hello there" };
+            Repo.AddTweet(newTweet);
+
+            Tweet retrieved_tweet = Repo.GetTweet(3);
+
+            Assert.AreEqual(newTweet, retrieved_tweet);
+        }
+        [TestMethod]
+        public void RepoGetTweets()
+        {
+            ConnectToDatastore();
+            List<Tweet> got_tweets = Repo.GetTweets();
+
+            CollectionAssert.AreEqual(tweets, got_tweets);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Tweeter.Models
         public string Message { get; set; }
         public virtual Twit TwitName { get; set; } // How do I say 'Twit User'?
         public string ImageURL { get; set; }
-        public DateTime CreatedAt { get; set; }
+        //public DateTime CreatedAt { get; set; }
         public List<Twit> Replies { get; set; } // Self referential
     }
 }

@@ -38,12 +38,15 @@ namespace Tweeter.Migrations
                         TwitName = c.String(),
                         BaseUser_Id = c.String(maxLength: 128),
                         Twit_TwitId = c.Int(),
+                        Tweet_TweetId = c.Int(),
                     })
                 .PrimaryKey(t => t.TwitId)
                 .ForeignKey("dbo.AspNetUsers", t => t.BaseUser_Id)
                 .ForeignKey("dbo.Twits", t => t.Twit_TwitId)
+                .ForeignKey("dbo.Tweets", t => t.Tweet_TweetId)
                 .Index(t => t.BaseUser_Id)
-                .Index(t => t.Twit_TwitId);
+                .Index(t => t.Twit_TwitId)
+                .Index(t => t.Tweet_TweetId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -97,14 +100,10 @@ namespace Tweeter.Migrations
                         TweetId = c.Int(nullable: false, identity: true),
                         Message = c.String(),
                         ImageURL = c.String(),
-                        CreatedAt = c.DateTime(nullable: false),
-                        Tweet_TweetId = c.Int(),
                         TwitName_TwitId = c.Int(),
                     })
                 .PrimaryKey(t => t.TweetId)
-                .ForeignKey("dbo.Tweets", t => t.Tweet_TweetId)
                 .ForeignKey("dbo.Twits", t => t.TwitName_TwitId)
-                .Index(t => t.Tweet_TweetId)
                 .Index(t => t.TwitName_TwitId);
             
         }
@@ -112,7 +111,7 @@ namespace Tweeter.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Tweets", "TwitName_TwitId", "dbo.Twits");
-            DropForeignKey("dbo.Tweets", "Tweet_TweetId", "dbo.Tweets");
+            DropForeignKey("dbo.Twits", "Tweet_TweetId", "dbo.Tweets");
             DropForeignKey("dbo.Twits", "Twit_TwitId", "dbo.Twits");
             DropForeignKey("dbo.Twits", "BaseUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -120,10 +119,10 @@ namespace Tweeter.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropIndex("dbo.Tweets", new[] { "TwitName_TwitId" });
-            DropIndex("dbo.Tweets", new[] { "Tweet_TweetId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Twits", new[] { "Tweet_TweetId" });
             DropIndex("dbo.Twits", new[] { "Twit_TwitId" });
             DropIndex("dbo.Twits", new[] { "BaseUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });

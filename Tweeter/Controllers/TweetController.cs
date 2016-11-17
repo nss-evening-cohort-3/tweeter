@@ -4,15 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Tweeter.DAL;
+using Tweeter.Models;
 
 namespace Tweeter.Controllers
 {
     public class TweetController : ApiController
     {
+        private TweeterRepository repo = new TweeterRepository();
+      
         // GET: api/Tweet
-        public IEnumerable<string> Get()
+        public IEnumerable<Tweet> Get()
         {
-            return new string[] { "value1", "value2" };
+           return repo.GetTweets();
+            //return new Tweet[] { "value1", "value2" };
         }
 
         // GET: api/Tweet/5

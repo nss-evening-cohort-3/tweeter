@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,6 +15,7 @@ namespace Tweeter.Controllers
         private TweeterRepository repo = new TweeterRepository();
       
         // GET: api/Tweet
+        [HttpGet]
         public IEnumerable<Tweet> Get()
         {
            return repo.GetTweets();
@@ -27,8 +29,10 @@ namespace Tweeter.Controllers
         }
 
         // POST: api/Tweet
+        [HttpPost]
         public void Post([FromBody]string value)
         {
+
         }
 
         // PUT: api/Tweet/5

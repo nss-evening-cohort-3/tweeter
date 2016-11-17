@@ -2,17 +2,18 @@
 
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
-    $("input[type='submit']").removeClass('disabled');
     $.ajax({
         url: "/api/TwitUsername?candidate=" + $(this).val(),
         method: 'GET'
     }).success(function (response) {
         console.log(response.exists);
         if (!response.exists) {
-            $("#username-ans").addClass("glyphicon-ok");
-        } else {
+            
             $("#username-ans").addClass("glyphicon-remove");
-            $("input[type='submit']").addClass('disabled');
+            $("#submit").attr("disable", "disable");
+        } else {
+            $("#username-ans").addClass("glyphicon-ok");
+            $("#submit").removeAttr("disable");
         }
     }).fail(function (error) {
         console.log(error);

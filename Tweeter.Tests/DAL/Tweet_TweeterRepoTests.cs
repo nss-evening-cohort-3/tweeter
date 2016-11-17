@@ -78,27 +78,22 @@ namespace Tweeter.Tests.DAL
             };
 
             // Act
-            string found_twit = Repo.AddTweet(testTweet);
+            int returnedTweetCount = Repo.AddTweet(testTweet);
 
             // Assert
-            Assert.AreEqual(found_twit, "Tweet Added");
+            Assert.AreEqual(3, returnedTweetCount);
         }
         [TestMethod]
         public void Tweet_CanIRemoveATweet()
         {
             // Arrange
             ConnectToDatastore();
-            Tweet testTweet = new Tweet
-            {
-                TweetId = 3,
-                Message = "This is message three"
-            };
 
             // Act
-            string removed_tweet = Repo.RemoveTweet(2);
+            int removedTweetCount = Repo.RemoveTweet(2);
 
             // Assert
-            Assert.AreEqual(removed_tweet, "Tweet Removed");
+            Assert.AreEqual(3, removedTweetCount);
         }
     }
 }

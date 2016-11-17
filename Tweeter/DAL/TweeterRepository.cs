@@ -45,18 +45,25 @@ namespace Tweeter.DAL
             return false;
         }
 
-        public string AddTweet(Tweet sentTweet)
+        public int AddTweet(Tweet sentTweet)
         {
             Context.Tweets.Add(sentTweet);
+            Context.SaveChanges();
 
-            return "Tweet Added";
+            return Context.Tweets.ToList().Count;
         }
-        public string RemoveTweet(int sentTweetId)
+        public int RemoveTweet(int sentTweetId)
         {
-            var selectedRow = Context.Tweets.First(i => i.TweetId == sentTweetId);
-            Context.Tweets.Remove(selectedRow);
+            // This should work but doesn't for some reason
+            var selectedTweet = Context.Tweets.Where(t => t.TweetId == sentTweetId).FirstOrDefault();
 
-            return "Tweet Removed";
+            if (selectedTweet != null)
+            {
+                Context.Tweets.Remove(selectedTweet);
+                Context.SaveChanges();
+            }
+
+            return Context.Tweets.ToList().Count;
         }
 
     }

@@ -57,19 +57,21 @@ namespace Tweeter.DAL
             Twit query = Context.TweeterUsers.FirstOrDefault(n => n.TwitName.ToLower() == name);
             return query;
         }
-        public object GetTweets()
+        public List<Tweet> GetTweets()
         {
-            throw new NotImplementedException();
+           return Context.Tweets.ToList();
         }
 
         public void AddTweet(Tweet new_tweet)
         {
-            throw new NotImplementedException();
+            Context.Tweets.Add(new_tweet);
+            Context.SaveChanges();
         }
 
-        public void RemoveTweet(Tweet last_tweet)
+        public void RemoveTweet(Tweet tweet_to_delete)
         {
-            throw new NotImplementedException();
+            Context.Tweets.Remove(tweet_to_delete);
+            Context.SaveChanges();
         }
     }
 }

@@ -22,6 +22,8 @@ namespace Tweeter.Tests.DAL
         public void ConnectToDatastore()
         {
             var query_tweets = tweets.AsQueryable();
+            Twit Joe = new Twit { TwitName = "Joe", TwitId = 1 };
+
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.ElementType).Returns(query_tweets.ElementType);
@@ -51,6 +53,8 @@ namespace Tweeter.Tests.DAL
             mock_tweets = new Mock<DbSet<Tweet>>();
             repo = new TweeterRepository(mock_context.Object);
             tweets = new List<Tweet>();
+            Twit Bob = new Twit { TwitName = "Bob", TwitId = 0 };
+
             ConnectToDatastore();
 
             /* 
@@ -71,10 +75,13 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanAddTweet()
         {
-            Tweet new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
+            Twit Bob = new Twit { TwitName = "Bob", TwitId = 0 };
+
+            Tweet new_tweet = new Tweet { TwitName = Bob, TweetId = 1, Message = "Hi, I'm Bob!" };
             repo.AddTweet(new_tweet);
             int expectedtweets = 1;
             int actualtweets = repo.GetTweets().Count();
+            Assert.AreEqual(expectedtweets, actualtweets);
         }
         [TestMethod]
         public void EnsureCanRemoveTweet()
@@ -84,6 +91,8 @@ namespace Tweeter.Tests.DAL
             repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
             repo.RemoveTweet(last_tweet);
             int expectedtweets = 1;
+            int actualtweets = repo.GetTweets().Count();
+            Assert.AreEqual(expectedtweets, actualtweets);
         }
     }
 }

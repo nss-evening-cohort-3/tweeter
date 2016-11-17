@@ -116,6 +116,49 @@ namespace Tweeter.Tests
         }
 
         [TestMethod]
+        public void TwitsCanBeFoundByApplicationUser()
+        {
+            //Arrange
+            ApplicationUser user1 = new ApplicationUser() { UserName = "morecallan", Email = "callan@MoreCallan.com" };
+            ApplicationUser user2 = new ApplicationUser() { UserName = "morecallan2", Email = "callan2@MoreCallan.com" };
+
+            Twit twit1 = repo.AddTwitToDatabase(user1);
+            twit1.TwitId = 1;
+            Twit twit2 = repo.AddTwitToDatabase(user2);
+            twit2.TwitId = 2;
+
+            //Act
+            Twit found_twit = repo.FindTwitBasedOnApplicationUser(user2);
+            int expected_twit_id = 2;
+            int actual_twit_id = found_twit.TwitId;
+
+            //Assert
+            Assert.AreEqual(expected_twit_id, actual_twit_id);
+        }
+
+        [TestMethod]
+        public void TweetsCanBeReturnedById()
+        {
+            //Arrange
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hello" };
+            Tweet tweet2 = new Tweet { TweetId = 2, Message = "Goodbye" };
+            Tweet tweet3 = new Tweet { TweetId = 3, Message = "Smarties" };
+
+
+            //Act
+            repo.AddTweet(tweet1);
+            repo.AddTweet(tweet2);
+            repo.AddTweet(tweet3);
+            Tweet tweet_returned = repo.GetTweetById(2);
+
+            string expected_tweet_message = "Goodbye";
+            string actual_tweet_message = tweet_returned.Message;
+
+            //Assert
+            Assert.AreEqual(expected_tweet_message, actual_tweet_message);
+        }
+
+        [TestMethod]
         public void TweetsCanBeAddedToDatabase()
         {
             //Arrange
@@ -185,6 +228,40 @@ namespace Tweeter.Tests
 
             //Assert
             Assert.AreEqual(expected_tweet_count, actual_tweet_count);
+        }
+
+        [TestMethod]
+        public void UserSpecificTweetsCanBeReturnedWithTwitId()
+        {
+            //Arrange
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hello" };
+            Tweet tweet2 = new Tweet { TweetId = 2, Message = "Goodbye" };
+            Tweet tweet3 = new Tweet { TweetId = 3, Message = "Smarties" };
+
+            ApplicationUser user1 = new ApplicationUser() { UserName = "morecallan", Email = "callan@MoreCallan.com" };
+            ApplicationUser user2 = new ApplicationUser() { UserName = "morecallan2", Email = "callan2@MoreCallan.com" };
+
+            Twit twit1 = repo.AddTwitToDatabase(user1);
+            twit1.TwitId = 1;
+            Twit twit2 = repo.AddTwitToDatabase(user2);
+            twit2.TwitId = 2;
+
+            tweet1.Author = twit1;
+            tweet2.Author = twit1;
+            tweet3.Author = twit2;
+
+            repo.AddTweet(tweet1);
+            repo.AddTweet(tweet2);
+            repo.AddTweet(tweet3);
+
+            //Act
+            List<Tweet> user_tweets = repo.GetAllUserSpecificTweets(1);
+            int expected_user_tweets_count = 2;
+            int actual_user_tweets_count = user_tweets.Count();
+
+            //Assert
+            Assert.AreEqual(expected_user_tweets_count, actual_user_tweets_count);
+
         }
     }
     }

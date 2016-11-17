@@ -18,11 +18,11 @@ namespace Tweeter.Tests.DAL
         private Mock<DbSet<Tweet>> mock_tweets { get; set; }
         private List<Tweet> tweets { get; set; }
         private TweeterRepository repo { get; set; }
-
+        private Twit Bob;
+        private Twit Joe;
         public void ConnectToDatastore()
         {
             var query_tweets = tweets.AsQueryable();
-            Twit Joe = new Twit { TwitName = "Joe", TwitId = 1 };
 
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
@@ -53,8 +53,8 @@ namespace Tweeter.Tests.DAL
             mock_tweets = new Mock<DbSet<Tweet>>();
             repo = new TweeterRepository(mock_context.Object);
             tweets = new List<Tweet>();
-            Twit Bob = new Twit { TwitName = "Bob", TwitId = 0 };
-
+            Bob = new Twit { TwitName = "Bob", TwitId = 0 };
+            Joe = new Twit { TwitName = "Joe", TwitId = 1 };
             ConnectToDatastore();
 
             /* 
@@ -75,8 +75,6 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanAddTweet()
         {
-            Twit Bob = new Twit { TwitName = "Bob", TwitId = 0 };
-
             Tweet new_tweet = new Tweet { TwitName = Bob, TweetId = 1, Message = "Hi, I'm Bob!" };
             repo.AddTweet(new_tweet);
             int expectedtweets = 1;

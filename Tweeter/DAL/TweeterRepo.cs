@@ -36,7 +36,7 @@ namespace Tweeter.DAL
 
         public bool UsernameExists(string username)
         {
-            Twit found_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName == username);
+            Twit found_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == username.ToLower());
             if (found_user == null)
             {
                 return false;
@@ -44,6 +44,22 @@ namespace Tweeter.DAL
             {
                 return true;
             }
+        }
+
+        public void AddTweet(Tweet tweet)
+        {
+            Context.Tweets.Add(tweet);
+        }
+
+        public void DeleteSpecificTweet(Tweet tweet)
+        {
+            Context.Tweets.Remove(tweet);
+        }
+
+        public void DeleteSpecificTweet(int id)
+        {
+            Tweet found_tweet = Context.Tweets.FirstOrDefault(t => t.TweetId == id);
+            Context.Tweets.Remove(found_tweet);
         }
     }
 }

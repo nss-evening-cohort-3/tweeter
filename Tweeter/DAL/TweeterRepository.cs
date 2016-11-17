@@ -59,7 +59,6 @@ namespace Tweeter.DAL
         }
         public int RemoveTweet(int sentTweetId)
         {
-            // This should work but doesn't for some reason
             var selectedTweet = Context.Tweets.Where(t => t.TweetId == sentTweetId).FirstOrDefault();
 
             if (selectedTweet != null)

@@ -48,6 +48,7 @@ namespace Tweeter.Tests.DAL
 
             mock_context.Setup(c => c.Tweets).Returns(mock_tweets.Object);
             mock_tweets.Setup(u => u.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
+            mock_tweets.Setup(u => u.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
              * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
@@ -93,7 +94,7 @@ namespace Tweeter.Tests.DAL
             int removedTweetCount = Repo.RemoveTweet(2);
 
             // Assert
-            Assert.AreEqual(3, removedTweetCount);
+            Assert.AreEqual(1, removedTweetCount);
         }
         [TestMethod]
         public void Tweet_CanIGetAllTweets()

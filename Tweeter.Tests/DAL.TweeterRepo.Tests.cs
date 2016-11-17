@@ -57,6 +57,8 @@ namespace Tweeter.Tests
             mock_twit_table.Setup(t => t.Add(It.IsAny<Twit>())).Callback((Twit t) => twit_list.Add(t));
             mock_tweet_table.Setup(t => t.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweet_list.Add(t));
 
+            mock_twit_table.Setup(t => t.Remove(It.IsAny<Twit>())).Callback((Twit t) => twit_list.Remove(t));
+            mock_tweet_table.Setup(t => t.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweet_list.Remove(t));
         }
 
         [TestInitialize]
@@ -117,28 +119,72 @@ namespace Tweeter.Tests
         public void TweetsCanBeAddedToDatabase()
         {
             //Arrange
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hello" };
+            Tweet tweet2 = new Tweet { TweetId = 2, Message = "Goodbye" };
+            Tweet tweet3 = new Tweet { TweetId = 3, Message = "Smarties" };
+
+
             //Act
-            List<Tweet> twits_usernames_returned = repo.GetAllTweets();
-            int expected_response_count = 0;
-            int actual_response_count = twits_usernames_returned.Count();
-            //Act
+            repo.AddTweet(tweet1);
+            repo.AddTweet(tweet2);
+            repo.AddTweet(tweet3);
+            List<Tweet> tweets_returned = repo.GetAllTweets();
+
+            int expected_tweet_count = 3;
+            int actual_tweet_count = tweets_returned.Count();
+
             //Assert
+            Assert.AreEqual(expected_tweet_count, actual_tweet_count);
         }
 
         [TestMethod]
         public void TweetsCanBeDeletedFromDatabaseByFullTweet()
         {
             //Arrange
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hello" };
+            Tweet tweet2 = new Tweet { TweetId = 2, Message = "Goodbye" };
+            Tweet tweet3 = new Tweet { TweetId = 3, Message = "Smarties" };
+
+
             //Act
+            repo.AddTweet(tweet1);
+            repo.AddTweet(tweet2);
+            repo.AddTweet(tweet3);
+
+            repo.DeleteSpecificTweet(tweet2);
+            List<Tweet> tweets_returned = repo.GetAllTweets();
+
+
+            int expected_tweet_count = 2;
+            int actual_tweet_count = tweets_returned.Count();
+
             //Assert
+            Assert.AreEqual(expected_tweet_count, actual_tweet_count);
         }
 
         [TestMethod]
         public void TweetsCanBeDeletedFromDatabaseByTweetId()
         {
             //Arrange
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hello" };
+            Tweet tweet2 = new Tweet { TweetId = 2, Message = "Goodbye" };
+            Tweet tweet3 = new Tweet { TweetId = 3, Message = "Smarties" };
+
+
             //Act
+            repo.AddTweet(tweet1);
+            repo.AddTweet(tweet2);
+            repo.AddTweet(tweet3);
+
+            repo.DeleteSpecificTweet(3);
+            List<Tweet> tweets_returned = repo.GetAllTweets();
+
+
+            int expected_tweet_count = 2;
+            int actual_tweet_count = tweets_returned.Count();
+
             //Assert
+            Assert.AreEqual(expected_tweet_count, actual_tweet_count);
         }
     }
     }

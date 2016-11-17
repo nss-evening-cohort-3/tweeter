@@ -15,8 +15,8 @@ namespace Tweeter.Tests.DAL
     {
 
         private Mock<TweeterContext> mock_context { get; set; }
-        private Mock<DbSet<Tweet>> mock_tweets { get; set; }
-        private List<Tweet> tweets { get; set; }
+        private Mock<DbSet<Twit>> mock_tweets { get; set; }
+        private List<Twit> tweets { get; set; }
         private TweeterRepository repo { get; set; }
         private Twit Bob;
         private Twit Joe;
@@ -24,15 +24,15 @@ namespace Tweeter.Tests.DAL
         {
             var query_tweets = tweets.AsQueryable();
 
-            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
-            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
-            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.ElementType).Returns(query_tweets.ElementType);
-            mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.GetEnumerator()).Returns(() => query_tweets.GetEnumerator());
+            mock_tweets.As<IQueryable<Twit>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
+            mock_tweets.As<IQueryable<Twit>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
+            mock_tweets.As<IQueryable<Twit>>().Setup(m => m.ElementType).Returns(query_tweets.ElementType);
+            mock_tweets.As<IQueryable<Twit>>().Setup(m => m.GetEnumerator()).Returns(() => query_tweets.GetEnumerator());
 
             mock_context.Setup(m => m.Tweets).Returns(mock_tweets.Object);
 
-            mock_tweets.Setup(t => t.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
-            mock_tweets.Setup(t => t.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
+            mock_tweets.Setup(t => t.Add(It.IsAny<Twit>())).Callback((Twit t) => tweets.Add(t));
+            mock_tweets.Setup(t => t.Remove(It.IsAny<Twit>())).Callback((Twit t) => tweets.Remove(t));
 
 
             /*
@@ -50,9 +50,9 @@ namespace Tweeter.Tests.DAL
         public void Initialize()
         {
             mock_context = new Mock<TweeterContext>();
-            mock_tweets = new Mock<DbSet<Tweet>>();
+            mock_tweets = new Mock<DbSet<Twit>>();
             repo = new TweeterRepository(mock_context.Object);
-            tweets = new List<Tweet>();
+            tweets = new List<Twit>();
             Bob = new Twit { TwitName = "Bob", TwitId = 0 };
             Joe = new Twit { TwitName = "Joe", TwitId = 1 };
             ConnectToDatastore();

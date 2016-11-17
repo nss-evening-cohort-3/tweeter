@@ -18,7 +18,7 @@ namespace Tweeter.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private Tweet _twitName {get;}
+        private Twit _twitName {get;}
         private TweeterRepository repo = new TweeterRepository();
 
         public AccountController()

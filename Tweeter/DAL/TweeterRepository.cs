@@ -65,5 +65,12 @@ namespace Tweeter.DAL
             Context.Tweets.Remove(tweet);
             Context.SaveChanges();
         }
+
+        public void DeleteTweet(int tweetid)
+        {
+            Tweet found_tweet = Context.Tweets.FirstOrDefault(x => x.TweetId == tweetid);
+            DeleteTweet(found_tweet);
+            
+        }
     }
 }

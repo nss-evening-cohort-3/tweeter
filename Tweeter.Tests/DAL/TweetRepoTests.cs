@@ -20,6 +20,8 @@ namespace Tweeter.Tests.DAL
         private TweeterRepository repo { get; set; }
         private Twit Bob;
         private Twit Joe;
+        private Tweet new_tweet;
+        private Tweet last_tweet;
         public void ConnectToDatastore()
         {
             var query_tweets = tweets.AsQueryable();
@@ -55,6 +57,8 @@ namespace Tweeter.Tests.DAL
             tweets = new List<Tweet>();
             Bob = new Twit { TwitName = "Bob", TwitId = 0 };
             Joe = new Twit { TwitName = "Joe", TwitId = 1 };
+            new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
+            last_tweet = new Tweet { TweetId = 2, Message = "Go to hell, Bob." };
             ConnectToDatastore();
 
             /* 
@@ -73,9 +77,23 @@ namespace Tweeter.Tests.DAL
             Assert.IsNotNull(repo);
         }
         [TestMethod]
+        public void EnsureCanGetTweets()
+        {
+            var tweets = repo.GetTweets();
+            Assert.IsInstanceOfType(tweets, typeof(List<Tweet>));
+        }
+        [TestMethod]
+        public void EnsureCanGetTweetByTweetId()
+        {
+            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
+            var tweet = repo.GetTweets(1);
+            Console.WriteLine(tweet[0]);
+            Assert.IsTrue(tweet[0].TweetId == 1);
+        }
+
+        [TestMethod]
         public void EnsureCanAddTweet()
         {
-            Tweet new_tweet = new Tweet { TwitName = Bob, TweetId = 1, Message = "Hi, I'm Bob!" };
             repo.AddTweet(new_tweet);
             int expectedtweets = 1;
             int actualtweets = repo.GetTweets().Count();
@@ -84,8 +102,6 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanRemoveTweet()
         {
-            Tweet new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
-            Tweet last_tweet = new Tweet { TweetId = 2, Message = "Go to hell, Bob." };
             repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
             repo.RemoveTweet(last_tweet);
             int expectedtweets = 1;

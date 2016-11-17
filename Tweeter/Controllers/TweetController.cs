@@ -23,13 +23,15 @@ namespace Tweeter.Controllers
         }
 
         // GET: api/Tweet/5
-        public string Get(int id)
+        public List<Tweet> Get(int id)
         {
-            return "value";
+
+            return repo.GetTweets(id);
         }
 
         // POST: api/Tweet
         [HttpPost]
+        [Authorize]
         public void Post([FromBody]string value)
         {
 

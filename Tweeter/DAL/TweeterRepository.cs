@@ -61,6 +61,20 @@ namespace Tweeter.DAL
         {
            return Context.Tweets.ToList();
         }
+        public List<Tweet> GetTweets(int id)
+        {
+            List<Tweet> TweetList = Context.Tweets.ToList();
+            List<Tweet> TweetListById = new List<Tweet>();
+            //var match = TweetList.TrueForAll(Twit => Twit.TweetId == id);
+            var query = TweetList.Where(tweet => tweet.TweetId == id);
+            foreach (var tweet in query)
+            {
+                TweetListById.Add(tweet);
+            }
+            return TweetListById;
+        }
+
+        
 
         public void AddTweet(Tweet new_tweet)
         {

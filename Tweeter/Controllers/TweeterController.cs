@@ -27,5 +27,11 @@ namespace Tweeter.Controllers
 
             //return repo.UserNameExists(candidate);
         }
+        [HttpPost]
+        public void Post([FromBody]dynamic form)
+        {
+            int i = 0;
+
+        }
     }
 }

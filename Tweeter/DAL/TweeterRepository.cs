@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using Tweeter.Models;
@@ -26,7 +27,14 @@ namespace Tweeter.DAL
         public Twit AddUser(Twit user)
         {
             Context.TweeterUsers.Add(user);
-            Context.SaveChanges();
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var error = e;
+            }
             return user;
         }
         public List<string> GetUsernames()

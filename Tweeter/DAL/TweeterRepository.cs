@@ -42,9 +42,22 @@ namespace Tweeter.DAL
             {
                 return true;
             }
-
             return false;
-            
         }
+
+        public string AddTweet(Tweet sentTweet)
+        {
+            Context.Tweets.Add(sentTweet);
+
+            return "Tweet Added";
+        }
+        public string RemoveTweet(int sentTweetId)
+        {
+            var selectedRow = Context.Tweets.First(i => i.TweetId == sentTweetId);
+            Context.Tweets.Remove(selectedRow);
+
+            return "Tweet Removed";
+        }
+
     }
 }

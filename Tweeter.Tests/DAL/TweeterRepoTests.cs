@@ -34,15 +34,8 @@ namespace Tweeter.Tests.DAL
                     TwitId = 2,
                     BaseUser = new ApplicationUser() { UserName = "sallym"}
                 }
-
             };
-
-            /* 
-             1. Install Identity into Tweeter.Tests (using statement needed)
-             2. Create a mock context that uses 'UserManager' instead of 'TweeterContext'
-             */
         }
-
         public void ConnectToDatastore()
         {
             var query_users = users.AsQueryable();

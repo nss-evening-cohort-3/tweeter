@@ -19,22 +19,20 @@ namespace Tweeter.Controllers
         public IEnumerable<Tweet> Get()
         {
            return repo.GetTweets();
-            //return new Tweet[] { "value1", "value2" };
         }
 
         // GET: api/Tweet/5
         public List<Tweet> Get(int id)
         {
-
             return repo.GetTweets(id);
         }
 
         // POST: api/Tweet
         [HttpPost]
         [Authorize]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Tweet message)
         {
-
+            repo.AddTweet(message);
         }
 
         // PUT: api/Tweet/5
@@ -43,8 +41,11 @@ namespace Tweeter.Controllers
         }
 
         // DELETE: api/Tweet/5
+        [HttpDelete]
+        [Authorize]
         public void Delete(int id)
         {
+            repo.RemoveTweet(id);
         }
     }
 }

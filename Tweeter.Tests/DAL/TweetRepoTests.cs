@@ -108,5 +108,13 @@ namespace Tweeter.Tests.DAL
             int actualtweets = repo.GetTweets().Count();
             Assert.AreEqual(expectedtweets, actualtweets);
         }
+        [TestMethod]
+        public void EnsureCanRemoveTweetByTweetId()
+        {
+            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
+            Assert.IsTrue(repo.GetTweets().Count() == 2);
+            repo.RemoveTweet(2);
+            Assert.IsTrue(repo.GetTweets().Count() == 1);
+        }
     }
 }

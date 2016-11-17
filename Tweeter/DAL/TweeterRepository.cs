@@ -87,5 +87,11 @@ namespace Tweeter.DAL
             Context.Tweets.Remove(tweet_to_delete);
             Context.SaveChanges();
         }
+        public void RemoveTweet(int id)
+        {
+            var TweetById = Context.Tweets.SingleOrDefault(tweet => tweet.TweetId == id);
+            Context.Tweets.Remove(TweetById);
+            Context.SaveChanges();
+        }
     }
 }

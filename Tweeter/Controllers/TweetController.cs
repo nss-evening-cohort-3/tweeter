@@ -32,9 +32,9 @@ namespace Tweeter.Controllers
         }
 
         // GET: api/Tweet/5
-        public string Get(int id)
+        public IEnumerable<Tweet> Get(int id)
         {
-            throw new NotImplementedException();
+            return repo.GetAllUserSpecificTweets(id);
         }
 
         // POST: api/Tweet

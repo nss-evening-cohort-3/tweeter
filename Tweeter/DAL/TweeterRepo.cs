@@ -86,5 +86,10 @@ namespace Tweeter.DAL
         {
             return Context.Tweets.ToList();
         }
+
+        public List<Tweet> GetAllUserSpecificTweets(int userId)
+        {
+            return Context.Tweets.Where(t => t.Author.TwitId == userId).ToList();
+        }
     }
 }

@@ -57,5 +57,19 @@ namespace Tweeter.DAL
             Twit query = Context.TweeterUsers.FirstOrDefault(n => n.TwitName.ToLower() == name);
             return query;
         }
+        public object GetTweets()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTweet(Tweet new_tweet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveTweet(Tweet last_tweet)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

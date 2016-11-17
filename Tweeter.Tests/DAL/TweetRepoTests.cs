@@ -22,15 +22,16 @@ namespace Tweeter.Tests.DAL
         public void ConnectToDatastore()
         {
             var query_tweets = tweets.AsQueryable();
-            Tweet new_tweet = new Tweet { };
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Provider).Returns(query_tweets.Provider);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.Expression).Returns(query_tweets.Expression);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.ElementType).Returns(query_tweets.ElementType);
             mock_tweets.As<IQueryable<Tweet>>().Setup(m => m.GetEnumerator()).Returns(() => query_tweets.GetEnumerator());
 
-            //mock_context.Setup(m => m.TweeterUsers).Returns(mock_tweets.Object);
+            mock_context.Setup(m => m.Tweets).Returns(mock_tweets.Object);
 
-            mock_tweets.Setup(t => t.Add(It.IsAny<Tweet>())).Callback((Tweet u) => tweets.Add(u));
+            mock_tweets.Setup(t => t.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
+            mock_tweets.Setup(t => t.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
+
 
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
@@ -61,6 +62,28 @@ namespace Tweeter.Tests.DAL
         public void TearDown()
         {
             repo = null;
+        }
+        [TestMethod]
+        public void EnsureContext()
+        {
+            Assert.IsNotNull(repo);
+        }
+        [TestMethod]
+        public void EnsureCanAddTweet()
+        {
+            Tweet new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
+            repo.AddTweet(new_tweet);
+            int expectedtweets = 1;
+            int actualtweets = repo.GetTweets().Count();
+        }
+        [TestMethod]
+        public void EnsureCanRemoveTweet()
+        {
+            Tweet new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
+            Tweet last_tweet = new Tweet { TweetId = 2, Message = "Go to hell, Bob." };
+            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
+            repo.RemoveTweet(last_tweet);
+            int expectedtweets = 1;
         }
     }
 }

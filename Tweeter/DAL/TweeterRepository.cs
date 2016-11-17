@@ -46,5 +46,28 @@ namespace Tweeter.DAL
             return false;
             
         }
+
+        public Tweet AddTweet(Tweet addedTweet)
+        {
+            return Context.Tweets.Add(addedTweet);
+            
+        }
+
+        public Tweet RemoveTweet(int TweetId)
+        {
+            var removedTweet = Context.Tweets.SingleOrDefault(m => m.TweetId == TweetId);
+            if (removedTweet != null)
+            {
+                Context.Tweets.Remove(removedTweet);
+                Context.SaveChanges();
+                return removedTweet;
+            }
+            return null;           
+        }
+
+        public List<Tweet> GetTweets()
+        {
+            return Context.Tweets.ToList();
+        }
     }
 }

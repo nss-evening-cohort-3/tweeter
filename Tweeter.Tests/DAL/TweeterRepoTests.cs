@@ -81,6 +81,8 @@ namespace Tweeter.Tests.DAL
 
             mock_context.Setup(c => c.Tweets).Returns(mock_tweets.Object);
             mock_tweets.Setup(u => u.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
+            mock_tweets.Setup(u => u.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
+
 
 
             /*
@@ -147,23 +149,53 @@ namespace Tweeter.Tests.DAL
             ConnectToDatastore();
 
             // Act
-            List<Tweet> tweets = Repo.AddTweet();
+            Assert.AreEqual(2, tweets.Count);
+
+            Tweet toAdd = new Tweet()
+            {
+                Message = "Yo, what's up"
+            };
+
+            Tweet addedTweet = Repo.AddTweet(toAdd);
 
             // Assert
-            Assert.AreEqual(2, tweets.Count);
-        }
+            Assert.AreEqual(3, tweets.Count);
+        }           
+
 
         [TestMethod]
         public void RepoEnsureTweetCanBeRemoved()
         {
-            // Assert
+            // Arrange
             ConnectToDatastore();
 
             // Act
-            List<Tweet> tweets = Repo.RemoveTweet();
+            Assert.AreEqual(2, tweets.Count);
+
+            Tweet removedTweet = Repo.RemoveTweet(1);
 
             // Assert
             Assert.AreEqual(1, tweets.Count);
+            Assert.AreEqual(removedTweet.TweetId, 1);
+        }
+
+        [TestMethod]
+        public void RepoEnsureCanGetAllTweets()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            List<Tweet> allTweets = Repo.GetTweets();
+
+            // Assert
+            Assert.AreEqual(2, allTweets.Count);
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+
         }
     }
 }

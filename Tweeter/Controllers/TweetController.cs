@@ -28,7 +28,7 @@ namespace Tweeter.Controllers
         */
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Tweet sentTweet)
         {
             //Tweet sentTweet = new Tweet { Message = value.Message, Author = new Twit ( userName = value.UserName )}; 
 

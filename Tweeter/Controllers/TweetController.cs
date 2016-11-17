@@ -32,7 +32,7 @@ namespace Tweeter.Controllers
         }
 
         // PUT: api/Tweet/5
-        public void Post(Tweet tweet)
+        public void Post([FromBody]Tweet tweet)
         {
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             Twit twit_author = repo.FindTwitBasedOnApplicationUser(user);

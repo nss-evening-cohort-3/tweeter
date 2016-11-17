@@ -61,6 +61,7 @@ namespace Tweeter.DAL
         public void AddTweet(Tweet tweet)
         {
             Context.Tweets.Add(tweet);
+            Context.SaveChanges();
         }
 
         public Tweet GetTweetById(int id)
@@ -71,6 +72,8 @@ namespace Tweeter.DAL
         public void DeleteSpecificTweet(Tweet tweet)
         {
             Context.Tweets.Remove(tweet);
+            Context.SaveChanges();
+
         }
 
         public void DeleteSpecificTweet(int id)
@@ -79,6 +82,8 @@ namespace Tweeter.DAL
             if (found_tweet != null)
             {
                 Context.Tweets.Remove(found_tweet);
+                Context.SaveChanges();
+
             }
         }
 

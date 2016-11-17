@@ -45,6 +45,11 @@ namespace Tweeter.DAL
             return false;
         }
 
+        public List<Tweet> GetTweets()
+        {
+            return Context.Tweets.ToList();
+        }
+
         public int AddTweet(Tweet sentTweet)
         {
             Context.Tweets.Add(sentTweet);

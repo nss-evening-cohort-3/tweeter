@@ -95,5 +95,17 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.AreEqual(3, removedTweetCount);
         }
+        [TestMethod]
+        public void Tweet_CanIGetAllTweets()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            List<Tweet> returnedTweets = Repo.GetTweets();
+
+            // Assert
+            Assert.AreEqual(2, returnedTweets.Count);
+        }
     }
 }

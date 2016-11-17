@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2 id="test">@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -12,16 +12,16 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus = "", id = "register-username" })
-            <span id="username-ans" class="glyphicon"></span>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", id = "register-username" })
         </div>
+        <span style="margin-left:-89px; margin-top:8px" id="username-ans" class="glyphicon"></span>
     </div>
     <div class="form-group">
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
         </div>
-    </div>    
+    </div>
     <div class="form-group">
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
@@ -33,13 +33,14 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="col-md-offset-2 col-md-1">
+            <input type="submit" id="register-submit" class="btn btn-default" value="Register" />
         </div>
+        <span id="submit-msg-area"></span>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")
 }

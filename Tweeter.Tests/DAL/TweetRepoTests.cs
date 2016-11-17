@@ -59,6 +59,7 @@ namespace Tweeter.Tests.DAL
             Joe = new Twit { TwitName = "Joe", TwitId = 1 };
             new_tweet = new Tweet { TweetId = 1, Message = "Hi, I'm Bob!" };
             last_tweet = new Tweet { TweetId = 2, Message = "Go to hell, Bob." };
+            tweets.Add(new_tweet);tweets.Add(last_tweet);
             ConnectToDatastore();
 
             /* 
@@ -85,7 +86,6 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanGetTweetByTweetId()
         {
-            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
             var tweet = repo.GetTweets(1);
             Console.WriteLine(tweet[0]);
             Assert.IsTrue(tweet[0].TweetId == 1);
@@ -94,15 +94,15 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanAddTweet()
         {
-            repo.AddTweet(new_tweet);
-            int expectedtweets = 1;
+            Tweet third_tweet = new Tweet { TweetId = 3, Message = "Rude! I prefer civil discourse in 140 characters or less."};
+            repo.AddTweet(third_tweet);
+            int expectedtweets = 3;
             int actualtweets = repo.GetTweets().Count();
             Assert.AreEqual(expectedtweets, actualtweets);
         }
         [TestMethod]
         public void EnsureCanRemoveTweet()
         {
-            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
             repo.RemoveTweet(last_tweet);
             int expectedtweets = 1;
             int actualtweets = repo.GetTweets().Count();
@@ -111,7 +111,6 @@ namespace Tweeter.Tests.DAL
         [TestMethod]
         public void EnsureCanRemoveTweetByTweetId()
         {
-            repo.AddTweet(new_tweet); repo.AddTweet(last_tweet);
             Assert.IsTrue(repo.GetTweets().Count() == 2);
             repo.RemoveTweet(2);
             Assert.IsTrue(repo.GetTweets().Count() == 1);

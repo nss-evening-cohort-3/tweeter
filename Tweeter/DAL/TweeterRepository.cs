@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,10 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository()
+        {
+            Context = new TweeterContext();
+        }
 
         public List<string> GetUsernames()
         {
@@ -28,15 +32,6 @@ namespace Tweeter.DAL
 
         public bool UsernameExists(string v)
         {
-            // Works if mocked the UserManager
-            /*
-            if (Context.Users.Any(u => u.UserName.Contains(v)))
-            {
-                return true;
-            }
-            return false;
-            */
-            
             Twit found_twit = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
             if (found_twit != null)
             {
@@ -44,8 +39,8 @@ namespace Tweeter.DAL
             }
 
             return false;
-            
         }
+
 
         public void AddTweet(Tweet a_tweet)
         {

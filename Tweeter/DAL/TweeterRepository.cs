@@ -79,5 +79,10 @@ namespace Tweeter.DAL
             }
             return found_tweet;
         }
+
+        public List<Tweet> GetTweets()
+        {
+            return Context.Tweets.ToList();
+        }
     }
 }

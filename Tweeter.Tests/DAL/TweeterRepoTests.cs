@@ -179,18 +179,42 @@ namespace Tweeter.Tests.DAL
                 CreatedAt = DateTime.Now,
                 Author = new Twit { TwitId = 3, BaseUser = new ApplicationUser { UserName = "jcockhren" } }
             };
+            Tweet another_tweet = new Tweet
+            {
+                TweetId = 4,
+                Message = "my message",
+                CreatedAt = DateTime.Now,
+                Author = new Twit { TwitId = 4, BaseUser = new ApplicationUser { UserName = "sallym" } }
+            };
             Repo.AddTweet(a_tweet);
+            Repo.AddTweet(another_tweet);
 
             // Act
 
             Tweet removed_tweet = Repo.RemoveTweet(3);
 
-            int expected_tweets = 0;
+            int expected_tweets = 1;
             int actual_tweets = Repo.Context.Tweets.Count();
 
             // Assert
             Assert.AreEqual(expected_tweets, actual_tweets);
             Assert.IsNotNull(removed_tweet);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanGetTweets()
+        {
+            // Arrange
+            ConnectToDatastore();
+            Repo.AddTweet("sallym", "my tweet!!!!");
+            
+            // Act
+
+            int expected_tweets = 1;
+            int actual_tweets = Repo.GetTweets().Count();
+
+            // Assert
+            Assert.AreEqual(expected_tweets, actual_tweets);
         }
     }
 }

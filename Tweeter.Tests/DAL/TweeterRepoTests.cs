@@ -168,5 +168,21 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.IsFalse(tweets.Contains(newTweet));
         }
+
+        [TestMethod]
+        public void CanIGetTweets()
+        {
+            // Arrange
+            TweeterRepository repo = new TweeterRepository(mock_context.Object);
+            ConnectToDatastore();
+
+            // Act
+           List<Tweet> myTweets = repo.GetTweets();
+
+
+            //Assert
+            Assert.AreEqual(myTweets.Count, 2);
+
+        }
     }
 }

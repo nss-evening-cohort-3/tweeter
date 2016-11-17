@@ -58,5 +58,10 @@ namespace Tweeter.DAL
             Context.Tweets.Add(newTweet);
             Context.SaveChanges();
         }
+
+        public List<Tweet> GetTweets()
+        {
+            return Context.Tweets.ToList();
+        }
     }
 }

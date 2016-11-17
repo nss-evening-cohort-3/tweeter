@@ -1,26 +1,40 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using Tweeter.DAL;
+using Tweeter.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Tweeter.Models;
 
 namespace Tweeter.Controllers
 {
     public class TweetController : ApiController
     {
         TweeterRepo repo = new TweeterRepo();
+        ApplicationUserManager userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
         // GET: api/Tweet
-        public IEnumerable<string> Get()
+        public IEnumerable<Tweet> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repo.GetAllTweets();
         }
 
         // GET: api/Tweet/5
         public string Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
         // POST: api/Tweet
@@ -29,13 +43,30 @@ namespace Tweeter.Controllers
         }
 
         // PUT: api/Tweet/5
-        public void Put(int id, [FromBody]string value)
+        public void Add(Tweet tweet)
         {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Twit twit_author = repo.FindTwitBasedOnApplicationUser(user);
+            tweet.Author = twit_author;
+            tweet.CreatedAt = DateTime.Now;
+            repo.AddTweet(tweet);
         }
 
         // DELETE: api/Tweet/5
         public void Delete(int id)
         {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Twit twit_author = repo.FindTwitBasedOnApplicationUser(user);
+
+            Tweet tweet_to_delete = repo.GetTweetById(id);
+            if (tweet_to_delete.Author == twit_author)
+            {
+                repo.DeleteSpecificTweet(id);
+            }
+            else
+            {
+                throw new Exception("User is not logged in");
+            }
         }
     }
 }

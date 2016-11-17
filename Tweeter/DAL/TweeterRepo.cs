@@ -46,9 +46,26 @@ namespace Tweeter.DAL
             }
         }
 
+        public Twit FindTwitBasedOnApplicationUser(ApplicationUser user)
+        {
+            Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUser == user);
+            if (found_twit != null)
+            {
+                return found_twit;
+            } else
+            {
+                return null;
+            }
+        }
+
         public void AddTweet(Tweet tweet)
         {
             Context.Tweets.Add(tweet);
+        }
+
+        public Tweet GetTweetById(int id)
+        {
+            return Context.Tweets.FirstOrDefault(t => t.TweetId == id);
         }
 
         public void DeleteSpecificTweet(Tweet tweet)

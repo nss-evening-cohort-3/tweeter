@@ -10,7 +10,6 @@ namespace Tweeter.Controllers
 {
     public class TwitUsernameController : ApiController
     {
-        Random random = new Random();
         TweeterRepository repo = new TweeterRepository();
 
         // GET api/<controller>
@@ -20,19 +19,11 @@ namespace Tweeter.Controllers
         }
 
         // GET api/<controller>/5
-        public Dictionary<string,bool> Get(string candidate)
+        public Dictionary<string, bool> Get(string candidate)
         {
-            /*
-             { "exists": true}
-            */
-            int item = random.Next(0, 2);
-            bool[] options = new [] { true, false }; 
             Dictionary<string, bool> answer = new Dictionary<string, bool>();
-            //answer.Add("exists", repo.UsernameExists(candidate));
-            answer.Add("exists", options[item]);
+            answer.Add("exists", repo.UsernameExists(candidate));
             return answer;
-
         }
-
     }
 }

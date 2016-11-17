@@ -8,9 +8,12 @@
     }).success(function (response) {
         console.log(response.exists);
         if (!response.exists) {
-            $("#username-ans").addClass("glyphicon-ok");
-        } else {
+            
             $("#username-ans").addClass("glyphicon-remove");
+            $("#submit").attr("disable", "disable");
+        } else {
+            $("#username-ans").addClass("glyphicon-ok");
+            $("#submit").removeAttr("disable");
         }
     }).fail(function (error) {
         console.log(error);

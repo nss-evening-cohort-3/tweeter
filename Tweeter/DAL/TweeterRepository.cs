@@ -14,7 +14,9 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository() {
+            Context = new TweeterContext();
+        }
 
         public List<string> GetUsernames()
         {

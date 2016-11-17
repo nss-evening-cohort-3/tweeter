@@ -168,7 +168,7 @@ namespace Tweeter.Tests.DAL
         {
             
 
-            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hi" };
+            Tweet tweet1 = new Tweet { TweetId = 1, Message = "Hi"};
             Tweet tweet2 = new Tweet { TweetId = 2, Message = "Yo" };
             Repo.Add(tweet1);
             Repo.Add(tweet2);

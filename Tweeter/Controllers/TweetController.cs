@@ -12,7 +12,7 @@ namespace Tweeter.Controllers
     public class TweetController : ApiController
     {
         // GET: api/Tweet
-        public List<Tweet> Get()
+        public IEnumerable<Tweet> Get()
         {
             TweeterRepository repo = new TweeterRepository();
             List<Tweet> all_tweets = repo.GetAllTweets();

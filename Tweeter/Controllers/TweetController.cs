@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Tweeter.DAL;
 using Tweeter.Models;
+using static Tweeter.Models.TweeterViewModels;
 
 namespace Tweeter.Controllers
 {
@@ -26,9 +28,24 @@ namespace Tweeter.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]Tweet new_tweet)
+        public void Post([FromBody]TweetViewModel tweet)
         {
-            Repo.AddTweet(new_tweet);
+            
+            if (ModelState.IsValid && User.Identity.IsAuthenticated)
+            {
+                string user_id = User.Identity.GetUserId();
+                ApplicationUser found_app_user = Repo.Context.Users.FirstOrDefault(u => u.Id == user_id);
+                Twit found_user = Repo.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
+                Tweet new_tweet = new Tweet
+                {
+                    Message = tweet.Message,
+                    ImageURL = tweet.ImageURL,
+                    Author = found_user,
+                    CreatedAt = DateTime.Now
+                };
+                Repo.AddTweet(new_tweet);
+            }
+            
         }
 
         // PUT api/<controller>/5

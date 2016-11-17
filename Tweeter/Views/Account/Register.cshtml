@@ -2,44 +2,41 @@
 @{
     ViewBag.Title = "Register";
 }
-
 <h2>@ViewBag.Title.</h2>
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-10">
+    <div class="form-group form-group__input--username">
+        <div class="col-md-12">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus = "", id = "register-username" })
-            <span id="username-ans" class="glyphicon"></span>
+            <span id="username-help-block" class="help-block hidden">Username already exists, please select another.</span>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-        </div>
-    </div>    
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control col-md-12", placeholder = "Email" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+        <div class="col-md-12">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control col-md-12", placeholder = "Password" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" id="submit" class="btn btn-default" value="Register" />
+        <div class="col-md-12">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control col-md-12", placeholder = "Confirm Password" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-default button__registration--submit disabled" value="Register" />
         </div>
     </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")
 }

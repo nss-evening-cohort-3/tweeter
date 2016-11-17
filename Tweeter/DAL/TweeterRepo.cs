@@ -59,7 +59,15 @@ namespace Tweeter.DAL
         public void DeleteSpecificTweet(int id)
         {
             Tweet found_tweet = Context.Tweets.FirstOrDefault(t => t.TweetId == id);
-            Context.Tweets.Remove(found_tweet);
+            if (found_tweet != null)
+            {
+                Context.Tweets.Remove(found_tweet);
+            }
+        }
+
+        public List<Tweet> GetAllTweets()
+        {
+            return Context.Tweets.ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    margin-top: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,18 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+}
+
+.jumbo__hr {
+    width:33.33333%;
+    margin: 18px, auto, 18px, auto;
 }

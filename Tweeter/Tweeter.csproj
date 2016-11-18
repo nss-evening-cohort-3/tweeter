@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TweetController.cs" />
     <Compile Include="Controllers\TweeterController.cs" />
     <Compile Include="Controllers\TwitUsernameController.cs" />
     <Compile Include="DAL\TweeterContext.cs" />
@@ -190,6 +191,14 @@
     <Compile Include="Migrations\201611100257595_InitialCreate.cs" />
     <Compile Include="Migrations\201611100257595_InitialCreate.Designer.cs">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611182010026_UpdatedIdentity.cs" />
+    <Compile Include="Migrations\201611182010026_UpdatedIdentity.Designer.cs">
+      <DependentUpon>201611182010026_UpdatedIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.cs" />
+    <Compile Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.Designer.cs">
+      <DependentUpon>201611182015235_UpdatedIdentityToRemoveEmailUsername.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -285,6 +294,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611100257595_InitialCreate.resx">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611182010026_UpdatedIdentity.resx">
+      <DependentUpon>201611182010026_UpdatedIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.resx">
+      <DependentUpon>201611182015235_UpdatedIdentityToRemoveEmailUsername.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

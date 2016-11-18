@@ -192,6 +192,14 @@
     <Compile Include="Migrations\201611100257595_InitialCreate.Designer.cs">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611182010026_UpdatedIdentity.cs" />
+    <Compile Include="Migrations\201611182010026_UpdatedIdentity.Designer.cs">
+      <DependentUpon>201611182010026_UpdatedIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.cs" />
+    <Compile Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.Designer.cs">
+      <DependentUpon>201611182015235_UpdatedIdentityToRemoveEmailUsername.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -286,6 +294,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611100257595_InitialCreate.resx">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611182010026_UpdatedIdentity.resx">
+      <DependentUpon>201611182010026_UpdatedIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611182015235_UpdatedIdentityToRemoveEmailUsername.resx">
+      <DependentUpon>201611182015235_UpdatedIdentityToRemoveEmailUsername.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

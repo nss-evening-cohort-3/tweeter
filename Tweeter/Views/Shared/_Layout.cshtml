@@ -17,14 +17,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <div class="navbar-left">
-                    <button class="glyphicon glyphicon-search"></button> <input type="search" value="search" />
-                </div>
-                @Html.Partial("_LoginPartial")
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="input-group col-xs-3">
+                        <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
+                        <span class="input-group-addon btn" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                    </div>
+                    <div class="col-sm-offset-10">
+                        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="container body-content">

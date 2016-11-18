@@ -30,10 +30,17 @@ namespace Tweeter.Controllers
         // POST api/<controller>
         public void Post([FromBody]Tweet sentTweet)
         {
-            //Tweet sentTweet = new Tweet { Message = value.Message, Author = new Twit ( userName = value.UserName )}; 
-
-            //int updatedTweetCount = apiTweeterController.AddTweet(sentTweet);
-
+            if (ModelState.IsValid && User.Identity.IsAuthenticated)
+            {
+                Tweet new_tweet = new Tweet
+                {
+                    Message = sentTweet.Message,
+                    ImageURL = sentTweet.ImageURL,
+                    CreatedAt = DateTime.Now,
+                    Author = // Need the Twit,
+                };
+                apiTweeterController.AddTweet(new_tweet);
+            }
         }
 
         // PUT api/<controller>/5

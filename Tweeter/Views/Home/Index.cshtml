@@ -1,8 +1,29 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<div class="jumbotron">
-    <a href="/Account/Register">
-        <button class="btn btn-default col-xs-3 col-sm-offset-5">Join!!</button>
-    </a>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="row">
+                    <p>Col #1 Row #1</p>
+                </div>
+                <div class="row">
+                    <p>Col #1 Row #1</p>
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <p>Col #2</p>
+            </div>
+        </div>
+        <p>You are logged-in!</p>
+    </div>
+} else
+{
+    <div class="jumbotron">
+        <a href="/Account/Register">
+            <button class="btn btn-default col-xs-3 col-sm-offset-5">Join!!</button>
+        </a>
+    </div>
+}

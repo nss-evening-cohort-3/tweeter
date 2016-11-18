@@ -25,7 +25,17 @@
                         <span class="input-group-addon btn" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
                     </div>
                     <div class="col-sm-offset-10">
-                        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            }
+                        } else
+                        {
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        }
                     </div>
                 </li>
             </ul>

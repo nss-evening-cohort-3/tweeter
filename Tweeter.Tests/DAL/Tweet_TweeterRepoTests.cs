@@ -79,10 +79,10 @@ namespace Tweeter.Tests.DAL
             };
 
             // Act
-            int returnedTweetCount = Repo.AddTweet(testTweet);
+            Repo.AddTweet(testTweet);
 
             // Assert
-            Assert.AreEqual(3, returnedTweetCount);
+            Assert.AreEqual(3, tweets.Count);
         }
         [TestMethod]
         public void Tweet_CanIRemoveATweet()
@@ -91,10 +91,10 @@ namespace Tweeter.Tests.DAL
             ConnectToDatastore();
 
             // Act
-            int removedTweetCount = Repo.RemoveTweet(2);
+            Tweet removedTweetCount = Repo.RemoveTweet(2);
 
             // Assert
-            Assert.AreEqual(1, removedTweetCount);
+            Assert.IsNotNull(removedTweetCount);
         }
         [TestMethod]
         public void Tweet_CanIGetAllTweets()

@@ -24,17 +24,13 @@ namespace Tweeter.Controllers
         // POST api/<controller>
         public void Post([FromBody]TweetViewModel tweet)
         {
-            
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
-                string user_id = User.Identity.GetUserId();
-                ApplicationUser found_app_user = apiTweeterController.Context.Users.FirstOrDefault(u => u.Id == user_id);
-                Twit found_user = apiTweeterController.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
                 Tweet new_tweet = new Tweet
                 {
                     Message = tweet.Message,
                     ImageURL = tweet.ImageURL,
-                    Author = found_user,
+                    Author = apiTweeterController.FindTwitUser(User.Identity.GetUserId()),
                     CreatedAt = DateTime.Now
                 };
                 apiTweeterController.AddTweet(new_tweet);

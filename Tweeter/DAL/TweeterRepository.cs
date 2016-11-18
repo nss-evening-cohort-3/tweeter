@@ -45,30 +45,42 @@ namespace Tweeter.DAL
             return false;
         }
 
+        public void AddTweet(Tweet a_tweet)
+        {
+            Context.Tweets.Add(a_tweet);
+            Context.SaveChanges();
+        }
+
+        public void AddTweet(string username, string tweet_message)
+        {
+            Twit found_twit = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName == username);
+            if (found_twit != null)
+            {
+                Tweet new_tweet = new Tweet
+                {
+                    Message = tweet_message,
+                    CreatedAt = DateTime.Now,
+                    Author = found_twit
+                };
+                Context.Tweets.Add(new_tweet);
+                Context.SaveChanges();
+            }
+        }
+
+        public Tweet RemoveTweet(int tweet_id)
+        {
+            Tweet found_tweet = Context.Tweets.FirstOrDefault(t => t.TweetId == tweet_id);
+            if (found_tweet != null)
+            {
+                Context.Tweets.Remove(found_tweet);
+                Context.SaveChanges();
+            }
+            return found_tweet;
+        }
+
         public List<Tweet> GetTweets()
         {
             return Context.Tweets.ToList();
         }
-
-        public int AddTweet(Tweet sentTweet)
-        {
-            Context.Tweets.Add(sentTweet);
-            Context.SaveChanges();
-
-            return Context.Tweets.ToList().Count;
-        }
-        public int RemoveTweet(int sentTweetId)
-        {
-            var selectedTweet = Context.Tweets.Where(t => t.TweetId == sentTweetId).FirstOrDefault();
-
-            if (selectedTweet != null)
-            {
-                Context.Tweets.Remove(selectedTweet);
-                Context.SaveChanges();
-            }
-
-            return Context.Tweets.ToList().Count;
-        }
-
     }
 }

@@ -2,12 +2,12 @@
     ViewBag.Title = "Home Page";
 }
 
-<div ng-app="app">
+<div ng-app="TweeterApp">
     <div class="row" ng-controller="TweetController">
-        <div class="col-md-4" ng-repeat="Tweet in Tweets">
-            <h2>Tweets</h2>
+        <h2>Tweets</h2>
+        <div class="col-md-4" ng-repeat="tweet in tweets">         
             <p>
-                ASP.NET MVC
+               
             </p>
             <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
         </div>

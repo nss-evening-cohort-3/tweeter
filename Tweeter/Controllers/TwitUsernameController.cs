@@ -11,8 +11,6 @@ namespace Tweeter.Controllers
     public class TwitUsernameController : ApiController
     {
         TweeterRepo repo = new TweeterRepo();
-        Random rand = new Random();
-
 
         // GET: api/TwitUsername
 
@@ -24,17 +22,15 @@ namespace Tweeter.Controllers
         // GET: api/TwitUsername/5
         public Dictionary<string, bool> Get(string usernameCandidate)
         {
-            int randomInt = rand.Next(0, 2);
-            bool[] options = new bool[] { true, false };
             Dictionary<string, bool> answer = new Dictionary<string, bool>();
-            answer.Add("exists", options[randomInt]);
-            //answer.Add("exists", repo.UsernameExists(usernameCandidate));
+            answer.Add("exists", repo.UsernameExists(usernameCandidate));
             return answer;
         }
 
         // POST: api/TwitUsername
         public void Post([FromBody]string value)
         {
+
         }
 
         // PUT: api/TwitUsername/5

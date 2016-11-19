@@ -12,7 +12,7 @@
     <div class="form-group form-group__input--username">
         <div class="col-md-12">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus = "", id = "register-username" })
-            <span id="username-help-block" class="help-block hidden">Username already exists, please select another.</span>
+            <span id="username-help-block" class="form-control-feedback hidden-xs-up">Username already exists, please select another.</span>
         </div>
     </div>
     <div class="form-group">

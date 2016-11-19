@@ -40,7 +40,6 @@ textarea {
 }
 
 .image__tweet {
-    margin:0px 0px 0px 0px;
     max-width: 100%;
     max-height: 40%;
     border-radius: .20rem;
@@ -57,13 +56,13 @@ textarea {
 
 .user__profile__card--upper {
     background-color: #337AB7;
-    border-radius: .25rem .25rem 0rem 0rem;
+    border-radius: .25rem .25rem 0 0;
 }
 
 .user__profile__card--bottom {
     background-color: white;
     border: 2px solid #337AB7;
-    border-radius: 0rem 0rem .25rem .25rem;
+    border-radius: 0 0 .25rem .25rem;
     color: #337AB7;
 }
 

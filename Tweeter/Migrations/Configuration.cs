@@ -4,7 +4,6 @@ namespace Tweeter.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Tweeter.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Tweeter.DAL.TweeterContext>
     {

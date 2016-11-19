@@ -1,10 +1,10 @@
 ﻿let showUsernameInputValidStyling = () => {
-    $('#username-help-block').addClass('hidden');
+    $('#username-help-block').addClass('hidden-xs-up');
     $('.form-group__input--username').addClass('has-success');
 };
 let showUsernameInputErrorStyling = () => {
-    $('#username-help-block').removeClass('hidden');
-    $('.form-group__input--username').addClass('has-error');
+    $('#username-help-block').removeClass('hidden-xs-up');
+    $('.form-group__input--username').addClass('has-danger');
 };
 
 let disableRegisterSubmitButton = () => {
@@ -27,11 +27,11 @@ $("#register-username").focusout(function () {
 
 $("#register-username")
     .keyup(function () {
-        $('.form-group__input--username').removeClass('has-success has-error');
+        $('.form-group__input--username').removeClass('has-success has-danger');
         $.ajax({
-            url: `/api/TwitUsername?candidate=${$(this).val()}`,
+            url: '/api/TwitUsername?candidate=' + $(this).val(),
             method: 'GET'
-        }).success(function (response) {
+        }).done(function (response) {
             if (!response.exists) {
                 showUsernameInputValidStyling();
                 enableRegisterSubmitButton();
@@ -42,4 +42,4 @@ $("#register-username")
         }).fail(function (error) {
             console.log(error);
         });
-    })
+    });

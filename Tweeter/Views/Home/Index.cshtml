@@ -1,19 +1,46 @@
-﻿@{
+﻿@model Tweeter.Models.Tweet
+@{
     ViewBag.Title = "Home Page";
 }
 @{ 
-    if(ViewContext.HttpContext.User.Identity.IsAuthenticated)
+    if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
     {
         ViewBag.IsAuthed = true;
     }
 }
 
-@if(!User.Identity.IsAuthenticated)
-{
-<div class="jumbotron vertical-center splash" style="@(ViewBag.IsAuthed ? "display:block": "display:hidden")">
-    <div class="container">
+<div class="container">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="jumbotron vertical-center splash" style="@(ViewBag.IsAuthed ? "display:block" : "display:hidden")">
+            <div class="container">
 
-        <div class="center-block"><button type="button" class="btn btn-info btn-xl" name="join" id="button-join">Join Now!</button></div>
+                <div class="center-block"><button type="button" class="btn btn-info btn-xl" name="join" id="button-join">Join Now!</button></div>
+            </div>
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-8">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="input-group">
+                    <div class="compose-box input-group">
+                        @Html.TextBoxFor(t => t.Message, new { @class = "form-control", placeholder = "Say something trite!", id = "form-compose-tweet" })
+                        <span class="input-group-addon" id="basic-addon1">+</span>
+                    </div>
+                </div>
+            }
+            <div class="tweet-list">
+                @* Would it make sense to do unordered list? *@
+                <ul>
+                    @foreach (var tweet in Model)
+                    {
+
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
-}

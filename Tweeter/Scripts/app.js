@@ -1,5 +1,5 @@
 ﻿$("#register-username").keyup(function () {
-    //$("form").submit(true);
+    $("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
     $.ajax({
@@ -8,17 +8,18 @@
     }).success(function (response) {
         console.log(response.exists);
         if (!response.exists) {
-            $("#submit").attr("disabled", "disabled");
-            $("#username-ans").addClass("glyphicon-remove");
-            
-        } else {
             $("#submit").removeAttr("disabled");
             $("#username-ans").addClass("glyphicon-ok");
+        } else {
+            $("#submit").attr("disabled", "disabled");
+            $("#username-ans").addClass("glyphicon-remove");
         }
     }).fail(function (error) {
         console.log(error);
     });
 });
+
+
 
 
 

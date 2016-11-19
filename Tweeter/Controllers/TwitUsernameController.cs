@@ -25,11 +25,11 @@ namespace Tweeter.Controllers
             /*
              { "exists": true}
             */
-            int item = random.Next(0, 2);
-            bool[] options = new [] { true, false }; 
+            //int item = random.Next(0, 2);
+            //bool[] options = new [] { true, false }; 
             Dictionary<string, bool> answer = new Dictionary<string, bool>();
-            //answer.Add("exists", repo.UsernameExists(candidate));
-            answer.Add("exists", options[item]);
+            answer.Add("exists", repo.UsernameExists(candidate));
+            //answer.Add("exists", options[item]);
             return answer;
 
         }

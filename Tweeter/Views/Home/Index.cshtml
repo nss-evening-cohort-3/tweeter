@@ -2,30 +2,105 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@using Microsoft.AspNet.Identity
+@if (!Request.IsAuthenticated)
+{
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid text-xs-center">
+        <h1 class="display-3 col-lg-12">Fancy logo</h1>
+        <div class="col-lg-12">           
+            <hr class="jumbotron-hr jumbo__hr" />
+        </div>
+        <div class="col-lg-12">
+            <a href="../Account/Register/">
+                <button class="btn btn-primary btn-lg">Join</button>
+            </a>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+@* *@
+<div class="container-fluid text-xs-center">
+    <div class="col-lg-12 text-sm-center"> 
+        <button class="btn-primary btn col-sm-12 col-lg-4 push-lg-4">
+            Compose
+            <span class="button__icon hidden-sm-down">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </span>
+        </button>       
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-xs-12 col-lg-6 push-lg-3 tweet-container">
+        <div class="card card__tweet">
+            <img class="image__tweet" src="~/Content/Images/placeholder.png" alt="Tweet image">
+            <div class="card-block">
+                <p class="card-text">Someone threw my helmet in with the reds!</p>
+                <hr />
+                <div class="col-xs-12">
+                    <div class="row text-center">
+                        <div class="col-xs-3"><span class="fa fa-heart"></span></div>
+                        <div class="col-xs-3"><span class="fa fa-reply"></span></div>
+                        <div class="col-xs-3"><span class="fa fa-share"></span></div>
+                        <div class="col-xs-3"><span class="fa fa-flag"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+}
+else
+{
+    <div class="container-fluid" ng-controller="tweetController" ng-init="getAllTweets()">
+        <div class="row">
+            <div class="col-lg-3 col-xs-12">
+                <div class="row">
+                    <div class="text-center col-md-12 user__profile__card--upper">
+                        <img src="~/Content/Images/anon-lady.png" />
+                    </div>
+                    <div class="col-md-12 text-left user__profile__card--bottom">
+                        <h3>SampleWoman123</h3>
+                        <p>203 Followers</p>
+                    </div>
+                    <br />
+                    <div class="col-xs-12 user__tweet__box">
+                        Here's a box with trending tweets or something inside of it.
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-xs-12">
+                <div class="container-fluid text-xs-center">
+                    <div class="col-xs-12">
+                        <button class="btn-primary btn col-xs-12 col-lg-4 push-lg-4">
+                            Compose<span class="button__icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-lg-10 push-lg-1">
+                        <div class="col-xs-12 col-lg-10 push-lg-1 tweet-container">
+
+
+
+                            <div class="card card__tweet" ng-repeat="tweet in tweetsToDisplay">
+                                <img class="image__tweet" ng-hide='tweet.ImageURL == null' ng-src={{tweet.ImageURL}} alt="Tweet image">
+                                <div class="card-block">
+                                    <p class="card-text">{{tweet.Message}}</p>
+                                    <hr />
+                                    <div class="col-xs-12">
+                                        <div class="row text-center">
+                                            <div class="col-xs-3"><span class="fa fa-heart"></span></div>
+                                            <div class="col-xs-3"><span class="fa fa-reply"></span></div>
+                                            <div class="col-xs-3"><span class="fa fa-share"></span></div>
+                                            <div class="col-xs-3"><span class="fa fa-flag"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

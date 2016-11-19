@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    margin-top: 15px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,54 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.jumbo__hr {
+    width:33.33333%;
+    margin: 18px, auto, 18px, auto;
+}
+
+.tweet-container {
+    margin: 20px 0px 20px 0px;
+    padding: 0px;
+}
+
+.card__tweet {
+    border:2px solid #337AB7;
+    background-color: aliceblue;
+}
+
+.image__tweet {
+    max-width: 100%;
+    max-height: 40%;
+    border-radius: .20rem;
+}
+
+.nav__input-container {
+    max-width : 300px;
+}
+
+.placeholder-tweet-message-container-class {
+    margin-top: 15px;
+    padding-top: 5px;
+}
+
+.user__profile__card--upper {
+    background-color: #337AB7;
+    border-radius: .25rem .25rem 0 0;
+}
+
+.user__profile__card--bottom {
+    background-color: white;
+    border: 2px solid #337AB7;
+    border-radius: 0 0 .25rem .25rem;
+    color: #337AB7;
+}
+
+.user__profile__card--upper img {
+    max-width: 80%;
+}
+
+.button__icon {
+    margin-left: 60%;
 }

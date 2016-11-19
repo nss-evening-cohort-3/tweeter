@@ -4,6 +4,7 @@ namespace Tweeter.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Tweeter.DAL.TweeterContext>
     {
@@ -14,18 +15,14 @@ namespace Tweeter.Migrations
 
         protected override void Seed(Tweeter.DAL.TweeterContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.TweeterUsers.AddOrUpdate(
+                t => t.TwitName,
+                new Models.Twit { TwitId = 1, TwitName = "Bob" },
+                new Models.Twit { TwitId = 2, TwitName = "Joe" });
+            context.Tweets.AddOrUpdate(
+                tweet => tweet.TweetId,
+                new Models.Tweet { TweetId = 1, TwitName = new Models.Twit { TwitId = 1, TwitName = "Bob" }, Message = "Hi, I'm Bob!" },
+                new Models.Tweet { TweetId = 2, TwitName = new Models.Twit { TwitId = 2, TwitName = "Joe" }, Message = "Go to hell, Bob." });
         }
     }
 }

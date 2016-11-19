@@ -9,9 +9,9 @@ namespace Tweeter.Models
     {
         public int TweetId { get; set; }
         public string Message { get; set; }
-        public Twit Author { get; set; } // How do I say 'Twit User'?
+        public virtual Twit TwitName { get; set; } // How do I say 'Twit User'?
         public string ImageURL { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public List<Tweet> Replies { get; set; } // Self referential
+        //public DateTime CreatedAt { get; set; }
+        public List<Twit> Replies { get; set; } // Self referential
     }
 }

@@ -1,4 +1,11 @@
-﻿$("#register-username").keyup(function () {
+﻿$.ajax({
+    url: "/api/Tweet/",
+    method: 'GET'
+}).success(function (response) {
+    console.log(response);
+});
+console.log('hi');  
+$("#register-username").keyup(function () {
     $("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");

@@ -6,19 +6,22 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Tweeter.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Tweeter.DAL;
 
 namespace Tweeter.Controllers
 {
     public class HomeController : Controller
     {
         protected ApplicationDbContext ApplicationDbContext { get; set; }
-        bool isAuthed;
-        
+        TweeterRepository repo = new TweeterRepository();
 
         public ActionResult Index()
         {
             this.ApplicationDbContext = new ApplicationDbContext();
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ViewBag.IsAuthed = true;
             }
@@ -26,6 +29,7 @@ namespace Tweeter.Controllers
             {
                 ViewBag.IsAuthed = false;
             }
+            ViewBag.Tweets = repo.GetTweets();
             return View();
         }
 

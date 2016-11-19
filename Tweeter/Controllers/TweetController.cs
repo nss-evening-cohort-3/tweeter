@@ -39,8 +39,8 @@ namespace Tweeter.Controllers
                 {
                     Message = tweet.Message,
                     ImageURL = tweet.ImageURL,
-                    Author = found_user,
-                    CreatedAt = DateTime.Now
+                    TwitName = found_user
+                    //CreatedAt = DateTime.Now
                 };
                 Repo.AddTweet(new_tweet);
             }

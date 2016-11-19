@@ -1,4 +1,11 @@
-﻿$("#register-username").keyup(function () {
+﻿$("#homeIndex").load(function () {
+    console.log("document.ready");
+
+})
+
+
+
+$("#register-username").keyup(function () {
     //$("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
@@ -19,6 +26,8 @@
         console.log(error);
     });
 });
+
+
 
 
 

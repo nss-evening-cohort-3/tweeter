@@ -4,34 +4,36 @@
 
 @*@if (User.Identity.IsAuthenticated)
 {*@
-    <div style="margin-top:50px">
-        <div class="col-md-3" style="border:1px solid lightgrey" id="prof_box">
-            <img src="https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" />
-            <p>Username:</p>
-            <p>Followers:</p>
+    <div id="homeView">
+        <div style="margin-top:50px">
+            <div class="col-md-3" style="border:1px solid lightgrey" id="prof_box">
+                <img src="https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" />
+                <p>Username:</p>
+                <p>Followers:</p>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <div id="compose">
-            @Html.TextArea("_compose", "", new { placeholder = "Compose", @class="new_tweet_input" })
-            <button class="btn btn-primary btn-sm">+</button>
+        <div class="col-md-6 col-md-offset-2">
+            <div id="compose">
+                @Html.TextArea("_compose", "", new { placeholder = "Compose", @class = "new_tweet_input" })
+                <button class="btn btn-primary btn-sm">+</button>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4 col-md-offset-1" style="border:2px solid black" id="all_tweets">
-        <img src="https://makinggoodhumans.files.wordpress.com/2016/02/twitter-feather.jpg" />
-        <p>TWEET HERE</p>
-        <div style="border:1px solid lightgrey">
-              <button class="glyphicon glyphicon-retweet"></button>
-              <button class="glyphicon glyphicon-share-alt"></button>
+        <div class="col-md-4 col-md-offset-1" style="border:2px solid black" id="all_tweets">
+            <img src="https://makinggoodhumans.files.wordpress.com/2016/02/twitter-feather.jpg" />
+            <p>TWEET HERE</p>
+            <div style="border:1px solid lightgrey">
+                <button class="glyphicon glyphicon-retweet"></button>
+                <button class="glyphicon glyphicon-share-alt"></button>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-3" style="border:1px solid lightgrey" id="todays_twits">
-        <h2>Today's Twits</h2>
-        <p>Lorem Ipsum Veritae Veritus Nomine Ipso Facto Blah Blah Blah Blah Blah</p>
-    </div>
-    
-    <div class="col-lg-4 col-md-offset-1" style="border:1px solid lightgrey" id="more_tweets">
-        <button class="glyphicon glyphicon-chevron-down"></button>
+        <div class="col-lg-3" style="border:1px solid lightgrey" id="todays_twits">
+            <h2>Today's Twits</h2>
+            <p>Lorem Ipsum Veritae Veritus Nomine Ipso Facto Blah Blah Blah Blah Blah</p>
+        </div>
+
+        <div class="col-lg-4 col-md-offset-1" style="border:1px solid lightgrey" id="more_tweets">
+            <button class="glyphicon glyphicon-chevron-down"></button>
+        </div>
     </div>
 @*}
 else

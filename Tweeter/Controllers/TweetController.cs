@@ -22,15 +22,15 @@ namespace Tweeter.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public string Get(int id) 
         {
             return "value";
         }
 
         // POST api/<controller>
-        public void Post([FromBody]TweetViewModel tweet)
+        public void Post([FromBody]TweeterViewModels tweet)
         {
-            
+
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
                 string user_id = User.Identity.GetUserId();
@@ -45,7 +45,7 @@ namespace Tweeter.Controllers
                 };
                 Repo.AddTweet(new_tweet);
             }
-            
+
         }
 
         // PUT api/<controller>/5

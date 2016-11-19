@@ -10,7 +10,10 @@ namespace Tweeter.DAL
     {
         public TweeterContext Context { get; set; }
 
-        public TweeterRepository() {}
+        public TweeterRepository()
+        {
+            Context = new TweeterContext();
+        }
 
         public TweeterRepository(TweeterContext _context)
         {
@@ -81,7 +84,9 @@ namespace Tweeter.DAL
 
         public List<Tweet> GetTweets()
         {
-            return Context.Tweets.ToList();
+            var test = Context.Tweets.ToList();
+
+            return test;
         }
 
         public Twit FindTwitUser(string sentUserId)

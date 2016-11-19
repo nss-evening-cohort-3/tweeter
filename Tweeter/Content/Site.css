@@ -38,3 +38,8 @@ img {
     margin-top: 30px;
     min-width: 300px;
 }
+
+.tweeterimg {
+    max-width: 400px;
+}
+

@@ -14,11 +14,13 @@ namespace Tweeter.Controllers
     public class TweetController : ApiController
     {
         private TweeterRepository apiTweeterController = new TweeterRepository();
-
+        
         // GET api/<controller>
         public IEnumerable<Tweet> Get()
         {
-            return apiTweeterController.GetTweets();
+            var test = apiTweeterController.GetTweets();
+
+            return test;
         }
 
         // POST api/<controller>

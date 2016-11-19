@@ -216,5 +216,20 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.AreEqual(expected_tweets, actual_tweets);
         }
+        [TestMethod]
+        public void RepoGetTwitUser()
+        {
+            ConnectToDatastore();
+
+            Twit expected_result = new Twit
+            {
+                TwitId = 2,
+                BaseUser = new ApplicationUser() { UserName = "sallym" }
+            };
+
+            Twit actual_result = Repo.GetTwitUser("sallym");
+
+            Assert.AreEqual(expected_result.TwitId, actual_result.TwitId);
+        }
     }
 }

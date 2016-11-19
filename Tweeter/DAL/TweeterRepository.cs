@@ -84,5 +84,10 @@ namespace Tweeter.DAL
         {
             return Context.Tweets.ToList();
         }
+
+        public Twit GetTwitUser(string v)
+        {
+            return Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
+        }
     }
 }

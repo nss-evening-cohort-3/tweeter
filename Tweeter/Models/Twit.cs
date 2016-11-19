@@ -15,7 +15,7 @@ namespace Tweeter.Models
          * Then you'll need to mock the Twit table to return List<Twit>
          * This clearly means that you need to EITHER: 
          *     1. Re-scaffold the InitialCreate migration OR 
-         *     2. Create a new Migration that adds this field.S
+         *     2. Create a new Migration that adds this field.
          */
     }
 }

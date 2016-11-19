@@ -180,7 +180,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TweetController.cs" />
     <Compile Include="Controllers\TweeterController.cs" />
+    <Compile Include="Controllers\TwitUsernameController.cs" />
     <Compile Include="DAL\TweeterContext.cs" />
     <Compile Include="DAL\TweeterRepository.cs" />
     <Compile Include="Global.asax.cs">
@@ -206,6 +208,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

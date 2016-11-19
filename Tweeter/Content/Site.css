@@ -22,3 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.twitbar, .new-twits {
+    display: block;
+    margin-top: 20px;
+    min-height: 300px;
+    border: 1px solid black;
+}
+
+img {
+    margin-top: 20px;
+}
+
+.composer {
+    margin-top: 30px;
+    min-width: 300px;
+}

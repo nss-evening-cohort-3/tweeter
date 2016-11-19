@@ -9,12 +9,13 @@ namespace Tweeter.DAL
     public class TweeterRepository
     {
         public TweeterContext Context { get; set; }
+
+        public TweeterRepository() {}
+
         public TweeterRepository(TweeterContext _context)
         {
             Context = _context;
         }
-
-        public TweeterRepository() {}
 
         public List<string> GetUsernames()
         {

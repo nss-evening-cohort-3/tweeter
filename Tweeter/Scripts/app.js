@@ -1,7 +1,4 @@
-﻿$("#homeIndex").load(function () {
-    console.log("document.ready");
-
-})
+﻿    var app = angular.module("tweeterApp", [])
 
 
 

@@ -22,3 +22,58 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#prof_box {
+    max-width: 30%;
+}
+
+.new_tweet_input {
+    height: 50px;
+    width: 175px;
+}
+
+#compose {
+    max-width: 60%;
+}
+
+#compose button {
+    height: 50px;
+    width: 85px;
+}
+
+#all_tweets {
+    clear: right;
+    margin-top: 50px;
+}
+
+#all_tweets img{
+    max-width: 50px;
+    display:block;
+    margin-right: auto;
+    /*margin-left: auto;*/
+}
+
+#todays_twits {
+    clear: left;
+    margin-top: 50px;
+}
+
+#more_tweets {
+    clear:right;
+    text-align: center;
+    
+}
+
+#more_tweets button {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+footer p{
+    margin-top: 50px;
+    float:left;
+    clear:both;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}

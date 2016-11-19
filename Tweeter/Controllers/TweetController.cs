@@ -34,13 +34,11 @@ namespace Tweeter.Controllers
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
                 string user_id = User.Identity.GetUserId();
-                ApplicationUser found_app_user = Repo.Context.Users.FirstOrDefault(u => u.Id == user_id);
-                Twit found_user = Repo.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
                 Tweet new_tweet = new Tweet
                 {
                     Message = tweet.Message,
                     ImageURL = tweet.ImageURL,
-                    Author = found_user,
+                    Author = Repo.GetTwitUserByUserId(user_id),
                     CreatedAt = DateTime.Now
                 };
                 Repo.AddTweet(new_tweet);

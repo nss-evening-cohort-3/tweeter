@@ -50,7 +50,7 @@
 }
 else
 {
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="tweetController">
         <div class="row">
             <div class="col-lg-3 col-xs-12">
                 <div class="row">
@@ -58,7 +58,7 @@ else
                         <img src="~/Content/Images/anon-lady.png" />
                     </div>
                     <div class="col-md-12 text-left user__profile__card--bottom">
-                        <h3>SampleWoman123</h3>
+                        <h3 ng-click="getAllTweets()">SampleWoman123</h3>
                         <p>203 Followers</p>
                     </div>
                     <br />

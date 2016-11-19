@@ -1,4 +1,29 @@
-﻿<div class="row">
-    <div class="col-md-3">3 col</div>
-    <div class="col-md-9">twit</div>
+﻿@model Tweeter.Models.TweetViewModel
+@{
+    ViewBag.Title = "Home Pgae";
+}
+
+
+<div id="homePage" ng-controller="">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="..." alt="..." class="img-rounded">
+        </div>
+        <div class="col-md-9">
+            <form action="/api/Tweet" method="POST" class="form-horizontal" role="form">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-1">
+                        @Html.TextBoxFor(m => m.Message, new { @class = "form-control", @placeholder = "What do you want to say?", @id = "message", @name = "Message" })
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success btn-lg>Post</button>
+                    </div>
+                </div>
+            </form>
+
+            <div ng-repeat="tweet in tweets">
+                {{tweet.Message}}
+            </div>
+        </div>
+    </div>
 </div>

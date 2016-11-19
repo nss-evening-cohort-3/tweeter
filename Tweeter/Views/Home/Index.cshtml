@@ -4,33 +4,36 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="container">
-        <div class="row">
-            <div class="col-xs-7">
+  
                 <div class="row">
                     <div class="text-center">
-                        <input class="composer" type="text" placeholder="Compose Tweet">
-                        <button id="submit-tweet" class="btn">Submit</button>
+                        <input class="composer" id="compose_tweet" type="text" placeholder="Compose Tweet">
+                        <button id="submit_tweet" class="btn">Submit</button>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-4">
+            
+            <div class="col-xs-4 panel panel-default">
                 <div class="row">
                     <div class="text-center">
-                        <img src="https://pbs.twimg.com/profile_images/642711243007000576/jAwd5TGK_400x400.jpg" />
-                    </div>
-                        <div class="row">
-                            <p class="text-center">@User.Identity.Name</p>
-                        </div>
-                        <div class="row">
-                            <p class="text-center">Followers:</p>
-                        </div>
+                        <img class="user-image" src="https://pbs.twimg.com/profile_images/642711243007000576/jAwd5TGK_400x400.jpg" />
                     </div>
                     <div class="row">
-                        <h3 class="text-center">Trending Twits</h3>
+                        <p class="text-center">@User.Identity.Name</p>
+                    </div>
+                    <div class="row">
+                        <p class="text-center">Followers:</p>
                     </div>
                 </div>
             </div>
-    </div>
+            
+                <div class="panel panel-default">
+                    <h3 class="text-center">Trending Twits</h3>
+                </div>
+                
+            <div id="tweetTarget">
+
+            </div>
+        </div>
    
 }
 else

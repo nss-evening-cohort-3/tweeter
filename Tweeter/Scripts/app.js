@@ -1,9 +1,11 @@
 ﻿let showUsernameInputValidStyling = () => {
     $('#username-help-block').addClass('hidden-xs-up');
+    $('#register-username').addClass('form-control-success');
     $('.form-group__input--username').addClass('has-success');
 };
 let showUsernameInputErrorStyling = () => {
     $('#username-help-block').removeClass('hidden-xs-up');
+    $('#register-username').addClass('form-control-danger');
     $('.form-group__input--username').addClass('has-danger');
 };
 

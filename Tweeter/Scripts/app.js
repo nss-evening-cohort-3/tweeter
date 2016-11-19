@@ -19,6 +19,19 @@
         console.log(error);
     });
 });
+app.controller('TweetController', function ($scope, userService, $resource, $http) {
+    $scope.getTweets = function () {
+        $http({
+            url: '/Tweeter/tweet/',
+            method: "GET"
+        })
+        .then(function (result) {
+            $scope.Tweet.Message = angular.copy(result.data);
+        })
+    }
+    getTweets();
+});
+
 
 
 

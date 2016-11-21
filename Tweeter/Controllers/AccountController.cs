@@ -18,7 +18,7 @@ namespace Tweeter.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private TweeterRepo _repo = new TweeterRepo();
+
 
         public AccountController()
         {
@@ -163,7 +163,6 @@ namespace Tweeter.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    _repo.AddTwitToDatabase(user);
                     return RedirectToAction("Index", "Twit");
                 }
                 AddErrors(result);

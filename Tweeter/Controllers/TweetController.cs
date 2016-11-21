@@ -30,11 +30,14 @@ namespace Tweeter.Controllers
         // PUT: api/Tweet/5
         public void Post([FromBody]TweetViewModel tweet)
         {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            repo.AddTwitToDatabase(user);
+
+
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
-                ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
                 Twit twit_author = repo.FindTwitBasedOnApplicationUser(user);
-
+                repo.AddTwitToDatabase(user);
                 Tweet new_tweet = new Tweet
                 {
                     Message = tweet.Message,

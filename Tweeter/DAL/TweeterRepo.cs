@@ -22,9 +22,17 @@ namespace Tweeter.DAL
 
         public Twit AddTwitToDatabase(ApplicationUser user)
         {
-            Context.TweeterUsers.Add(new Twit { BaseUser = user });
-            Twit added_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser == user);
+            Twit added_user = null;
+            if (!Context.TweeterUsers.Any(T => T.BaseUser.Id == user.Id))
+            {
+                Twit twit_to_add = new Twit { BaseUser = user };
+                Context.TweeterUsers.Add(twit_to_add);
+                Context.SaveChanges();
+                added_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser == user);
+                return added_user;
+            }
             return added_user;
+
         }
 
 

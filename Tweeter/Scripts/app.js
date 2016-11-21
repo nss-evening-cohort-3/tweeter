@@ -35,15 +35,29 @@ app.controller('HomePage', function ($scope, $q, $http) {
         $scope.ListAllTweets();
     }
 
+    $scope.getUsername = function () {
+        var url = `/api/TwitUsername/1`
+
+        return $q(function (resolve, reject) {
+            $http.get(url).then(function (response) {
+                $scope.userName = response.data;
+                resolve(response.data)
+            }, function (error) {
+                reject(error)
+            })
+        })
+    }
+    $scope.getUsername();
+
     $scope.ListAllTweets = function () {
         var url = `/api/Tweet`
 
         return $q(function (resolve, reject) {
             $http.get(url).then(function (response) {
                 console.log(response)
-                var tweets = reponse.data;
+                var tweets = response.data;
                 $scope.tweets = tweets;
-                resolve(data);
+                resolve(tweets);
             }, function (error) {
                 reject(error)
             })

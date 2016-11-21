@@ -529,3 +529,20 @@ fieldset[disabled] .btn-success.active {
   opacity: 0;
   display: none;
 }
+
+#homePage {
+    margin-top: 100px;
+}
+
+#tweet-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+}
+
+.tweetBox {
+    max-width: 100px;
+    background-color: darkcyan;
+    color: white;
+    font-weight: bold;
+}

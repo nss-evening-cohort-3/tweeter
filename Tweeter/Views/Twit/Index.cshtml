@@ -4,25 +4,34 @@
 }
 
 
-<div id="homePage" ng-controller="HomePage">
+<div id="homePage" ng-controller="HomePage" class="container">
     <div class="row">
-        <div class="col-md-3">
-            <img src="..." alt="..." class="img-rounded">
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <img src="https://a3-images.myspacecdn.com/images03/1/240e42b5d9ce48a78983961e7fcb3c39/300x300.jpg" max-width="150px" class="img-rounded">
+            <p>{{userName}}</p>
+            <p>Followers: {{numberOfFollowers}}</p>
         </div>
-        <div class="col-md-9">
-            <form action="/api/Tweet" method="POST" class="form-horizontal" role="form">
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <form action="/api/Tweet" method="POST" role="form">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-1">
                         @Html.TextBoxFor(m => m.Message, new { @class = "form-control", @placeholder = "What do you want to say?", @id = "message", @name = "Message" })
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-success btn-lg>Post</button>
+                        <button type="submit" class="btn btn-success btn-lg" ng-click="tweetPosted()">Post</button>
                     </div>
                 </div>
             </form>
 
-            <div ng-repeat="tweet in tweets">
-                {{tweet.Message}}
+            <div ng-repeat="tweet in tweets" id="tweet-container">
+                <div class="tweetBox">
+                    <img ng-if={{tweet.ImageUrl}} ng-src="{{tweet.ImageUrl}}" />
+                    <p>{{tweet.Message}}</p>
+                    <div class="row options-row">
+                        <i class="glyphicon glyphicon-share"></i>
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

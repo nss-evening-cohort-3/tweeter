@@ -17,7 +17,24 @@ namespace Tweeter.Migrations
         {
             // May not need this fake twit_bot at all...
             //Twit twit_bot = new Twit { BaseUser = new ApplicationUser { UserName = "TwitBot" } };
-            Twit twit_bot = new Twit { TwitId = 2 };
+
+            ApplicationUser fake_user = new ApplicationUser
+            {
+                Id = "fake-user-id",
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                UserName = "TweeterBot",
+            };
+
+            Twit twit_bot = new Twit { TwitId = 2, BaseUser = fake_user };
+
+            context.Users.AddOrUpdate(
+                u => u.Id,
+                fake_user
+                );
 
             context.TweeterUsers.AddOrUpdate(
                 p => p.TwitId,

@@ -1,4 +1,8 @@
-﻿$("#register-username").keyup(function () {
+﻿    var app = angular.module("tweeterApp", [])
+
+
+
+$("#register-username").keyup(function () {
     //$("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
@@ -19,6 +23,8 @@
         console.log(error);
     });
 });
+
+
 
 
 

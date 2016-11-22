@@ -42,6 +42,7 @@ namespace Tweeter.Tests.DAL
             };
 
             tweets = new List<Tweet>();
+            ConnectToDatastore();
 
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
@@ -94,7 +95,7 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureICanGetUsernames()
         {
             // Arrange
-            ConnectToDatastore();
+
 
             // Act
             List<string> usernames = Repo.GetUsernames();
@@ -107,7 +108,7 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureUsernameExists()
         {
             // Arrange
-            ConnectToDatastore();
+
 
             // Act
             bool exists = Repo.UsernameExists("sallym");
@@ -120,7 +121,7 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureUsernameExistsOfTwit()
         {
             // Arrange
-            ConnectToDatastore();
+
 
             // Act
             Twit found_twit = Repo.UsernameExistsOfTwit("sallym");
@@ -133,7 +134,7 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureICanCreateTweet()
         {
             // Arrange
-            ConnectToDatastore();
+
 
             // Act
             Tweet a_tweet = new Tweet {
@@ -155,7 +156,8 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureICanCreateTweetWithMessage()
         {
             // Arrange
-            ConnectToDatastore();
+
+            
 
             // Act
             Repo.AddTweet("sallym", "my tweet!!!!");
@@ -171,7 +173,8 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureICanRemoveTweet()
         {
             // Arrange
-            ConnectToDatastore();
+
+            
             Tweet a_tweet = new Tweet
             {
                 TweetId = 3,
@@ -205,7 +208,7 @@ namespace Tweeter.Tests.DAL
         public void RepoEnsureICanGetTweets()
         {
             // Arrange
-            ConnectToDatastore();
+            
             Repo.AddTweet("sallym", "my tweet!!!!");
             
             // Act
@@ -215,6 +218,18 @@ namespace Tweeter.Tests.DAL
 
             // Assert
             Assert.AreEqual(expected_tweets, actual_tweets);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanGetTwitByUserId()
+        {
+            ApplicationUser user1 = new ApplicationUser { Email="test@test.com", Id = "1"};
+
+            ApplicationUser expected_user = user1;
+            ApplicationUser actual_user = Repo.GetTwitUser("1");
+
+            Assert.AreEqual(expected_user,actual_user);
+            
         }
     }
 }

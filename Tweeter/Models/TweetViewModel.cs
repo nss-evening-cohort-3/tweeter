@@ -6,8 +6,7 @@ using System.Web;
 
 namespace Tweeter.Models
 {
-    public class TweeterViewModels
-    {
+    
         public class TweetViewModel
         {
             [Required]
@@ -17,5 +16,5 @@ namespace Tweeter.Models
             public string ImageURL { get; set; }
 
         }
-    }
+    
 }

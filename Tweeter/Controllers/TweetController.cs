@@ -16,8 +16,10 @@ namespace Tweeter.Controllers
         TweeterRepository Repo = new TweeterRepository();
 
         // GET api/<controller>
+        
         public IEnumerable<Tweet> Get()
         {
+            /*
             List<Tweet> list_of_tweets = new List<Tweet>();
             list_of_tweets.Add(
                 new Tweet
@@ -46,7 +48,8 @@ namespace Tweeter.Controllers
                 }
              );
             return list_of_tweets;
-            //return Repo.GetTweets();
+            */
+            return Repo.GetTweets();
         }
 
         // GET api/<controller>/5

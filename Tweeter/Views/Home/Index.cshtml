@@ -17,13 +17,12 @@
             <table class="table">
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="tweet in getTweets()">
-                        <strong>{{tweet.username}}</strong>
-                            <img src="{{tweet.image}}" />
-
+                        <strong>{{tweet.Author || "TwitBot"}}</strong>
+                            <img src="{{tweet.ImageURL}}" />
                         <h4>
-                            {{tweet.message}}
+                            {{tweet.Message}}
                         </h4>
-                        <div>{{tweet.date}}</div>
+                        <div>{{tweet.CreatedAt}}</div>
                         <div>
                             <span class="glyphicon glyphicon-retweet"></span>
                         </div>

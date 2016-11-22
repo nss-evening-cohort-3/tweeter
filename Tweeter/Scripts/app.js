@@ -1,8 +1,8 @@
 ﻿var app = angular.module("Tweeter", []);
 
-app.controller('TweetCtrl', function ($scope) {
+app.controller('TweetCtrl', function ($scope, $http) {
     $scope.tweets = [
-        {
+       /* {
             username: "JakeFromStateFarm",
             message: "Hello",
             image: null,
@@ -19,10 +19,30 @@ app.controller('TweetCtrl', function ($scope) {
             message: "Hello Again",
             image: null,
             date: "Nov, 21 2016"
-        }
+        }*/
     ];
+    
+
+    $scope.running = false;
 
     $scope.getTweets = function () {
+        if (!$scope.running) {
+            $scope.running = true;
+            $http.get("api/Tweet")
+                   .success(function (response) {
+                       console.log(response);
+                       $scope.tweets = response;
+                       /*for (var i = 0; i < response.length; i++) {
+                           $scope.tweets.push(response.data[i]);
+                       }
+                       */
+                       
+                   })
+                    .error(function (error) {
+                        console.log("failed!");
+                    });
+        }
+
         return $scope.tweets;
     }
 });

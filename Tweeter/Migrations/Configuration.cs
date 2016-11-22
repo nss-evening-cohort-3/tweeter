@@ -41,6 +41,14 @@ namespace Tweeter.Migrations
                 twit_bot
                 );
 
+            context.Tweets.AddOrUpdate(
+                t => t.TweetId,
+                new Tweet { Message = "This is a third Tweet",  ImageURL= "http://placehold.it/350x175", CreatedAt = DateTime.Now, TweetId = 9 },
+                new Tweet { Message = "This is a fourth Tweet", ImageURL = "http://placehold.it/350x175", CreatedAt = DateTime.Now, TweetId = 10 },
+                new Tweet { Message = "This is a fifth Tweet", ImageURL = "http://placehold.it/350x175", CreatedAt = DateTime.Now, TweetId = 11 }
+                );
+
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

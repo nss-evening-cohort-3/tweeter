@@ -41,15 +41,20 @@ textarea {
     width: 85px;
 }
 
-#all_tweets {
+.all_tweets {
     clear: right;
     margin-top: 50px;
+
 }
 
-#all_tweets img{
+.all_tweets img{
     max-width: 50px;
     display:block;
     margin-right: auto;
+    background-image: url("https://makinggoodhumans.files.wordpress.com/2016/02/twitter-feather.jpg"),none, initial, inherit;
+    background-size:cover;
+    background-repeat: no-repeat;
+
     /*margin-left: auto;*/
 }
 

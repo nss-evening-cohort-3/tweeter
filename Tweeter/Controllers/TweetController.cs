@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Tweeter.DAL;
 using Tweeter.Models;
-using static Tweeter.Models.TweeterViewModels;
+
 
 namespace Tweeter.Controllers
 {

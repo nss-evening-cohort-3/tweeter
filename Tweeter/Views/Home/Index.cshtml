@@ -1,10 +1,11 @@
-﻿@{
+﻿@model Tweeter.Models.TweetViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
-@*@if (User.Identity.IsAuthenticated)
-{*@
-    
+@if (User.Identity.IsAuthenticated)
+{
+
     <div id="homeIndex" ng-controller="HomeCtrl">
         <div style="margin-top:50px">
             <div class="col-md-3" style="border:1px solid lightgrey" id="prof_box">
@@ -15,16 +16,20 @@
         </div>
         <div class="col-md-6 col-md-offset-2">
             <div id="compose">
-                @Html.TextArea("_compose", "", new { placeholder = "Compose", @class = "new_tweet_input" })
-                <button class="btn btn-primary btn-sm">+</button>
+                <form action="api/Tweet/Post" method="POST">
+                    @Html.TextBoxFor(m => m.Message, new { placeholder = "Compose", @class = "new_tweet_input" })
+                    <button class="btn btn-primary btn-sm" type="submit">+</button>
+                </form>
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-1" style="border:2px solid black" id="all_tweets">
-            <img src="https://makinggoodhumans.files.wordpress.com/2016/02/twitter-feather.jpg" />
-            <p>TWEET HERE</p>
-            <div style="border:1px solid lightgrey">
-                <button class="glyphicon glyphicon-retweet"></button>
-                <button class="glyphicon glyphicon-share-alt"></button>
+        <div class="col-md-4 col-md-offset-1" style="border:2px solid black"  ng-repeat="tweet in tweets">
+            <div class="all_tweets">
+                
+                <p>{{tweet.message}}</p>
+                <div style="border:1px solid lightgrey">
+                    <button class="glyphicon glyphicon-retweet"></button>
+                    <button class="glyphicon glyphicon-share-alt"></button>
+                </div>
             </div>
         </div>
         <div class="col-lg-3" style="border:1px solid lightgrey" id="todays_twits">
@@ -36,10 +41,10 @@
             <button class="glyphicon glyphicon-chevron-down"></button>
         </div>
     </div>
-@*}
+}
 else
 {
     <div class="jumbotron">
         <p class="col-lg-2 col-lg-offset-5"><a href="http://asp.net" class="btn btn-primary btn-lg">JOIN &raquo;</a></p>
     </div>
-}*@
+}

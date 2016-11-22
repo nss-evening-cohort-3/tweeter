@@ -31,7 +31,6 @@ app.controller('Register', function ($scope, $q, $http) {
 app.controller('HomePage', function ($scope, $q, $http) {
 
     $scope.tweetPosted = function () {
-        console.log("tweet posted")
         $scope.ListAllTweets();
     }
 
@@ -51,7 +50,6 @@ app.controller('HomePage', function ($scope, $q, $http) {
 
     $scope.ListAllTweets = function () {
         var url = `/api/Tweet`
-
         return $q(function (resolve, reject) {
             $http.get(url).then(function (response) {
                 console.log(response)
@@ -63,4 +61,9 @@ app.controller('HomePage', function ($scope, $q, $http) {
             })
         })
     }
+
+    $scope.ListAllTweets().then((tweets) => {
+        console.log(tweets)
+        $scope.tweets = tweets
+    });
 })

@@ -12,6 +12,7 @@ namespace Tweeter.Models
         [MinLength(2)]
         public string Message { get; set; }
 
+        [Url(ErrorMessage = "Please enter a valid image url")]
         public string ImageURL { get; set; }
     }
 }

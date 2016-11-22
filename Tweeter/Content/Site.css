@@ -534,6 +534,15 @@ fieldset[disabled] .btn-success.active {
     margin-top: 100px;
 }
 
+#tweeter-form-box {
+    background-color: #2C3E50;
+    padding: 50px;
+}
+
+#tweeter-form-box label {
+    color: white;
+}
+
 #tweet-container {
     display: flex;
     flex-flow: row wrap;
@@ -541,7 +550,6 @@ fieldset[disabled] .btn-success.active {
 }
 
 .tweetBox {
-    max-width: 100px;
     background-color: darkcyan;
     color: white;
     font-weight: bold;

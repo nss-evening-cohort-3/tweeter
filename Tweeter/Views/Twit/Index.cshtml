@@ -12,24 +12,44 @@
             <p>Followers: {{numberOfFollowers}}</p>
         </div>
         <div class="col-md-8 col-lg-8 col-sm-8">
-            <form action="/api/Tweet" method="POST" role="form">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-1">
-                        @Html.TextBoxFor(m => m.Message, new { @class = "form-control", @placeholder = "What do you want to say?", @id = "message", @name = "Message" })
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-success btn-lg" ng-click="tweetPosted()">Post</button>
-                    </div>
-                </div>
-            </form>
+            <div id="tweeter-form-box">
+                <form action="/api/Tweet" class="form-horizontal" method="POST" role="form">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
 
-            <div ng-repeat="tweet in tweets" id="tweet-container">
-                <div class="tweetBox">
-                    <img ng-if={{tweet.ImageUrl}} ng-src="{{tweet.ImageUrl}}" />
-                    <p>{{tweet.Message}}</p>
-                    <div class="row options-row">
-                        <i class="glyphicon glyphicon-share"></i>
-                        <i class="glyphicon glyphicon-share-alt"></i>
+
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="Username">Message</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.Message, new { @class = "form-control", @placeholder = "What do you want to say?", @id = "message", @name = "Message" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="Username">Image URL</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ImageURL, new { @class = "form-control", @placeholder = "Image link?", @id = "image", @name = "image" })
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success btn-lg" ng-click="tweetPosted()">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="tweet-container">
+
+                <div class="card-columns">
+                    <div class="card tweetBox" ng-repeat="tweet in tweets">
+                        <img class="card-img-top" ng-if="tweet.ImageURL" ng-src={{tweet.ImageURL}}>
+                        <div class="card-block">
+                            <h4 class="card-title">{{tweet.Author}}</h4>
+                            <p class="card-text">{{tweet.Message}}</p>
+                            <p class="card-text">{{tweet.CreatedAt}}</p>
+                        </div>
                     </div>
                 </div>
             </div>

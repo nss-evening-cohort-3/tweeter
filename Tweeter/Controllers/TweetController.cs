@@ -32,8 +32,6 @@ namespace Tweeter.Controllers
         public void Post([FromBody]TweetViewModel tweet)
         {
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            repo.AddTwitToDatabase(user);
-
 
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {

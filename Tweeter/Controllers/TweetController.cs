@@ -18,7 +18,35 @@ namespace Tweeter.Controllers
         // GET api/<controller>
         public IEnumerable<Tweet> Get()
         {
-            return Repo.GetTweets();
+            List<Tweet> list_of_tweets = new List<Tweet>();
+            list_of_tweets.Add(
+                new Tweet
+                {
+                    TweetId = 1,
+                    Message = "Hello!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "JakeFromStateFarm" } },
+                    CreatedAt = DateTime.Now
+                }
+                     );
+            list_of_tweets.Add(
+                new Tweet {
+                    TweetId = 2,
+                    Message = "Progressive!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "FloFroProgressive"} },
+                    CreatedAt = DateTime.Now
+                }
+            );
+            list_of_tweets.Add(
+                new Tweet
+                {
+                    TweetId = 1,
+                    Message = "Hello!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "JakeFromStateFarm" } },
+                    CreatedAt = DateTime.Now
+                }
+             );
+            return list_of_tweets;
+            //return Repo.GetTweets();
         }
 
         // GET api/<controller>/5

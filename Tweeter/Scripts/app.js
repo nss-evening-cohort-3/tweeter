@@ -1,4 +1,33 @@
-﻿$("#register-username").keyup(function () {
+﻿var app = angular.module("Tweeter", []);
+
+app.controller('TweetCtrl', function ($scope) {
+    $scope.tweets = [
+        {
+            username: "JakeFromStateFarm",
+            message: "Hello",
+            image: null,
+            date: "Nov, 21 2016"
+        },
+        {
+            username: "FloFroProgressive",
+            message: "Progressive!",
+            image: "http://placehold.it/350x150",
+            date: "Nov, 20 2016"
+        },
+        {
+            username: "JakeFromStateFarm",
+            message: "Hello Again",
+            image: null,
+            date: "Nov, 21 2016"
+        }
+    ];
+
+    $scope.getTweets = function () {
+        return $scope.tweets;
+    }
+});
+
+$("#register-username").keyup(function () {
     //$("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");

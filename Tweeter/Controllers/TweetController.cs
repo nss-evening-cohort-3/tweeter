@@ -11,8 +11,9 @@ namespace Tweeter.Controllers
 {
     public class TweetController : ApiController
     {
-        TweeterRepo repo = new TweeterRepo();
         ApplicationUserManager userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        TweeterRepo repo = new TweeterRepo();
+
 
         // GET: api/Tweet
         public IEnumerable<Tweet> Get()

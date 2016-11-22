@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.user-image {
+    max-height: 30%;
+    max-width: 30%;
+}
+
+.tweet {
+    height: 200px;
+    font-size: 2em;
+    text-align: left;
+    padding: 1em;
+}

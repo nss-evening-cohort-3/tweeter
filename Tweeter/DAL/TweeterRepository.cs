@@ -14,7 +14,10 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository()
+        {
+            Context = new TweeterContext();
+        }
 
         public List<string> GetUsernames()
         {
@@ -83,6 +86,11 @@ namespace Tweeter.DAL
         public List<Tweet> GetTweets()
         {
             return Context.Tweets.ToList();
+        }
+
+        public Twit GetTwitUser(string v)
+        {
+            return Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
         }
     }
 }

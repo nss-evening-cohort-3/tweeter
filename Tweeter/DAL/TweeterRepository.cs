@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Tweeter.Models;
+using static Tweeter.DAL.TweeterRepository;
 
 namespace Tweeter.DAL
 {
@@ -84,5 +85,12 @@ namespace Tweeter.DAL
         {
             return Context.Tweets.ToList();
         }
+        public Twit GetTwitUser(string AppUserId)//tried passing in Twit, TwitId, Twits
+        {
+            //this is a way to search thru login credentialed string for the BaseUser Application User that is associ with a Twit. The Twit is the profile and the app user is an auth model that is tied to it.
+            Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUser.Id == AppUserId);
+            return found_twit;
+        }
+
     }
 }

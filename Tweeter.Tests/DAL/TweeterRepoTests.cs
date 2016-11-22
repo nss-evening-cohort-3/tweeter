@@ -136,7 +136,8 @@ namespace Tweeter.Tests.DAL
             ConnectToDatastore();
 
             // Act
-            Tweet a_tweet = new Tweet {
+            Tweet a_tweet = new Tweet
+            {
                 TweetId = 1,
                 Message = "my message",
                 Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "jcockhren" } },
@@ -207,7 +208,7 @@ namespace Tweeter.Tests.DAL
             // Arrange
             ConnectToDatastore();
             Repo.AddTweet("sallym", "my tweet!!!!");
-            
+
             // Act
 
             int expected_tweets = 1;

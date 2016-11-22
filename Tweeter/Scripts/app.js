@@ -19,6 +19,25 @@
         console.log(error);
     });
 });
+var app = angular.module("TweeterApp", []);
+
+
+app.controller('TweetController', function ($scope, userService, $resource, $http) {
+    $scope.getTweets = function () {
+        $http({
+            url: '/api/tweet/',
+            method: "GET"
+        })
+        .then(function (result) {
+            $scope.Tweet.Message = angular.copy(result.data);
+
+        }, function (error) {
+        //put error syntax here
+        });
+    }
+    getTweets();
+});
+
 
 
 
@@ -36,10 +55,8 @@ $("#register-username").focusout(function () {
             $("#username-ans").addClass("glyphicon-ok");
         } else {
             $("#username-ans").addClass("glyphicon-remove");
-        }
-    }).fail(function (error) {
-        console.log(error);
-    });
+
+
 });
 
 $("#register-username").focusin(function () {
@@ -47,3 +64,4 @@ $("#register-username").focusin(function () {
     $("#username-ans").removeClass("glyphicon-remove");
 });
 */
+

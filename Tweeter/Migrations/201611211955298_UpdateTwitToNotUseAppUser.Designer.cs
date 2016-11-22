@@ -7,13 +7,13 @@ namespace Tweeter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdatedIdentity : IMigrationMetadata
+    public sealed partial class UpdateTwitToNotUseAppUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateTwitToNotUseAppUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611182010026_UpdatedIdentity"; }
+            get { return "201611211955298_UpdateTwitToNotUseAppUser"; }
         }
         
         string IMigrationMetadata.Source

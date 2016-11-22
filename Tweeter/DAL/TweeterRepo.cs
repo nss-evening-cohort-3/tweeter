@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,11 @@ namespace Tweeter.DAL
     public class TweeterRepo
     {
         public TweeterContext Context { get; set; }
+        public ApplicationUserManager UserManager { get; set;}
 
         public TweeterRepo()
         {
+            UserManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             Context = new TweeterContext();
         }
 
@@ -20,23 +23,44 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
+        public TweeterRepo(ApplicationUserManager _userManager)
+        {
+            UserManager = _userManager;
+        }
+
+        public TweeterRepo(TweeterContext _context, ApplicationUserManager _userManager)
+        {
+            Context = _context;
+            UserManager = _userManager;
+        }
+
         public Twit AddTwitToDatabase(ApplicationUser user)
         {
-            Context.TweeterUsers.Add(new Twit { BaseUser = user });
-            Twit added_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser == user);
+            string UserGUI = user.Id;
+            Twit added_user = null;
+            if (!Context.TweeterUsers.Any(T => T.BaseUserId == user.Id))
+            {
+                Twit twit_to_add = new Twit { BaseUserId = UserGUI };
+                Context.TweeterUsers.Add(twit_to_add);
+                Context.SaveChanges();
+                added_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUserId == UserGUI);
+                return added_user;
+            }
             return added_user;
+
         }
 
 
         public List<string> GetAllUsernames()
         {
-            List<string> Usernames = Context.TweeterUsers.Select(m => m.BaseUser.UserName).ToList();
+            List<string> Usernames = UserManager.Users.Select(u => u.UserName).ToList();
             return Usernames;
         }
 
         public bool UsernameExists(string username)
         {
-            Twit found_user = Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == username.ToLower());
+
+            ApplicationUser found_user = UserManager.Users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
             if (found_user == null)
             {
                 return false;
@@ -48,7 +72,7 @@ namespace Tweeter.DAL
 
         public Twit FindTwitBasedOnApplicationUser(ApplicationUser user)
         {
-            Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUser == user);
+            Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUserId == user.Id);
             if (found_twit != null)
             {
                 return found_twit;

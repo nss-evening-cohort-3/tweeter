@@ -38,6 +38,16 @@ $('.tweetbox').click(function(event) {
     }
 });
 
-$("#submit-tweet").click(function() {
-    console.log($('input.composer').val());
+$("#submit-tweet").click(function () {
+    let newTweet = {
+        Message: $('input.composer').val(),
+        ImageURL: "http://placehold.it/350x175"
+    }
+    $.ajax({
+        type: "POST",
+        url: `api/Tweet`,
+        data: newTweet
+    }).then(function () {
+        displayTweets();
+    });
 });

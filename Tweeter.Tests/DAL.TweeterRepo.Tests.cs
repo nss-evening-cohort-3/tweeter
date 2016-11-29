@@ -281,7 +281,7 @@ namespace Tweeter.Tests
             List<Twit> following = repo.ListTwitsUserIsFollowing(user1);
 
             int expected_following = 1;
-            int actual_following = 1;
+            int actual_following = following.Count();
 
             //Assert
             Assert.AreEqual(expected_following, actual_following);

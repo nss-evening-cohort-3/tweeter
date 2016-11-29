@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Tweeter.DAL;
+using Microsoft.AspNet.Identity.Owin;
+using Tweeter.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Tweeter.Controllers
 {
     public class TweeterController : ApiController
     {
+
+        TweeterRepo repo = new TweeterRepo();
+        ApplicationUserManager userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
         // GET: api/Tweeter
         public IEnumerable<string> Get()
         {
@@ -19,6 +27,13 @@ namespace Tweeter.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        public bool Get(string username)
+        {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            bool following = repo.IsCurrentUserFollowingCurrentlyViewedTwit(user, username);
+            return following;
         }
 
         // POST: api/Tweeter

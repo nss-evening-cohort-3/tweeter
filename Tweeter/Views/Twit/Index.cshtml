@@ -10,6 +10,9 @@
             <img src="https://a3-images.myspacecdn.com/images03/1/240e42b5d9ce48a78983961e7fcb3c39/300x300.jpg" max-width="150px" class="img-rounded">
             <p>{{userName}}</p>
             <p>Followers: {{numberOfFollowers}}</p>
+            <button class="btn btn-success btn-lg" ng-show="userIsFollowing" ng-click="followUser(userId)">Follow</button>
+            <button class="btn btn-success btn-lg" ng-show="!userIsFollowing" ng-click="unfollowUser(userId)">Unfollow</button>
+
         </div>
         <div class="col-md-8 col-lg-8 col-sm-8">
             <div id="tweeter-form-box">

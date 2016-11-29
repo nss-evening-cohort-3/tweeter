@@ -40,6 +40,7 @@ app.controller('HomePage', function ($scope, $q, $http) {
         return $q(function (resolve, reject) {
             $http.get(url).then(function (response) {
                 $scope.userName = response.data;
+                $scope.checkToSeeIfUserIsFollowing(response.data);
                 resolve(response.data)
             }, function (error) {
                 reject(error)
@@ -47,6 +48,21 @@ app.controller('HomePage', function ($scope, $q, $http) {
         })
     }
     $scope.getUsername();
+
+    $scope.checkToSeeIfUserIsFollowing = function(username) {
+        var url = `/api/Tweeter/?username=${username}`
+
+        return $q(function (resolve, reject) {
+            $http.get(url).then(function (response) {
+                console.log(response)
+                $scope.userIsFollowing = response.data;
+                resolve(response.data)
+            }, function (error) {
+                reject(error)
+            })
+        })
+    }
+    
 
     $scope.ListAllTweets = function () {
         var url = `/api/Tweet`

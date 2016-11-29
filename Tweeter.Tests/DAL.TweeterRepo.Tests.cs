@@ -263,5 +263,28 @@ namespace Tweeter.Tests
             Assert.AreEqual(expected_user_tweets_count, actual_user_tweets_count);
 
         }
+
+        [TestMethod]
+        public void TwitsCanFollowOtherTwits()
+        {
+            //Arrange
+            ApplicationUser user1 = new ApplicationUser() { UserName = "morecallan", Email = "callan@MoreCallan.com" };
+            ApplicationUser user2 = new ApplicationUser() { UserName = "morecallan2", Email = "callan2@MoreCallan.com" };
+
+            Twit twit1 = repo.AddTwitToDatabase(user1);
+            twit1.TwitId = 1;
+            Twit twit2 = repo.AddTwitToDatabase(user2);
+            twit2.TwitId = 2;
+
+            //Act
+            repo.FollowUser(user1, 2);
+            List<Twit> following = repo.ListTwitsUserIsFollowing(user1);
+
+            int expected_following = 1;
+            int actual_following = 1;
+
+            //Assert
+            Assert.AreEqual(expected_following, actual_following);
+        }
     }
     }

@@ -126,7 +126,15 @@ namespace Tweeter.DAL
             Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
             Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
 
-            bool does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+            bool does_it_exist_in_users_current_follow_list;
+            if (found_current_twit.Follows != null)
+            {
+                does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+            } else
+            {
+                does_it_exist_in_users_current_follow_list = false;
+            }
+ 
 
             if (!does_it_exist_in_users_current_follow_list && found_twit_to_follow.TwitId != found_current_twit.TwitId)
             {
@@ -140,7 +148,16 @@ namespace Tweeter.DAL
             Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
             Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
 
-            bool does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+
+            bool does_it_exist_in_users_current_follow_list;
+            if (found_current_twit.Follows != null)
+            {
+                does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+            }
+            else
+            {
+                does_it_exist_in_users_current_follow_list = false;
+            }
 
             if (does_it_exist_in_users_current_follow_list && found_twit_to_follow.TwitId != found_current_twit.TwitId)
             {

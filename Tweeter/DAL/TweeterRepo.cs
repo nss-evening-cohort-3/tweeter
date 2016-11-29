@@ -123,17 +123,37 @@ namespace Tweeter.DAL
 
         public void FollowUser(ApplicationUser current_user, int twit_to_follow_id)
         {
+            Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
+            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
 
+            bool does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+
+            if (!does_it_exist_in_users_current_follow_list && found_twit_to_follow.TwitId != found_current_twit.TwitId)
+            {
+                found_current_twit.Follows.Add(found_twit_to_follow);
+                Context.SaveChanges();
+            }
         }
 
         public void UnfollowUser(ApplicationUser current_user, int twit_to_follow_id)
         {
+            Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
+            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
 
+            bool does_it_exist_in_users_current_follow_list = found_current_twit.Follows.Any(t => t == found_twit_to_follow);
+
+            if (does_it_exist_in_users_current_follow_list && found_twit_to_follow.TwitId != found_current_twit.TwitId)
+            {
+                found_current_twit.Follows.Remove(found_twit_to_follow);
+                Context.SaveChanges();
+            }
         }
 
         public List<Twit> ListTwitsUserIsFollowing(ApplicationUser current_user)
         {
-            throw new NotImplementedException();
+            Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
+            List<Twit> following = found_current_twit.Follows.ToList();
+            return following;
         }
     }
 }

@@ -14,7 +14,10 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository()
+        {
+            Context = new TweeterContext();
+        }
 
         public List<string> GetUsernames()
         {
@@ -83,6 +86,45 @@ namespace Tweeter.DAL
         public List<Tweet> GetTweets()
         {
             return Context.Tweets.ToList();
+        }
+
+        public Twit GetTwitUser(string v)
+        {
+            return Context.TweeterUsers.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == v.ToLower());
+        }
+
+        public void Follow(string user_who_is_following, string user_being_followed)
+        {
+            if (UsernameExists(user_who_is_following) && UsernameExists(user_being_followed))
+            {
+                Twit follower = GetTwitUser(user_who_is_following);
+                Twit followed = GetTwitUser(user_being_followed);
+
+                follower.Follows.Add(followed);
+                Context.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public void Unfollow(string user_who_is_following, string user_to_unfollow)
+        {
+            if (UsernameExists(user_who_is_following) && UsernameExists(user_to_unfollow))
+            {
+                Twit follower = GetTwitUser(user_who_is_following);
+                Twit followed = follower.Follows.FirstOrDefault(u => u.BaseUser.UserName.ToLower() == user_to_unfollow.ToLower());
+
+                follower.Follows.Remove(followed);
+
+                Context.SaveChanges();
+
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

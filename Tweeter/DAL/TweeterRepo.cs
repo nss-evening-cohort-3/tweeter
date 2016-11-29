@@ -121,10 +121,11 @@ namespace Tweeter.DAL
             return Context.Tweets.Where(t => t.Author.TwitId == twitId).ToList();
         }
 
-        public void FollowUser(ApplicationUser current_user, int twit_to_follow_id)
+        public void FollowUser(ApplicationUser current_user, string username)
         {
             Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
-            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
+            ApplicationUser found_user_to_follow = UserManager.Users.FirstOrDefault(u => u.UserName == username);
+            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.BaseUserId == found_user_to_follow.Id);
 
             bool does_it_exist_in_users_current_follow_list;
             if (found_current_twit.Follows != null)
@@ -143,10 +144,11 @@ namespace Tweeter.DAL
             }
         }
 
-        public void UnfollowUser(ApplicationUser current_user, int twit_to_follow_id)
+        public void UnfollowUser(ApplicationUser current_user, string username)
         {
             Twit found_current_twit = FindTwitBasedOnApplicationUser(current_user);
-            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.TwitId == twit_to_follow_id);
+            ApplicationUser found_user_to_follow = UserManager.Users.FirstOrDefault(u => u.UserName == username);
+            Twit found_twit_to_follow = Context.TweeterUsers.FirstOrDefault(t => t.BaseUserId == found_user_to_follow.Id);
 
 
             bool does_it_exist_in_users_current_follow_list;

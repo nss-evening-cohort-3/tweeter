@@ -78,6 +78,38 @@ app.controller('HomePage', function ($scope, $q, $http) {
         })
     }
 
+    $scope.followUser = function () {
+        var url = `/api/Tweeter`
+        var data = {};
+        data.userToFollow = "frog";
+        data.alreadyFollowing = $scope.userIsFollowing;
+
+        return $q(function (resolve, reject) {
+            $http.post(url, data).then(function (response) {
+                console.log(response)
+                resolve(response);
+            }, function (error) {
+                reject(error)
+            })
+        })
+    }
+
+    $scope.unfollowUser = function () {
+        var url = `/api/Tweeter`
+        var data = {};
+        data.userToFollow = "frog";
+        data.alreadyFollowing = $scope.userIsFollowing;
+
+        return $q(function (resolve, reject) {
+            $http.post(url, data).then(function (response) {
+                console.log(response)
+                resolve(response);
+            }, function (error) {
+                reject(error)
+            })
+        })
+    }
+
     $scope.ListAllTweets().then((tweets) => {
         console.log(tweets)
         $scope.tweets = tweets

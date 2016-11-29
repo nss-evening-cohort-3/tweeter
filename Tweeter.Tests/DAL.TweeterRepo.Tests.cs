@@ -277,7 +277,7 @@ namespace Tweeter.Tests
             twit2.TwitId = 2;
 
             //Act
-            repo.FollowUser(user1, 2);
+            repo.FollowUser(user1, "morecallan2");
             List<Twit> following = repo.ListTwitsUserIsFollowing(user1);
 
             int expected_following = 1;

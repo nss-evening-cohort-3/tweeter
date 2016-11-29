@@ -10,6 +10,8 @@ namespace Tweeter.DAL
     public class TweeterRepository
     {
         public TweeterContext Context { get; set; }
+        public object Follows { get; private set; }
+
         public TweeterRepository(TweeterContext _context)
         {
             Context = _context;

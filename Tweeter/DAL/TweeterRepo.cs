@@ -121,14 +121,19 @@ namespace Tweeter.DAL
             return Context.Tweets.Where(t => t.Author.TwitId == twitId).ToList();
         }
 
-        public void FollowUser(ApplicationUser current_user, Twit twit_to_follow)
+        public void FollowUser(ApplicationUser current_user, int twit_to_follow_id)
         {
 
         }
 
-        public void UnfollowUser(ApplicationUser current_user, Twit twit_to_follow)
+        public void UnfollowUser(ApplicationUser current_user, int twit_to_follow_id)
         {
 
+        }
+
+        public List<Twit> ListTwitsUserIsFollowing(ApplicationUser current_user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

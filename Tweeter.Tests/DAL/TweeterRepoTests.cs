@@ -231,5 +231,35 @@ namespace Tweeter.Tests.DAL
 
             Assert.AreEqual(expected_result.TwitId, actual_result.TwitId);
         }
+        [TestMethod]
+        public void RepoFollowUser()
+        {
+            ConnectToDatastore();
+
+            Twit expected_result = new Twit
+            {
+                TwitId = 2,
+                BaseUser = new ApplicationUser() { UserName = "sallym" }
+            };
+
+            Repo.Follow("michealb","sallym");
+
+            Twit actual_result = Repo.GetTwitUser("michealb").Follows[0];
+
+            Assert.AreEqual(expected_result, actual_result);
+
+        }
+        [TestMethod]
+        public void RepoUnfollowUser()
+        {
+            ConnectToDatastore();
+
+            Repo.Follow("michealb", "sallym");
+            Repo.Unfollow("michealb", "sallym");
+
+            Twit actual_result = Repo.GetTwitUser("michealb").Follows[0];
+
+            Assert.IsNull(actual_result);
+        }
     }
 }

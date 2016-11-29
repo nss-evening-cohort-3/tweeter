@@ -31,7 +31,7 @@ namespace Tweeter
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                      "~/Scripts/angular"));
+                      "~/Scripts/angular.js"));
         }
     }
 }

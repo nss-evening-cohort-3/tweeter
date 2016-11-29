@@ -11,5 +11,6 @@ namespace Tweeter.DAL
     {
         public virtual DbSet<Tweet> Tweets { get; set; }
         public virtual DbSet<Twit> TweeterUsers { get; set; }
+        public object Follows { get; internal set; }
     }
 }

@@ -15,7 +15,9 @@ namespace Tweeter.DAL
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository() {
+
+        }
 
         public List<string> GetUsernames()
         {
@@ -91,6 +93,22 @@ namespace Tweeter.DAL
             Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUser.Id == AppUserId);
             return found_twit;
         }
-
+        //follow a twit 
+        public void FollowTwitUser(string AppUserId)
+        {
+            List<string> Follows = new List<string>();
+            Follows.Add(AppUserId);
+            Context.SaveChanges();
+        }
+        public void UnfollowTwitUser(string AppUserId)
+        {
+            Context.Follows.ToString();
+            if (AppUserId != null )
+            {
+                //remove it
+                Follows.Remove(AppUserId) ;
+                Context.SaveChanges();
+            }
+        }
     }
 }

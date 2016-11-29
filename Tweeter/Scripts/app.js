@@ -22,7 +22,7 @@
 var app = angular.module("TweeterApp", []);
 
 
-app.controller('TweetController', function ($scope, userService, $resource, $http) {
+app.controller('TweetController', function ($scope, $http) {
     $scope.getTweets = function () {
         $http({
             url: '/api/tweet/',
@@ -32,7 +32,7 @@ app.controller('TweetController', function ($scope, userService, $resource, $htt
             $scope.Tweet.Message = angular.copy(result.data);
 
         }, function (error) {
-        //put error syntax here
+            console.log(error);
         });
     }
     getTweets();

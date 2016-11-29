@@ -21,31 +21,32 @@ namespace Tweeter.Controllers
             return Repo.GetTweets();
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        // GET api/<controller>/5  this is not just in comments, it is behind th scenes
+        public string Get(int id) 
         {
             return "value";
         }
 
         // POST api/<controller>
-        public void Post([FromBody]TweetViewModel tweet)
+        public void Post([FromBody]TweeterViewModels tweet)
         {
-            
+
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
-                string user_id = User.Identity.GetUserId();
-                ApplicationUser found_app_user = Repo.Context.Users.FirstOrDefault(u => u.Id == user_id);
-                Twit found_user = Repo.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
-                Tweet new_tweet = new Tweet
+                //string user_id = Repo.GetTwitUser(TwitId);
+                //ApplicationUser found_app_user = Repo.Context.Users.FirstOrDefault(u => u.Id == user_id);
+                //Twit found_user = Repo.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
+                string userId = User.Identity.GetUserId();
+                Tweet new_tweet = new Tweet//this is object initialization syntax
                 {
                     Message = tweet.Message,
                     ImageURL = tweet.ImageURL,
-                    Author = found_user,
+                    Author = Repo.GetTwitUser(userId),
                     CreatedAt = DateTime.Now
                 };
                 Repo.AddTweet(new_tweet);
             }
-            
+
         }
 
         // PUT api/<controller>/5

@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Tweeter.Models;
+using static Tweeter.DAL.TweeterRepository;
 
 namespace Tweeter.DAL
 {
     public class TweeterRepository
     {
         public TweeterContext Context { get; set; }
+        public object Follows { get; private set; }
+
         public TweeterRepository(TweeterContext _context)
         {
             Context = _context;
         }
 
-        public TweeterRepository() {}
+        public TweeterRepository() {
+
+        }
 
         public List<string> GetUsernames()
         {
@@ -83,6 +88,29 @@ namespace Tweeter.DAL
         public List<Tweet> GetTweets()
         {
             return Context.Tweets.ToList();
+        }
+        public Twit GetTwitUser(string AppUserId)//tried passing in Twit, TwitId, Twits
+        {
+            //this is a way to search thru login credentialed string for the BaseUser Application User that is associ with a Twit. The Twit is the profile and the app user is an auth model that is tied to it.
+            Twit found_twit = Context.TweeterUsers.FirstOrDefault(t => t.BaseUser.Id == AppUserId);
+            return found_twit;
+        }
+        //follow a twit 
+        public void FollowTwitUser(string AppUserId)
+        {
+            List<string> Follows = new List<string>();
+            Follows.Add(AppUserId);
+            Context.SaveChanges();
+        }
+        public void UnfollowTwitUser(string AppUserId)
+        {
+            Context.Follows.ToString();
+            if (AppUserId != null )
+            {
+                //remove it
+                Follows.Remove(AppUserId) ;
+                Context.SaveChanges();
+            }
         }
     }
 }

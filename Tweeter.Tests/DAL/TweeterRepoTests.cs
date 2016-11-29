@@ -216,5 +216,15 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.AreEqual(expected_tweets, actual_tweets);
         }
+
+        [TestMethod]
+        public void RepoEnsureICantFollowMyself()
+        {
+            ConnectToDatastore();
+            Twit me = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "jcockhren" } };
+            Assert.AreEqual(me.Follows.Count, 0);
+            Repo.FollowUser(me, me);
+            Assert.AreEqual(me.Follows.Count, 0);
+        }
     }
 }

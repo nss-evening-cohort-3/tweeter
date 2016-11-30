@@ -37,26 +37,19 @@ namespace Tweeter.Controllers
         }
 
         // POST: api/Tweeter
-        public void Post([FromBody]dynamic value)
+        public HttpResponseMessage Post([FromBody]dynamic value)
         {
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
 
-            if (value["alreadyFollowing"] == "true")
+            if (value["alreadyFollowing"].Value)
             {
-                value["alreadyFollowing"] = true;
-            } else
-            {
-                value["alreadyFollowing"] = false;
-            }
-
-
-            if (value["alreadyFollowing"])
-            {
-                repo.UnfollowUser(user, value["userToFollow"]);
+                repo.UnfollowUser(user, value["userToFollow"].Value);
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             else
             {
-                repo.FollowUser(user, value["userToFollow"]);
+                repo.FollowUser(user, value["userToFollow"].Value);
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
         }
 

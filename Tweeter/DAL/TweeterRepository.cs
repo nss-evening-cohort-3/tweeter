@@ -47,6 +47,21 @@ namespace Tweeter.DAL
             
         }
 
+        public void FollowUser(Twit uu, Twit tt)
+        {
+            //List<Twit> Follows = new List<Twit>();
+            if (uu.BaseUser.UserName != tt.BaseUser.UserName)
+            {
+                uu.Follows.Add(tt);
+            }
+            
+        }
+
+        public void UnfollowsUser(Twit uu, Twit tt)
+        {
+            uu.Follows.Remove(tt);
+        }
+
         public void AddTweet(Tweet a_tweet)
         {
             Context.Tweets.Add(a_tweet);

@@ -81,12 +81,12 @@ app.controller('HomePage', function ($scope, $q, $http) {
     $scope.followUser = function () {
         var url = `/api/Tweeter`
         var data = {};
-        data.userToFollow = "frog";
+        data.userToFollow = $scope.userName;
         data.alreadyFollowing = $scope.userIsFollowing;
 
         return $q(function (resolve, reject) {
             $http.post(url, data).then(function (response) {
-                console.log(response)
+                $scope.checkToSeeIfUserIsFollowing();
                 resolve(response);
             }, function (error) {
                 reject(error)
@@ -102,7 +102,7 @@ app.controller('HomePage', function ($scope, $q, $http) {
 
         return $q(function (resolve, reject) {
             $http.post(url, data).then(function (response) {
-                console.log(response)
+                $scope.checkToSeeIfUserIsFollowing();
                 resolve(response);
             }, function (error) {
                 reject(error)

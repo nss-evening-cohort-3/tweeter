@@ -90,9 +90,66 @@ namespace Tweeter.DAL
 
         public Twit GetTwitUser(string user_id)
         {
+            int i = 0;
+            // user_id comes from TweetController Line 68
             ApplicationUser found_app_user = Context.Users.FirstOrDefault(u => u.Id == user_id);
-            Twit found_user = Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
+            Twit found_user = GetTwitFromUsername(found_app_user.UserName);
             return found_user;
+        }
+
+        public Twit GetTwitFromUsername(string user_name)
+        {
+            return Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == user_name);
+        }
+
+        public bool FollowUser(string current_user, string user_to_follow)
+        {
+            if (user_to_follow == current_user)
+            {
+                return false;
+            }
+            else
+            {
+                // 1. Get the Twits based on the usernames.
+                Twit found_current = GetTwitFromUsername(current_user);
+                Twit found_user_to_follow = GetTwitFromUsername(user_to_follow);
+
+                if (found_current == null || found_user_to_follow == null)
+                {
+                    return false;
+                }
+
+                // 2. Add the user to follow the current user's follows list
+                //found_current.Follows.Add(found_user_to_follow);
+
+                // 2a. Create instance of follow
+                Follow new_follow = new Follow { TwitFollower = found_current, TwitFollowed = found_user_to_follow };
+                Context.AllFollows.Add(new_follow);
+
+                // 3. Save the changes
+                Context.SaveChanges();
+
+                // 4. Return whether successfull
+                return true;
+            }
+        }
+
+        public bool UnfollowUser(string current_user, string user_to_unfollow)
+        {
+            // 1. Get the Twits based on the usernames.
+            //Twit found_current = GetTwitFromUsername(current_user);
+            ///Twit found_user_to_follow = GetTwitFromUsername(user_to_unfollow);
+
+            // 2. Find & Remove proper Follow instance
+            Follow found_follow = Context.AllFollows.FirstOrDefault(
+                f => f.TwitFollowed.BaseUser.UserName == user_to_unfollow && f.TwitFollower.BaseUser.UserName == current_user
+            );
+            Context.AllFollows.Remove(found_follow);
+            // 3. Save the changes
+            Context.SaveChanges();
+
+            // 4. Return whether successfull
+            return true;
         }
     }
 }

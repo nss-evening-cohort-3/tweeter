@@ -16,8 +16,39 @@ namespace Tweeter.Controllers
         TweeterRepository Repo = new TweeterRepository();
 
         // GET api/<controller>
+        
         public IEnumerable<Tweet> Get()
         {
+            /*
+            List<Tweet> list_of_tweets = new List<Tweet>();
+            list_of_tweets.Add(
+                new Tweet
+                {
+                    TweetId = 1,
+                    Message = "Hello!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "JakeFromStateFarm" } },
+                    CreatedAt = DateTime.Now
+                }
+                     );
+            list_of_tweets.Add(
+                new Tweet {
+                    TweetId = 2,
+                    Message = "Progressive!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "FloFroProgressive"} },
+                    CreatedAt = DateTime.Now
+                }
+            );
+            list_of_tweets.Add(
+                new Tweet
+                {
+                    TweetId = 1,
+                    Message = "Hello!",
+                    Author = new Twit { TwitId = 1, BaseUser = new ApplicationUser { UserName = "JakeFromStateFarm" } },
+                    CreatedAt = DateTime.Now
+                }
+             );
+            return list_of_tweets;
+            */
             return Repo.GetTweets();
         }
 
@@ -28,24 +59,36 @@ namespace Tweeter.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]TweetViewModel tweet)
+        public Dictionary<string, bool> Post([FromBody]TweetViewModel tweet)
         {
-            
+            Dictionary<string, bool> answer = new Dictionary<string, bool>();
+
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
                 string user_id = User.Identity.GetUserId();
-                ApplicationUser found_app_user = Repo.Context.Users.FirstOrDefault(u => u.Id == user_id);
-                Twit found_user = Repo.Context.TweeterUsers.FirstOrDefault(twit => twit.BaseUser.UserName == found_app_user.UserName);
-                Tweet new_tweet = new Tweet
+
+                Twit found_user = Repo.GetTwitUser(user_id);
+
+                if (found_user != null)
                 {
-                    Message = tweet.Message,
-                    ImageURL = tweet.ImageURL,
-                    Author = found_user,
-                    CreatedAt = DateTime.Now
-                };
-                Repo.AddTweet(new_tweet);
+                    Tweet new_tweet = new Tweet
+                    {
+                        Message = tweet.Message,
+                        ImageURL = tweet.ImageURL,
+                        Author = found_user,
+                        CreatedAt = DateTime.Now
+                    };
+                    Repo.AddTweet(new_tweet);
+                    answer.Add("successful", true);
+                } else
+                {
+                    answer.Add("successful", false);
+                }              
+            } else
+            {
+                answer.Add("successful", false);
             }
-            
+            return answer;           
         }
 
         // PUT api/<controller>/5

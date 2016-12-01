@@ -6,6 +6,7 @@ using System.Data.Entity;
 using Tweeter.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 
 namespace Tweeter.Tests.DAL
 {
@@ -15,10 +16,18 @@ namespace Tweeter.Tests.DAL
 
         private Mock<DbSet<Twit>> mock_users { get; set; }
         private Mock<DbSet<Tweet>> mock_tweets { get; set; }
+        private Mock<DbSet<Follow>> mock_follows { get; set; }
+
+        private Mock<DbSet<ApplicationUser>> mock_app_users { get; set; }
         private Mock<TweeterContext> mock_context { get; set; }
         private TweeterRepository Repo { get; set; }
         private List<Twit> users { get; set; }
+        private List<Twit> follow_users { get; set; }
         private List<Tweet> tweets { get; set; }
+        private List<Follow> follows { get; set; }
+
+        private Mock<UserManager<ApplicationUser>> mock_user_manager_context {get; set;}
+        private List<ApplicationUser> app_users { get; set; }
 
 
         [TestInitialize]
@@ -27,21 +36,34 @@ namespace Tweeter.Tests.DAL
             mock_context = new Mock<TweeterContext>();
             mock_users = new Mock<DbSet<Twit>>();
             mock_tweets = new Mock<DbSet<Tweet>>();
+            mock_follows = new Mock<DbSet<Follow>>();
+            mock_app_users = new Mock<DbSet<ApplicationUser>>();
+            mock_user_manager_context = new Mock<UserManager<ApplicationUser>>();
             Repo = new TweeterRepository(mock_context.Object);
+
+            tweets = new List<Tweet>();
+            follow_users = new List<Twit>();
+            follows = new List<Follow>();
+            ApplicationUser sallym = new ApplicationUser { Email = "sally@example.com", UserName = "sallym", Id = "1234567" };
+            ApplicationUser michealb = new ApplicationUser { Email = "micheal@example.com", UserName = "michealb", Id = "1234568" };
+            app_users = new List<ApplicationUser>()
+            {
+                sallym,
+                michealb
+            };
+
             users = new List<Twit>
             {
                 new Twit {
                     TwitId = 1,
-                    BaseUser = new ApplicationUser() { UserName = "michealb"}
+                    BaseUser = michealb
                 },
                 new Twit {
                     TwitId = 2,
-                    BaseUser = new ApplicationUser() { UserName = "sallym"}
+                    BaseUser = sallym
                 }
 
             };
-
-            tweets = new List<Tweet>();
 
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
@@ -52,7 +74,11 @@ namespace Tweeter.Tests.DAL
         public void ConnectToDatastore()
         {
             var query_users = users.AsQueryable();
+            var query_app_users = app_users.AsQueryable();
             var query_tweets = tweets.AsQueryable();
+            var query_follows = follows.AsQueryable();
+
+
 
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Provider).Returns(query_users.Provider);
             mock_users.As<IQueryable<Twit>>().Setup(m => m.Expression).Returns(query_users.Expression);
@@ -61,11 +87,22 @@ namespace Tweeter.Tests.DAL
 
             mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object);
             mock_users.Setup(u => u.Add(It.IsAny<Twit>())).Callback((Twit t) => users.Add(t));
+
+            //mock_users.Setup( f => f.).Returns(mock_follow_users.Object); // Some list to contain fake users
+
             /*
              * Below mocks the 'Users' getter that returns a list of ApplicationUsers
              * mock_user_manager_context.Setup(c => c.Users).Returns(mock_users.Object);
              * 
              */
+            mock_app_users.As<IQueryable<ApplicationUser>>().Setup(m => m.Provider).Returns(query_app_users.Provider);
+            mock_app_users.As<IQueryable<ApplicationUser>>().Setup(m => m.Expression).Returns(query_app_users.Expression);
+            mock_app_users.As<IQueryable<ApplicationUser>>().Setup(m => m.ElementType).Returns(query_app_users.ElementType);
+            mock_app_users.As<IQueryable<ApplicationUser>>().Setup(m => m.GetEnumerator()).Returns(() => query_app_users.GetEnumerator());
+            mock_context.Setup(c => c.Users).Returns(mock_app_users.Object);
+
+            
+            
 
             /* IF we just add a Username field to the Twit model
              * mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object); Assuming mock_users is List<Twit>
@@ -79,6 +116,15 @@ namespace Tweeter.Tests.DAL
             mock_context.Setup(c => c.Tweets).Returns(mock_tweets.Object);
             mock_tweets.Setup(u => u.Add(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Add(t));
             mock_tweets.Setup(u => u.Remove(It.IsAny<Tweet>())).Callback((Tweet t) => tweets.Remove(t));
+
+            mock_follows.As<IQueryable<Follow>>().Setup(m => m.Provider).Returns(query_follows.Provider);
+            mock_follows.As<IQueryable<Follow>>().Setup(m => m.Expression).Returns(query_follows.Expression);
+            mock_follows.As<IQueryable<Follow>>().Setup(m => m.ElementType).Returns(query_follows.ElementType);
+            mock_follows.As<IQueryable<Follow>>().Setup(m => m.GetEnumerator()).Returns(() => query_follows.GetEnumerator());
+
+            mock_context.Setup(c => c.AllFollows).Returns(mock_follows.Object);
+            mock_follows.Setup(u => u.Add(It.IsAny<Follow>())).Callback((Follow t) => follows.Add(t));
+            mock_follows.Setup(u => u.Remove(It.IsAny<Follow>())).Callback((Follow t) => follows.Remove(t));
 
 
         }
@@ -231,6 +277,86 @@ namespace Tweeter.Tests.DAL
             Assert.IsNotNull(found_user);
             Assert.AreEqual(user_id, found_user.BaseUser.Id);
 
+        }
+
+        [TestMethod]
+        public void RepoEnsureTwitUserCannotFollowSelf()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            string current_user = "sallym";
+            string user_to_follow = current_user;
+            bool follow_successful = Repo.FollowUser(current_user, user_to_follow);
+
+            // Assert
+            Assert.IsFalse(follow_successful);
+        }
+
+        [TestMethod]
+        public void RepoEssureTwitUserCannotFollowNonExistentUser()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            string current_user = "sallym";
+            string user_to_follow = "darthvader";
+            bool follow_successful = Repo.FollowUser(current_user, user_to_follow);
+
+            // Assert
+            Assert.IsFalse(follow_successful);
+        }
+
+        [TestMethod]
+        public void RepoEnsureTwitUserCanFollow()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            string current_user = "sallym";
+            string user_to_follow = "michealb";
+            int expected_follows_count = 1;
+            bool follow_successful = Repo.FollowUser(current_user, user_to_follow);
+
+            // We could extract this into it's own repo method.
+            int actual_follow_count = Repo.Context.AllFollows.Count(
+                f => f.TwitFollowed.BaseUser.UserName == user_to_follow && f.TwitFollower.BaseUser.UserName == current_user
+            );
+
+            // Assert
+            Assert.IsTrue(follow_successful);
+            Assert.AreEqual(expected_follows_count, actual_follow_count);
+        }
+
+        [TestMethod]
+        public void RepoEnsureTwitUserCanUnFollow()
+        {
+            // Arrange
+            follows.Add(
+                new Follow
+                {
+                    FollowId = 1,
+                    TwitFollowed = users.First(),
+                    TwitFollower = users.Last()
+                }
+            );
+            ConnectToDatastore();
+
+            // Act
+            string current_user = "michealb";
+            string user_to_unfollow = "sallym";
+            int expected_follows_count = 0;
+            bool unfollow_successful = Repo.UnfollowUser(current_user, user_to_unfollow);
+            int actual_follow_count = Repo.Context.AllFollows.Count(
+                f => f.TwitFollowed.BaseUser.UserName == user_to_unfollow && f.TwitFollower.BaseUser.UserName == current_user
+            );
+
+            // Assert
+            Assert.IsTrue(unfollow_successful);
+            Assert.AreEqual(expected_follows_count, actual_follow_count);
         }
     }
 }

@@ -181,7 +181,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TweetController.cs" />
-    <Compile Include="Controllers\TweeterController.cs" />
+    <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\TwitUsernameController.cs" />
     <Compile Include="DAL\TweeterContext.cs" />
     <Compile Include="DAL\TweeterRepository.cs" />
@@ -192,8 +192,13 @@
     <Compile Include="Migrations\201611100257595_InitialCreate.Designer.cs">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612010114193_RemoveFollowRelationAddFollowsTable.cs" />
+    <Compile Include="Migrations\201612010114193_RemoveFollowRelationAddFollowsTable.Designer.cs">
+      <DependentUpon>201612010114193_RemoveFollowRelationAddFollowsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Follow.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Tweet.cs" />
@@ -277,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611100257595_InitialCreate.resx">
       <DependentUpon>201611100257595_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612010114193_RemoveFollowRelationAddFollowsTable.resx">
+      <DependentUpon>201612010114193_RemoveFollowRelationAddFollowsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -85,10 +85,8 @@ $("#register-username").focusout(function () {
             $("#username-ans").addClass("glyphicon-ok");
         } else {
             $("#username-ans").addClass("glyphicon-remove");
-        }
-    }).fail(function (error) {
-        console.log(error);
-    });
+
+
 });
 
 $("#register-username").focusin(function () {
@@ -96,3 +94,4 @@ $("#register-username").focusin(function () {
     $("#username-ans").removeClass("glyphicon-remove");
 });
 */
+
